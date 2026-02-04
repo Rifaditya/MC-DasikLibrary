@@ -1,6 +1,6 @@
 <div align="center">
 
-![Dasik Library Banner](https://files.catbox.moe/placeholder_dasik.png)
+![Dasik Library Banner](https://media.forgecdn.net/attachments/1513/813/dasik-page-banner-jpg.jpg)
 
 </div>
 <p align="center">

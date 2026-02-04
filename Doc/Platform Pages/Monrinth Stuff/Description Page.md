@@ -1,6 +1,6 @@
 <div align="center">
 
-![Dasik Library Banner](https://cdn.modrinth.com/data/cached_images/151bae2f6d662a83f7158fee8f036d7974645859.jpeg)
+![Dasik Library Banner](https://media.forgecdn.net/attachments/1513/813/dasik-page-banner-jpg.jpg)
 
 </div>
 <p align="center">
