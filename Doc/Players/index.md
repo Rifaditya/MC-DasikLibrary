@@ -5,4 +5,8 @@
 - **Better Dogs**
 - **Bat Ecology**
 
+## New Core Features
+
+- **[Size Variants](Features/SizeVariants.md)**: Explain why mobs have different sizes.
+
 See those specific mods for gameplay details.
