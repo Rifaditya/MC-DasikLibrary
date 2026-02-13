@@ -108,13 +108,12 @@ public class UniversalTemptGoal extends Goal {
     }
 
     private void navigateTowards(Player player) {
-        if (this.mob instanceof PathfinderMob pathfinder) {
-            pathfinder.getNavigation().moveTo(player, this.speedModifier);
-        } else {
-            // Non-pathfinder movement (e.g. Bats)
-            Vec3 target = player.getEyePosition().subtract(this.mob.position())
-                    .scale(this.mob.getRandom().nextDouble()).add(this.mob.position());
-            this.mob.getMoveControl().setWantedPosition(target.x, target.y, target.z, this.speedModifier);
-        }
+        // Use the mob's navigation system.
+        // This supports both Ground (WalkNavigation) and Air (StandardAerialNavigation)
+        // polymorphically.
+        // Previously, this checked for PathfinderMob, which excluded Bats
+        // (AmbientCreature), preventing them
+        // from using our custom aerial navigation.
+        this.mob.getNavigation().moveTo(player, this.speedModifier);
     }
 }

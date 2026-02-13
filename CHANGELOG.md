@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.6.4] - 2026-02-10
+
+- **New Feature**: Added `StandardAerialNavigation` class.
+  - Provides a standardized, pre-configured `FlyingPathNavigation` that penalizes ground-hugging (WALKABLE penalty) to ensure proper flight behavior for aerial mobs.
+
 ## [1.6.3] - 2026-02-10
 
 ### Changed

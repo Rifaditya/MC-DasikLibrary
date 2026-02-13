@@ -1,6 +1,10 @@
 # Release History
 
-## v1.6.3 - 2026-02-10
+## v1.6.4 - 2026-02-13
+
+- **API**: Introduced `StandardAerialNavigation` for robust flying AI. Prevents "ground walking" by penalizing non-air nodes.
+
+## v1.6.3 - 2026-02-130
 
 - **Social Hooks API**: Added `onSocialGoalStart()` / `onSocialGoalStop()` default methods to `UniversalAgeable`.
 - **Decoupled Consumer Types**: Removed hardcoded `instanceof Bat` / `setResting(false)` from `UniversalBreedGoal` and `UniversalTemptGoal`.
