@@ -34,7 +34,7 @@ public class StandardAerialNavigation extends FlyingPathNavigation {
      * Apply standard penalties to force aerial pathing.
      */
     public void applyAerialPenalties() {
-        this.mob.setPathfindingMalus(PathType.WALKABLE, 4.0F);
+        this.mob.setPathfindingMalus(PathType.WALKABLE, 64.0F);
         this.mob.setPathfindingMalus(PathType.WATER_BORDER, 0.0F);
         this.mob.setPathfindingMalus(PathType.DANGER_FIRE, -1.0F);
         this.mob.setPathfindingMalus(PathType.DAMAGE_FIRE, -1.0F);

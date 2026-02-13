@@ -4,6 +4,10 @@
 
 - **API**: Added `UniversalRandomPos` to support complex pathfinding target selection for all Mobs.
 
+## v1.6.6 - 2026-02-13
+
+- **AI**: Increased `StandardAerialNavigation` ground penalty to `64.0F` to prevent ground hugging.
+
 ## v1.6.4 - 2026-02-13
 
 - **API**: Introduced `StandardAerialNavigation` for robust flying AI. Prevents "ground walking" by penalizing non-air nodes.
