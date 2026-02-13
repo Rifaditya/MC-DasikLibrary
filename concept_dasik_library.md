@@ -91,3 +91,50 @@ GlobalSocialSystem.broadcastSignal(SignalType.THUNDER, source, Scope.PUBLIC);
 | Engine Version | API Changes |
 |----------------|-------------|
 | 100 (1.0.0) | Initial release |
+| 160 (1.6.0) | AI Behavior Profile System |
+
+---
+
+## 6. AI Behavior Profile System (v1.6.0+)
+
+Switchable behavior profiles for context-aware AI.
+
+### Core Classes
+
+```java
+BehaviorProfile       // Holds goals + conditions
+BehaviorProfileManager // Per-entity profile switcher
+```
+
+### Design Rules
+
+> [!CAUTION]
+> **GUIDE (DO NOT DELETE)**
+>
+> - Max **5 conditions** per profile
+> - Conditions: Dimension, Biome, Time, State, Custom
+> - Highest match count wins priority
+> - **Event-driven switching** (NOT polling):
+>   - Dimension change → auto-evaluate
+>   - Biome change → auto-evaluate  
+>   - State change → call `markDirty()`
+> - See: `Doc/Develop/profile_guide.md`
+
+### Trigger Events
+
+| Trigger | Method |
+|:--------|:-------|
+| Dimension | Mixin into `changeDimension` |
+| Biome | Check on chunk entry |
+| State | Manual `markDirty()` |
+| Manual | `setActiveProfile(id)` |
+
+### Selection Algorithm
+
+```
+On trigger event:
+  1. Evaluate all profiles' conditions
+  2. Pick profile with HIGHEST match score
+  3. Tie → use profile.priority
+  4. Still tie → keep current
+```

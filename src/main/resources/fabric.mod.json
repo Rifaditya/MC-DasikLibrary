@@ -20,7 +20,9 @@
       "net.dasik.social.DasikLibraryMod"
     ]
   },
-  "mixins": [],
+  "mixins": [
+    "dasik-library.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=0.18.4",
     "minecraft": "~26.1-",

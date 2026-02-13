@@ -30,4 +30,29 @@ public interface UniversalAgeable {
      */
     default void setUniversalAge(int age) {
     }
+
+    /**
+     * Allows AI goals to signal when legacy movement AI (customServerAiStep) should
+     * be suppressed.
+     */
+    default boolean isMovementSuppressed() {
+        return false;
+    }
+
+    default void setMovementSuppressed(boolean suppressed) {
+    }
+
+    /**
+     * Called when a social goal (breed, tempt) starts.
+     * Consumers can override this to handle entity-specific logic
+     * (e.g., waking a resting Bat).
+     */
+    default void onSocialGoalStart() {
+    }
+
+    /**
+     * Called when a social goal (breed, tempt) stops.
+     */
+    default void onSocialGoalStop() {
+    }
 }

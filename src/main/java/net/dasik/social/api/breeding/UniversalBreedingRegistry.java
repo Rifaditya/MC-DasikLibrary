@@ -7,7 +7,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Predicate;
 
 public class UniversalBreedingRegistry {
     private static final Map<EntityType<?>, BreedingDefinition> REGISTRY = new HashMap<>();

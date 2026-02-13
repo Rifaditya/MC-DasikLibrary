@@ -96,7 +96,7 @@ public class EntitySocialScheduler implements SocialScheduler {
                 start(newEvent);
             } else {
                 // Dropped (Lower priority)
-                // TODO: Feedback logging?
+                // Lower priority: silently dropped (by design)
             }
         }
     }

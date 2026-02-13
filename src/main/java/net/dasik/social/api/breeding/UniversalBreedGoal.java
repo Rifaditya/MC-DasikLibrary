@@ -50,7 +50,19 @@ public class UniversalBreedGoal extends Goal {
     }
 
     @Override
+    public void start() {
+        if (this.mob instanceof UniversalAgeable ua) {
+            ua.setMovementSuppressed(true);
+            ua.onSocialGoalStart();
+        }
+    }
+
+    @Override
     public void stop() {
+        if (this.mob instanceof UniversalAgeable ua) {
+            ua.setMovementSuppressed(false);
+            ua.onSocialGoalStop();
+        }
         this.partner = null;
         this.loveTime = 0;
     }

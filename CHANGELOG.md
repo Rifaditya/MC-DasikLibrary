@@ -1,5 +1,71 @@
 # Changelog
 
+## [1.6.3] - 2026-02-10
+
+### Changed
+
+- **Social Hooks API**: Added `onSocialGoalStart()` / `onSocialGoalStop()` default methods to `UniversalAgeable`. Consumer mods override these to handle entity-specific behavior (e.g., waking resting Bats).
+- **Decoupled Consumer Types**: Removed hardcoded `instanceof Bat` / `setResting(false)` from `UniversalBreedGoal` and `UniversalTemptGoal` — library no longer references consumer types.
+
+### Fixed
+
+- **Redundant Scaling**: Removed `dasik$scaleAge` injection that duplicated the `Attributes.SCALE` modifier logic.
+- **Cleanup**: Removed unused `Predicate` import from `UniversalBreedingRegistry`, orphaned `CallbackInfoReturnable` import from `UniversalAgeableMixin`.
+
+## [1.5.2] - 2026-02-06
+
+### Fixed
+
+- **AI Suppression**: Implemented missing `movementSuppressed` flag in `UniversalAgeableMixin`.
+- **UniversalBreedGoal**: Added movement suppression support and Bat resting state override.
+
+## [1.5.1] - 2026-02-06
+
+### Fixed
+
+- **Snapshot 6 Crash Fix**: Added defensive check for `minecraft:tempt_range` attribute in `UniversalTemptGoal`, preventing `IllegalArgumentException` on Bats and other mobs missing the attribute.
+
+## [1.5.0] - 2026-02-06
+
+### Added
+
+- `UniversalTemptGoal`: Allows any `UniversalAgeable` mob to follow players holding breeding items.
+- **Ambient AI Suppression**: Added `AmbientAiMixin` to suppress legacy AI (e.g., Bat wandering) when a mob is participating in social interactions (following player, breeding).
+- Support for dynamic movement suppression via `UniversalAgeable` interface.
+- Support for non-pathfinder mobs in temptation goals via manual `MoveControl` overrides.
+
+## [1.4.5] - 2026-02-04
+
+### Fixed
+
+- **Cleanup**: Resolved internal lint issues (unused imports and static access warnings) in `UniversalAgeableMixin` and `UniversalMobMixin`.
+- **Stabilization**: Verified final interaction signatures for Snapshot 6.
+
+## [1.4.4] - 2026-02-06
+
+### Fixed
+
+- **Snapshot 6 Compatibility**: Split `UniversalAgeableMixin` logic. Scaling/State remains on `LivingEntity`, while Interactions moved to new `UniversalMobMixin` targeting `Mob` with the updated Snapshot 6 signature: `interact(Player, InteractionHand, Vec3)`.
+
+## [1.4.3] - 2026-02-05
+
+### Fixed
+
+- **Snapshot 6 Compatibility**: Migrated `UniversalAgeableMixin` target from `Mob` to `LivingEntity` to correctly hook inherited `getAgeScale` method (per Mixin inheritance rules).
+
+## [1.4.2] - 2026-02-05
+
+### Fixed
+
+- **Snapshot 6 Compatibility**: Migrated from `getDimensions` (now `final` in `LivingEntity`) to `getAgeScale` for universal scaling. Resolves `InvalidInjectionException` on startup.
+
+## [1.4.1] - 2026-02-05
+
+### Fixed
+
+- **Snapshot 6 Compatibility**: Updated `UniversalAgeableMixin` persistence signatures to use `ValueOutput` and `ValueInput`.
+- **Core Fix**: Registered `UniversalAgeableMixin` in `fabric.mod.json` (was previously inactive).
+
 ## [1.4.0] - 2026-02-04
 
 ### Added
