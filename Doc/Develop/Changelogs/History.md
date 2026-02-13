@@ -1,5 +1,9 @@
 # Release History
 
+## v1.6.5 - 2026-02-13
+
+- **API**: Added `UniversalRandomPos` to support complex pathfinding target selection for all Mobs.
+
 ## v1.6.4 - 2026-02-13
 
 - **API**: Introduced `StandardAerialNavigation` for robust flying AI. Prevents "ground walking" by penalizing non-air nodes.
