@@ -24,6 +24,13 @@ public class GlobalSocialSystem {
     // Idempotency Guard
     private static final AtomicLong LAST_TICK = new AtomicLong(-1);
 
+    // Performance Throttling (ticks between pulses)
+    private static int throttleInterval = 1;
+
+    public static void setThrottle(int interval) {
+        throttleInterval = Math.max(1, interval);
+    }
+
     /**
      * The Master Pulse.
      * Called by ServerTickEvents.
@@ -33,6 +40,11 @@ public class GlobalSocialSystem {
 
         // 1. Highlander Check: Only run once per tick
         if (LAST_TICK.getAndSet(time) == time) {
+            return;
+        }
+
+        // 2. Throttle Check
+        if (time % throttleInterval != 0) {
             return;
         }
 

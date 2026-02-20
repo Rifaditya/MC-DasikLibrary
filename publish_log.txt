@@ -1,0 +1,69 @@
+Initialized native services in: C:\Users\fmrif\.gradle\native
+Initialized jansi services in: C:\Users\fmrif\.gradle\native
+Found daemon DaemonInfo{pid=6860, address=[56144ed9-19ac-4212-88ad-5e77eb6ff5bf port:54983, addresses:[/127.0.0.1]], state=Idle, lastBusy=1771487548899, context=DefaultDaemonContext[uid=411a1714-05a3-49c7-88dc-7f1ab0e2a102,javaHome=C:\Program Files\Eclipse Adoptium\jdk-21.0.10.7-hotspot,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\fmrif\.gradle\daemon,pid=6860,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-XX:MaxMetaspaceSize=384m,-XX:+HeapDumpOnOutOfMemoryError,-Xms256m,-Xmx512m,-Dfile.encoding=UTF-8,-Duser.country=ID,-Duser.language=en,-Duser.variant]} however its context does not match the desired criteria.
+JVM is incompatible.
+Wanted: DaemonRequestContext{jvmCriteria=C:\Program Files\Eclipse Adoptium\jdk-25.0.2.10-hotspot (from org.gradle.java.home), daemonOpts=[-Xmx4G, -Dfile.encoding=UTF-8, -Duser.country=ID, -Duser.language=en, -Duser.variant], applyInstrumentationAgent=true, nativeServicesMode=ENABLED, priority=NORMAL}
+Actual: DefaultDaemonContext[uid=411a1714-05a3-49c7-88dc-7f1ab0e2a102,javaHome=C:\Program Files\Eclipse Adoptium\jdk-21.0.10.7-hotspot,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\fmrif\.gradle\daemon,pid=6860,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-XX:MaxMetaspaceSize=384m,-XX:+HeapDumpOnOutOfMemoryError,-Xms256m,-Xmx512m,-Dfile.encoding=UTF-8,-Duser.country=ID,-Duser.language=en,-Duser.variant]
+
+  Looking for a different daemon...
+Found daemon DaemonInfo{pid=21896, address=[c48624d3-da0c-4a55-9678-9b857f0c1fb3 port:54985, addresses:[/127.0.0.1]], state=Idle, lastBusy=1771487534351, context=DefaultDaemonContext[uid=f778c6a0-940f-4fd5-8e8e-0212590de061,javaHome=C:\Program Files\Eclipse Adoptium\jdk-21.0.10.7-hotspot,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\fmrif\.gradle\daemon,pid=21896,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-Xmx2G,-Dfile.encoding=UTF-8,-Duser.country=ID,-Duser.language=en,-Duser.variant]} however its context does not match the desired criteria.
+JVM is incompatible.
+Wanted: DaemonRequestContext{jvmCriteria=C:\Program Files\Eclipse Adoptium\jdk-25.0.2.10-hotspot (from org.gradle.java.home), daemonOpts=[-Xmx4G, -Dfile.encoding=UTF-8, -Duser.country=ID, -Duser.language=en, -Duser.variant], applyInstrumentationAgent=true, nativeServicesMode=ENABLED, priority=NORMAL}
+Actual: DefaultDaemonContext[uid=f778c6a0-940f-4fd5-8e8e-0212590de061,javaHome=C:\Program Files\Eclipse Adoptium\jdk-21.0.10.7-hotspot,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\fmrif\.gradle\daemon,pid=21896,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-Xmx2G,-Dfile.encoding=UTF-8,-Duser.country=ID,-Duser.language=en,-Duser.variant]
+
+  Looking for a different daemon...
+Found daemon DaemonInfo{pid=20496, address=[b85bcca7-67f7-4dd7-8147-db706bea5d81 port:54987, addresses:[/127.0.0.1]], state=Idle, lastBusy=1771487535117, context=DefaultDaemonContext[uid=770d7cd4-ac20-40d0-a5d9-c0b720f93295,javaHome=C:\Program Files\Eclipse Adoptium\jdk-21.0.10.7-hotspot,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\fmrif\.gradle\daemon,pid=20496,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-Xmx5G,-Dfile.encoding=UTF-8,-Duser.country=ID,-Duser.language=en,-Duser.variant]} however its context does not match the desired criteria.
+JVM is incompatible.
+Wanted: DaemonRequestContext{jvmCriteria=C:\Program Files\Eclipse Adoptium\jdk-25.0.2.10-hotspot (from org.gradle.java.home), daemonOpts=[-Xmx4G, -Dfile.encoding=UTF-8, -Duser.country=ID, -Duser.language=en, -Duser.variant], applyInstrumentationAgent=true, nativeServicesMode=ENABLED, priority=NORMAL}
+Actual: DefaultDaemonContext[uid=770d7cd4-ac20-40d0-a5d9-c0b720f93295,javaHome=C:\Program Files\Eclipse Adoptium\jdk-21.0.10.7-hotspot,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\fmrif\.gradle\daemon,pid=20496,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-Xmx5G,-Dfile.encoding=UTF-8,-Duser.country=ID,-Duser.language=en,-Duser.variant]
+
+  Looking for a different daemon...
+Found daemon DaemonInfo{pid=26496, address=[d8d29a5a-2534-4c5c-8882-7a4cdb381ee3 port:52138, addresses:[/127.0.0.1]], state=Idle, lastBusy=1771487543610, context=DefaultDaemonContext[uid=4fa20462-608c-4751-a80f-a064b2d1caa4,javaHome=C:\Program Files\Eclipse Adoptium\jdk-21.0.10.7-hotspot,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\fmrif\.gradle\daemon,pid=26496,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-Xmx1G,-Dfile.encoding=UTF-8,-Duser.country=ID,-Duser.language=en,-Duser.variant]} however its context does not match the desired criteria.
+JVM is incompatible.
+Wanted: DaemonRequestContext{jvmCriteria=C:\Program Files\Eclipse Adoptium\jdk-25.0.2.10-hotspot (from org.gradle.java.home), daemonOpts=[-Xmx4G, -Dfile.encoding=UTF-8, -Duser.country=ID, -Duser.language=en, -Duser.variant], applyInstrumentationAgent=true, nativeServicesMode=ENABLED, priority=NORMAL}
+Actual: DefaultDaemonContext[uid=4fa20462-608c-4751-a80f-a064b2d1caa4,javaHome=C:\Program Files\Eclipse Adoptium\jdk-21.0.10.7-hotspot,javaVersion=21,javaVendor=Eclipse Adoptium,daemonRegistryDir=C:\Users\fmrif\.gradle\daemon,pid=26496,idleTimeout=10800000,priority=NORMAL,applyInstrumentationAgent=true,nativeServicesMode=ENABLED,daemonOpts=-Xmx1G,-Dfile.encoding=UTF-8,-Duser.country=ID,-Duser.language=en,-Duser.variant]
+
+  Looking for a different daemon...
+The client will now receive all logging from the daemon (pid: 16416). The daemon log file: C:\Users\fmrif\.gradle\daemon\9.2.1\daemon-16416.out.log
+Starting 6th build in daemon [uptime: 2 hrs 27 mins 9.287 secs, performance: 100%, GC rate: 0.00/s, heap usage: 0% of 4 GiB]
+Using 12 worker leases.
+Operational build model parameters: {requiresToolingModels=false, parallelProjectExecution=false, configureOnDemand=false, configurationCache=false, configurationCacheParallelStore=false, configurationCacheParallelLoad=true, isolatedProjects=false, parallelProjectConfiguration=false, intermediateModelCache=false, parallelToolingApiActions=false, invalidateCoupledProjects=false, modelAsProjectDependency=false, resilientModelBuilding=false}
+Now considering [E:\Minecraft Project\DasikLibrary] as hierarchies to watch
+Watching the file system is configured to be enabled if available
+File system watching is active
+Starting Build
+Settings evaluated using settings file 'E:\Minecraft Project\DasikLibrary\settings.gradle'.
+Invalidating in-memory cache of C:\Users\fmrif\.gradle\caches\journal-1\file-access.bin
+Projects loaded. Root project using build file 'E:\Minecraft Project\DasikLibrary\build.gradle'.
+Included projects: [root project 'dasik-library']
+Found installer in mod fabricloader version 0.18.4
+
+> Configure project :
+Evaluating root project 'dasik-library' using build file 'E:\Minecraft Project\DasikLibrary\build.gradle'.
+Resolved plugin [id: 'net.fabricmc.fabric-loom', version: '1.15-SNAPSHOT']
+Resolved plugin [id: 'maven-publish']
+Fabric Loom: 1.15.4
+(kotlin.metadata.jvm.KotlinClassMetadata) with version (2.2.20-release-333) was loaded from (/C:/Users/fmrif/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-metadata-jvm/2.2.20/1f04dd6a9950a57b90ab8fa536337ba76dee4f59/kotlin-metadata-jvm-2.2.20.jar)
+(org.objectweb.asm.ClassVisitor) with version (9.9) was loaded from (/C:/Users/fmrif/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm/9.9/c29635c8a7afa03d74b33c1884df8abb2b3f3dcc/asm-9.9.jar)
+(org.objectweb.asm.tree.analysis.Analyzer) with version (9.9) was loaded from (/C:/Users/fmrif/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-analysis/9.9/bf4fa6e66638851c1cd22c2caea0c3ee5d5f437/asm-analysis-9.9.jar)
+(org.objectweb.asm.commons.ClassRemapper) with version (9.9) was loaded from (/C:/Users/fmrif/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-commons/9.9/db9165a3bf908ded6b08612d583a15d1d0c7bda0/asm-commons-9.9.jar)
+(org.objectweb.asm.tree.ClassNode) with version (9.9) was loaded from (/C:/Users/fmrif/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-tree/9.9/f8de6eead6d24dd0f45bd065bbe112b2cda6ea21/asm-tree-9.9.jar)
+(org.objectweb.asm.util.ASMifier) with version (9.9) was loaded from (/C:/Users/fmrif/.gradle/caches/modules-2/files-2.1/org.ow2.asm/asm-util/9.9/42fdfc0508b43807c8078d6e82ecff2ce2112ae8/asm-util-9.9.jar)
+(com.google.gson.Gson) with version (null) was loaded from (/C:/Users/fmrif/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.10.1/b3add478d4382b78ea20b1671390a858002feb6c/gson-2.10.1.jar)
+Using cached Minecraft jars
+:Extracting server jar from bootstrap
+Applying installer data from configuration 'mainCompileDependencyResolve'
+All projects evaluated.
+Task name matched 'publishToMavenLocal'
+Selected primary task 'publishToMavenLocal' from project :
+Tasks to be executed: [task ':publishToMavenLocal']
+Tasks that were excluded: []
+Resolve mutations for :publishToMavenLocal (Thread[#787,Execution worker,5,main]) started.
+:publishToMavenLocal (Thread[#787,Execution worker,5,main]) started.
+
+> Task :publishToMavenLocal UP-TO-DATE
+Skipping task ':publishToMavenLocal' as it has no actions.
+
+BUILD SUCCESSFUL in 1s
+Watched directory hierarchies: []
+Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.2.1/userguide/configuration_cache_enabling.html

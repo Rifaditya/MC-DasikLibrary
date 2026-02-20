@@ -11,10 +11,10 @@
 
 # 🧠 Dasik Library
 
-**No Backports:** This library targets **Minecraft 26.1+** (Snapshot 5). Older versions are unsupported.
+**No Backports:** This library targets **Minecraft 26.1+** (Snapshot ~7+). Older versions are unsupported.
 
 > **This is a Core Library / API.**
-> It provides shared functionality for my mods (Vanilla Outsider, Better Dogs, Bat Ecology). It does nothing on its own.
+> It provides shared functionality for my mods (Vanilla Outsider, Better Dogs). It does nothing on its own.
 
 **Dasik Library** provides a unified **Hive Mind** architecture for complex social behaviors. Entities become aware of "Social Events" (Alerts, Moods, Requests) and participate in a global, optimized social scheduler.
 
@@ -43,14 +43,13 @@ A standardized way for entities to communicate.
 ### 🤝 Inter-Mod Compat
 
 - **Better Dogs**: Uses Dasik to handle Pack mechanics and howling.
-- **Bat Ecology**: Uses Dasik to coordinate Swarm leaders and crop dusting.
 
 ---
 
 ## 📦 Install
 
 1. Install **[Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)**.
-2. Download `dasik-library-1.0.2.jar` and place it in your `mods` folder.
+2. Download `dasik-library-1.6.9.jar` and place it in your `mods` folder.
 3. *Required by all Vanilla Outsider mods.*
 
 ---

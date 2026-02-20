@@ -1,5 +1,49 @@
 # Changelog
 
+## [1.6.9+build.3] - 2026-02-19
+
+### Added
+
+- **TimeUtil**: Shared Minecraft time arithmetic.
+- **Throttling API**: Added `GlobalSocialSystem.setThrottle` to allow external regulation of performance during intensive operations (e.g., Time Warping).
+
+### Fixed
+
+- Updated internal logic to support variable pulse intervals.
+
+## [1.6.9+build.2] - 2026-02-19
+
+### Added
+
+- **StochasticUtil**: Added `getAmplifiedProbability` for probability-based scaling (used for Rarity Filter).
+
+## [1.6.9+build.1] - 2026-02-19
+
+### Added
+
+- **StochasticUtil**: Added `getAmplifiedCount` (extracted from Ore Amplifier).
+
+### Changed
+
+- **Versioning**: Adopted Build Number policy (`+build.N`).
+
+## [1.6.9] - 2026-02-15
+
+### Removed (BREAKING)
+
+- **Breeding System**: Deleted `UniversalAgeable`, `UniversalBreedGoal`, `UniversalBreedingRegistry`, `UniversalTemptGoal`.
+- **Aerial Navigation**: Deleted `StandardAerialNavigation`, `UniversalRandomPos`.
+- **Flocking System**: Deleted `FollowLeaderGoal`, `GroupMember`, `GroupParameters`, `FlockingStrategy`, `Strategies`, `GroupManager`.
+- **Size System**: Deleted `IScaleProvider`, `ScaleRange`, `SizeEvents`, `SizeRegistry`.
+- **Mixins**: Deleted `UniversalAgeableMixin`, `AmbientAiMixin`, `UniversalMobMixin`.
+- **Mod Init**: Removed `SizeEvents` entity load registration.
+
+## [1.6.8] - 2026-02-14
+
+### Fixed
+
+- Fixed `UniversalTemptGoal` for flying mobs (targets eye level instead of feet).
+
 ## [1.6.6] - 2026-02-13
 
 ### Changed

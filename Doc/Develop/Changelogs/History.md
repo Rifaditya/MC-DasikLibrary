@@ -1,5 +1,19 @@
 # Release History
 
+## v1.6.9+build.4 - 2026-02-20
+
+- **API**: Implemented missing Leader-Follower System components (`GroupMember`, `FlockType`, `FlockingStrategy`, `GroupParameters`, `AerialFlockingStrategy`, `TerrestrialFlockingStrategy`, `GroupManager`, `FollowLeaderGoal`) to restore Concept Parity.
+- **Fixed/Audit**: Addressed technical debt across Leader System. Removed unused `LivingEntity` import from `FollowLeaderGoal`, replaced deprecated `isSolid()` in `AerialFlockingStrategy`, and resolved `@NonNull` warnings in `TerrestrialFlockingStrategy` and `GroupManager` by adding explicit null assertions.
+
+## v1.6.9 - 2026-02-15
+
+- **Reason**: "i don't feel like it imma remove it and maybe work on it later who know when"
+- **Purge**: Completely removed Bat Ecology systems from core (breeding, aerial navigation, flocking, size/scaling, aging mixins). Library now focuses on core social scheduler system only. Full architecture archived in `Doc/Archive/bat_ecology_history.md`.
+
+## v1.6.8 - 2026-02-14
+
+- **Fixed**: `UniversalTemptGoal` now targets eye level for flying mobs to prevent ground hugging.
+
 ## v1.6.5 - 2026-02-13
 
 - **API**: Added `UniversalRandomPos` to support complex pathfinding target selection for all Mobs.

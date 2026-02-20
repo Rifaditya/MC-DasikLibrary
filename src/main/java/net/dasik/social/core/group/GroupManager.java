@@ -1,54 +1,75 @@
 package net.dasik.social.core.group;
 
 import net.dasik.social.api.group.GroupMember;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
 
 /**
- * Handles group logic: Finding neighbors, electing leaders.
+ * Core manager responsible for leader-follower dynamics and discovery.
  */
 public class GroupManager {
 
-    // Cache could be added here similar to BatSwarmManager if performance requires
-    // it.
-    // For now, valid implementation is on-demand or cached in implementation.
-
     /**
-     * Scans for nearby group members and elects a leader deterministically.
-     * 
-     * @param entity       The entity looking for a group.
-     * @param clazz        The class of entity to group with.
-     * @param searchRadius Box radius to search.
-     * @return The elected leader, or null.
+     * Determines if an entity should follow another entity, or become a leader
+     * itself.
+     * Searches a 32-block radius around the member for potential leaders.
+     * Uses UUID comparison to deterministically elect a leader (lowest UUID string
+     * wins).
+     *
+     * @param member       The group member trying to find a leader.
+     * @param searchRadius The radius to search for other members.
+     * @param <T>          The member type (typically the same class, e.g., Bat or
+     *                     Wolf).
      */
-    public static <T extends LivingEntity> T electLeader(T entity, Class<T> clazz, double searchRadius) {
-        if (!(entity.level() instanceof ServerLevel))
-            return null;
-        if (!(entity instanceof GroupMember))
-            return null;
+    public static <T extends LivingEntity & GroupMember<T>> void findAndSetLeader(T member, double searchRadius) {
+        if (member.hasLeader()) {
+            // Already has a leader, confirm leader is still valid
+            T leader = member.getLeader();
+            if (leader == null || !leader.isAlive() || leader.distanceToSqr(member) > Math.pow(searchRadius * 2, 2)) {
+                member.setLeader(null);
+            } else {
+                return; // Nothing to change
+            }
+        }
 
-        AABB searchBox = entity.getBoundingBox().inflate(searchRadius);
-        List<T> nearby = entity.level().getEntitiesOfClass(clazz, searchBox, e -> {
-            return e.isAlive() && e instanceof GroupMember; // Filter valid members
-        });
+        AABB box = member.getBoundingBox().inflate(searchRadius);
 
-        if (nearby.isEmpty())
-            return null;
+        // Generics erasure workaround for getEntitiesOfClass, we search by the concrete
+        // class of the member
+        @SuppressWarnings("unchecked")
+        List<T> potentialLeaders = member.level().getEntitiesOfClass(
+                (Class<T>) member.getClass(),
+                box,
+                entity -> entity.isAlive() && entity != member);
 
-        // Sort mainly by UUID to be stable/deterministic
-        nearby.sort(Comparator.comparing(e -> e.getUUID().toString()));
+        if (potentialLeaders.isEmpty()) {
+            return; // No one around, I am the leader by default
+        }
 
-        return nearby.getFirst();
-    }
+        // Add self to the pool of candidates
+        potentialLeaders.add(member);
 
-    /**
-     * Calculates the group size locally.
-     */
-    public static <T extends LivingEntity> int countGroupSize(T entity, Class<T> clazz, double searchRadius) {
-        AABB searchBox = entity.getBoundingBox().inflate(searchRadius);
-        return entity.level().getEntitiesOfClass(clazz, searchBox, e -> e instanceof GroupMember).size();
+        // Election Logic: Deterministic via String UUID comparison.
+        // Lowest ID becomes the leader of this immediate cluster.
+        T electedLeader = potentialLeaders.stream()
+                .filter(e -> e != null && e.getUUID() != null)
+                .min(Comparator.comparing(e -> e.getUUID().toString()))
+                .orElse(member);
+
+        if (electedLeader != member) {
+            // Check if the elected leader already has a DIFFERENT leader. If so, follow
+            // their leader (chaining up).
+            if (electedLeader.hasLeader() && electedLeader.getLeader() != null) {
+                member.setLeader(electedLeader.getLeader());
+            } else {
+                member.setLeader(electedLeader);
+            }
+        } else {
+            // I'm my own leader
+            member.setLeader(null);
+        }
     }
 }

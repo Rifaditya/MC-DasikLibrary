@@ -5,7 +5,7 @@ Welcome to the **Dasik Library** development documentation.
 ## Sections
 
 - **[Getting Started](Getting-Started/index.md)**: Dependencies and Setup.
-- **[Architecture](Architecture/SocialArchitecture.md)**: The "Hive Mind" and deep systems.
-- **[Size Variants](Architecture/SizeVariants.md)**: Deterministic entity sizing API.
-- **[Universal API](api_guide.md)**: Breeding, Aging, and Social Hooks for any Mob.
+- **[Architecture](Architecture/SocialArchitecture.md)**: The "Hive Mind" social scheduler system.
+- **[Behavior Profile](profile_guide.md)**: Personality and Behavior Profile API.
+- **[Leader-Follower System](Architecture/LeaderSystem.md)**: The modular swarming and flocking API.
 - **[Events](Events/index.md)**: List of Social Events and priorities.

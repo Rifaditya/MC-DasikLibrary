@@ -12,6 +12,6 @@ dependencies {
 
 ## Setup
 
-1. Implement `UniversalAgeable` on your entities.
-2. Register breeding items in `UniversalBreedingRegistry`.
-3. Add `UniversalBreedGoal` and `UniversalTemptGoal` to your entity's goal selector.
+1. Implement `SocialEntity` on your entity (or Mixin).
+2. Register social events in `SocialEventRegistry`.
+3. Use `BehaviorProfile` to define context-aware AI configurations.

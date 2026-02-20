@@ -16,6 +16,7 @@ Instead of each mod duplicating social AI code, Dasik Library provides:
 - **SocialRegistry** - Shared entity tracking across all consumer mods
 - **EntitySocialScheduler** - Per-entity mood/ambient event scheduling
 - **SocialEvent** - Event contract for behaviors (foraging, roosting, howling, etc.)
+- **Leader-Follower API** - Generalized flocking, schooling, and swarming with modular strategies (Aerial/Terrestrial)
 
 ---
 
@@ -56,6 +57,7 @@ SocialEventRegistry.register("mymod:howl", new HowlEvent());
 
 - **Bat Ecology** - Bat social behaviors
 - **Better Dogs** - Wolf/dog pack dynamics
+- **Ore Amplifier** - Stochastic generation scaling
 
 ---
 

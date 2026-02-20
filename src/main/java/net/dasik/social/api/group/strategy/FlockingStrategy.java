@@ -1,23 +1,19 @@
 package net.dasik.social.api.group.strategy;
 
-import net.dasik.social.api.group.GroupParameters;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 
 /**
- * Defines HOW an entity moves towards its leader.
- * Implement this to create custom movement styles (e.g. Teleporting, Strafing,
- * Jetpack).
+ * The strategy pattern interface defining HOW an entity moves towards its
+ * leader.
  */
 public interface FlockingStrategy {
 
     /**
-     * persistent movement logic to follow the leader.
+     * Executes the flocking movement logic for a single tick.
      * 
-     * @param follower  The mob being moved.
-     * @param leader    The leader to follow.
-     * @param params    The flocking parameters (distances, forces).
-     * @param groupSize The size of the group (used for scaling spread).
+     * @param mob    The entity performing the movement.
+     * @param leader The leader the entity is following.
+     * @param params The flocking configuration parameters (speed, distances).
      */
-    void navigateToLeader(Mob follower, LivingEntity leader, GroupParameters params, int groupSize);
+    void execute(LivingEntity mob, LivingEntity leader, GroupParameters params);
 }

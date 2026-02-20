@@ -129,12 +129,14 @@ BehaviorProfileManager // Per-entity profile switcher
 | State | Manual `markDirty()` |
 | Manual | `setActiveProfile(id)` |
 
-### Selection Algorithm
+### 6. Math Utils
 
-```
-On trigger event:
-  1. Evaluate all profiles' conditions
-  2. Pick profile with HIGHEST match score
-  3. Tie → use profile.priority
-  4. Still tie → keep current
-```
+- **StochasticUtil**: Probability-based rounding for fractional multipliers. Used by Ore Amplifier to handle sub-100% generation rates.
+
+---
+
+## Consumer Mods
+
+- **Bat Ecology** - Bat social behaviors
+- **Better Dogs** - Wolf/dog pack dynamics
+- **Ore Amplifier** - Stochastic generation scaling

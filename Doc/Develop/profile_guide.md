@@ -15,7 +15,7 @@ BehaviorProfile overworldProfile = BehaviorProfile.builder("overworld")
     .priority(10)
     .condition(BehaviorCondition.inDimension(Level.OVERWORLD))
     .goals(g -> {
-        g.add(1, new BreedGoal(...));
+        g.add(1, new FloatGoal(...));
         g.add(2, new TemptGoal(...));
         g.add(5, new WanderGoal(...));
     })

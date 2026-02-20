@@ -4,11 +4,8 @@
     "package": "net.dasik.social.mixin",
     "compatibilityLevel": "JAVA_25",
     "mixins": [
-        "AmbientAiMixin",
         "MobGoalAccessor",
-        "ProfileTriggerMixin",
-        "UniversalAgeableMixin",
-        "UniversalMobMixin"
+        "ProfileTriggerMixin"
     ],
     "injectors": {
         "defaultRequire": 1
