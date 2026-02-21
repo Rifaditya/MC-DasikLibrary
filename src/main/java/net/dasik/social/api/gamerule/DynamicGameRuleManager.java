@@ -47,23 +47,38 @@ public class DynamicGameRuleManager {
             return (GameRule<Integer>) DYNAMIC_RULES.get(ruleName);
         }
 
-        GameRule<Integer> rule = Registry.register(BuiltInRegistries.GAME_RULE, ruleName, new GameRule<>(
-                category,
-                GameRuleType.INT,
-                IntegerArgumentType.integer(0), // Assumes >= 0
-                GameRuleTypeVisitor::visitInteger,
-                Codec.INT,
-                i -> i,
-                defaultValue,
-                FeatureFlagSet.of()));
+        // Check if already registered in the built-in registry (e.g. from a previous
+        // session)
+        Identifier id = Identifier.parse(ruleName);
+        GameRule<Integer> existing = (GameRule<Integer>) BuiltInRegistries.GAME_RULE.getValue(id);
+        if (existing != null) {
+            DYNAMIC_RULES.put(ruleName, existing);
+            return existing;
+        }
 
-        DYNAMIC_RULES.put(ruleName, rule);
+        // If registry is frozen, we cannot register new rules — return null safely
+        try {
+            GameRule<Integer> rule = Registry.register(BuiltInRegistries.GAME_RULE, ruleName, new GameRule<>(
+                    category,
+                    GameRuleType.INT,
+                    IntegerArgumentType.integer(0), // Assumes >= 0
+                    GameRuleTypeVisitor::visitInteger,
+                    Codec.INT,
+                    i -> i,
+                    defaultValue,
+                    FeatureFlagSet.of()));
 
-        // Generate and cache a human-readable translation for this rule
-        String translationKey = "gamerule." + ruleName;
-        GENERATED_TRANSLATIONS.put(translationKey, generateReadableName(ruleName));
+            DYNAMIC_RULES.put(ruleName, rule);
 
-        return rule;
+            // Generate and cache a human-readable translation for this rule
+            String translationKey = "gamerule." + ruleName;
+            GENERATED_TRANSLATIONS.put(translationKey, generateReadableName(ruleName));
+
+            return rule;
+        } catch (IllegalStateException e) {
+            // Registry is frozen — rule was not pre-registered. Return null.
+            return null;
+        }
     }
 
     /**
@@ -75,23 +90,37 @@ public class DynamicGameRuleManager {
             return (GameRule<Boolean>) DYNAMIC_RULES.get(ruleName);
         }
 
-        GameRule<Boolean> rule = Registry.register(BuiltInRegistries.GAME_RULE, ruleName, new GameRule<>(
-                category,
-                GameRuleType.BOOL,
-                BoolArgumentType.bool(),
-                GameRuleTypeVisitor::visitBoolean,
-                Codec.BOOL,
-                b -> b ? 1 : 0,
-                defaultValue,
-                FeatureFlagSet.of()));
+        // Check if already registered in the built-in registry
+        Identifier id = Identifier.parse(ruleName);
+        GameRule<Boolean> existing = (GameRule<Boolean>) BuiltInRegistries.GAME_RULE.getValue(id);
+        if (existing != null) {
+            DYNAMIC_RULES.put(ruleName, existing);
+            return existing;
+        }
 
-        DYNAMIC_RULES.put(ruleName, rule);
+        // If registry is frozen, we cannot register new rules — return null safely
+        try {
+            GameRule<Boolean> rule = Registry.register(BuiltInRegistries.GAME_RULE, ruleName, new GameRule<>(
+                    category,
+                    GameRuleType.BOOL,
+                    BoolArgumentType.bool(),
+                    GameRuleTypeVisitor::visitBoolean,
+                    Codec.BOOL,
+                    b -> b ? 1 : 0,
+                    defaultValue,
+                    FeatureFlagSet.of()));
 
-        // Generate and cache a human-readable translation for this rule
-        String translationKey = "gamerule." + ruleName;
-        GENERATED_TRANSLATIONS.put(translationKey, generateReadableName(ruleName));
+            DYNAMIC_RULES.put(ruleName, rule);
 
-        return rule;
+            // Generate and cache a human-readable translation for this rule
+            String translationKey = "gamerule." + ruleName;
+            GENERATED_TRANSLATIONS.put(translationKey, generateReadableName(ruleName));
+
+            return rule;
+        } catch (IllegalStateException e) {
+            // Registry is frozen — rule was not pre-registered. Return null.
+            return null;
+        }
     }
 
     /**
