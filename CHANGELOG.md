@@ -1,15 +1,21 @@
 # Changelog
 
+## [1.6.9+build.6] - 2026-02-21
+
+### Added
+
+- **Documentation**: Updated all READMEs and platform pages to highlight the new "Dynamic Translations" feature making GameRules human-readable.
+
+### Changed
+
+- **Documentation**: Replaced "Architect" with "Creator" in Platform Page Author roles.
+
 ## [1.6.9+build.5] - 2026-02-21
 
 ### Added
 
 - **DynamicGameRuleManager**: Introduced DynamicGameRuleManager capable of dynamic GameRule generation with cached human-readable string values for localization.
 - **LanguageMixin**: Injects auto-generated readable GameRule names from `DynamicGameRuleManager` into Minecraft's native language map so they are properly rendered in the Game Rules configuration screen.
-
-### Changed
-
-- **Documentation**: Replaced "Architect" with "Creator" in Platform Page Author roles.
 
 ## [1.6.9+build.4] - 2026-02-19
 
