@@ -17,6 +17,7 @@ Instead of each mod duplicating social AI code, Dasik Library provides:
 - **EntitySocialScheduler** - Per-entity mood/ambient event scheduling
 - **SocialEvent** - Event contract for behaviors (foraging, roosting, howling, etc.)
 - **Leader-Follower API** - Generalized flocking, schooling, and swarming with modular strategies (Aerial/Terrestrial)
+- **DynamicGameRuleManager** - Generate infinite GameRules dynamically with automatic runtime English translation injection (No `.json` needed).
 
 ---
 

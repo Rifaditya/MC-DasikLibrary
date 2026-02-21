@@ -133,6 +133,12 @@ BehaviorProfileManager // Per-entity profile switcher
 
 - **StochasticUtil**: Probability-based rounding for fractional multipliers. Used by Ore Amplifier to handle sub-100% generation rates.
 
+### 7. Dynamic GameRule Manager (v1.6.9+)
+
+Allows seamless creation of GameRules with automatic English translation injection, completely avoiding the need for static `.json` language files.
+- `registerInteger` / `registerBoolean`: Returns standard GameRules while caching human-readable translations.
+- `LanguageMixin`: Injects cached translations directly into Minecraft's `Language` map at load, keeping the UI clean.
+
 ---
 
 ## Consumer Mods

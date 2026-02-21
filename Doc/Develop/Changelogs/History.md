@@ -1,9 +1,12 @@
 # Release History
 
-## v1.6.9+build.4 - 2026-02-20
+## v1.6.9+build.5 - 2026-02-21
 
-- **API**: Implemented missing Leader-Follower System components (`GroupMember`, `FlockType`, `FlockingStrategy`, `GroupParameters`, `AerialFlockingStrategy`, `TerrestrialFlockingStrategy`, `GroupManager`, `FollowLeaderGoal`) to restore Concept Parity.
-- **Fixed/Audit**: Addressed technical debt across Leader System. Removed unused `LivingEntity` import from `FollowLeaderGoal`, replaced deprecated `isSolid()` in `AerialFlockingStrategy`, and resolved `@NonNull` warnings in `TerrestrialFlockingStrategy` and `GroupManager` by adding explicit null assertions.
+- **DynamicGameRuleManager**: Introduced DynamicGameRuleManager capable of dynamic GameRule generation with cached human-readable string values for localization.
+- **LanguageMixin**: Injects auto-generated readable GameRule names from `DynamicGameRuleManager` into Minecraft's native language map so they are properly rendered in the Game Rules configuration screen.
+- **Documentation**: Replaced "Architect" with "Creator" in Platform Page Author roles.
+
+## v1.6.9+build.4 - 2026-02-20
 
 ## v1.6.9 - 2026-02-15
 
