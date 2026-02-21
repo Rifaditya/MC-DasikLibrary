@@ -27,7 +27,7 @@ Instead of each mod duplicating social AI code, Dasik Library provides:
 ```json
 // fabric.mod.json
 "depends": {
-    "dasik-library": ">=1.0.0"
+    "dasik-library": "*"
 }
 ```
 
@@ -49,6 +49,24 @@ public interface SocialEntity {
 
 ```java
 SocialEventRegistry.register("mymod:howl", new HowlEvent());
+```
+
+### Leader-Follower Configuration
+
+To support group flocking/swarming (aerial or terrestrial), implement `GroupMember` on your entity and add `FollowLeaderGoal` to your AI goals:
+
+```java
+public interface GroupMember<T extends LivingEntity> {
+    T getLeader();
+    void setLeader(@Nullable T leader);
+    int getGroupSize();
+    FlockType getFlockType(); // AERIAL or TERRESTRIAL
+}
+```
+
+```java
+// Inside your entity's registerGoals
+this.goalSelector.addGoal(5, new FollowLeaderGoal<>(this, GroupParameters.DEFAULT_TERRESTRIAL, 32.0D));
 ```
 
 ---

@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Core manager responsible for leader-follower dynamics and discovery.
  */
+@SuppressWarnings("null")
 public class GroupManager {
 
     /**

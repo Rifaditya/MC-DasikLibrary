@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.6.9+build.5] - 2026-02-21
+
+### Changed
+
+- **Documentation**: Replaced "Architect" with "Creator" in Platform Page Author roles.
+
+## [1.6.9+build.4] - 2026-02-19
+
+### Added
+
+- **Leader-Follower API**: Introduced modular `GroupMember`, `FlockingStrategy`, and `GroupManager` for generic swarming and flocking (Aerial and Terrestrial).
+- **FollowLeaderGoal**: Added vanilla-compatible AI Goal for flocking coordination.
+
 ## [1.6.9+build.3] - 2026-02-19
 
 ### Added

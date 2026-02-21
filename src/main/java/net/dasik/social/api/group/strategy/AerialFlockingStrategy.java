@@ -7,6 +7,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class AerialFlockingStrategy implements FlockingStrategy {
 
+    @SuppressWarnings("deprecation")
     @Override
     public void execute(LivingEntity mob, LivingEntity leader, GroupParameters params) {
         if (!(mob instanceof Mob bat))

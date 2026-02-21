@@ -42,14 +42,18 @@ A standardized way for entities to communicate.
 
 ### 🤝 Inter-Mod Compat
 
-- **Better Dogs**: Uses Dasik to handle Pack mechanics and howling.
+- **Better Dogs**: Uses Dasik to handle Pack mechanics, howling, and wild wolf leader-follower logic.
+
+### 🐺 Leader-Follower API
+
+Built-in boids algorithm and grounded flocking support. Mods can simply implement `GroupMember` to gain instant swarming/flocking behaviors.
 
 ---
 
 ## 📦 Install
 
 1. Install **[Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)**.
-2. Download `dasik-library-1.6.9.jar` and place it in your `mods` folder.
+2. Download `dasik-library-1.6.9+build.4.jar` (or latest) and place it in your `mods` folder.
 3. *Required by all Vanilla Outsider mods.*
 
 ---

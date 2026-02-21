@@ -17,6 +17,7 @@ import java.util.EnumSet;
  *
  * @param <T> The concrete type of the Mob implementing GroupMember.
  */
+@SuppressWarnings("null")
 public class FollowLeaderGoal<T extends Mob & GroupMember<T>> extends Goal {
 
     protected final T mob;

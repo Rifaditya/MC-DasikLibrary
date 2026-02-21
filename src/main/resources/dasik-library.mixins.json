@@ -4,6 +4,7 @@
     "package": "net.dasik.social.mixin",
     "compatibilityLevel": "JAVA_25",
     "mixins": [
+        "LanguageMixin",
         "MobGoalAccessor",
         "ProfileTriggerMixin"
     ],
