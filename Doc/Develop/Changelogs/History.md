@@ -1,5 +1,9 @@
 # Release History
 
+## v1.6.9+build.9 - 2026-02-21
+
+- **Fix**: Translation key mismatch — generated keys now use `Util.makeDescriptionId()` for correct `gamerule.minecraft.<path>` format. Cache-hit path also generates translations.
+
 ## v1.6.9+build.8 - 2026-02-21
 
 - **Stability**: Made `DynamicGameRuleManager` freeze-safe. It now checks if the GameRule registry is frozen before attempting registration, returning the existing rule or a fallback if registration is no longer possible. This prevents crashes during late-discovery JIT registration (e.g., during world generation).

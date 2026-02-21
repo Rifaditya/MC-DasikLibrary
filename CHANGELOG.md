@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.9+build.9] - 2026-02-21
+
+### Fixed
+
+- **DynamicGameRuleManager**: Fixed translation key mismatch — generated keys now use `Util.makeDescriptionId()` to produce `gamerule.minecraft.<path>` format matching what Minecraft looks up. Previously generated `gamerule.<ruleName>` which never matched.
+- **DynamicGameRuleManager**: Cache-hit path (rule already in registry) now also generates translations via `putIfAbsent`.
+
 ## [1.6.9+build.8] - 2026-02-21
 
 ### Fixed

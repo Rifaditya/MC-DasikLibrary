@@ -7,6 +7,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Util;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gamerules.GameRule;
@@ -53,6 +54,8 @@ public class DynamicGameRuleManager {
         GameRule<Integer> existing = (GameRule<Integer>) BuiltInRegistries.GAME_RULE.getValue(id);
         if (existing != null) {
             DYNAMIC_RULES.put(ruleName, existing);
+            String key = Util.makeDescriptionId("gamerule", id);
+            GENERATED_TRANSLATIONS.putIfAbsent(key, generateReadableName(ruleName));
             return existing;
         }
 
@@ -71,7 +74,7 @@ public class DynamicGameRuleManager {
             DYNAMIC_RULES.put(ruleName, rule);
 
             // Generate and cache a human-readable translation for this rule
-            String translationKey = "gamerule." + ruleName;
+            String translationKey = Util.makeDescriptionId("gamerule", id);
             GENERATED_TRANSLATIONS.put(translationKey, generateReadableName(ruleName));
 
             return rule;
@@ -95,6 +98,8 @@ public class DynamicGameRuleManager {
         GameRule<Boolean> existing = (GameRule<Boolean>) BuiltInRegistries.GAME_RULE.getValue(id);
         if (existing != null) {
             DYNAMIC_RULES.put(ruleName, existing);
+            String key = Util.makeDescriptionId("gamerule", id);
+            GENERATED_TRANSLATIONS.putIfAbsent(key, generateReadableName(ruleName));
             return existing;
         }
 
@@ -113,7 +118,7 @@ public class DynamicGameRuleManager {
             DYNAMIC_RULES.put(ruleName, rule);
 
             // Generate and cache a human-readable translation for this rule
-            String translationKey = "gamerule." + ruleName;
+            String translationKey = Util.makeDescriptionId("gamerule", id);
             GENERATED_TRANSLATIONS.put(translationKey, generateReadableName(ruleName));
 
             return rule;
