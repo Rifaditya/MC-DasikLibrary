@@ -1,0 +1,14 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "net.dasik.social.mixin",
+    "compatibilityLevel": "JAVA_22",
+    "mixins": [
+        "LanguageMixin",
+        "MobGoalAccessor",
+        "ProfileTriggerMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
