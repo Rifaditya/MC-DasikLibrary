@@ -1,14 +1,13 @@
 /*
- * Decompiled with CFR 0.152.
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: LivingEntity.java (Snapshot 10)
  */
 package net.dasik.social.api.group.strategy;
 
-import net.dasik.social.api.group.strategy.AerialFlockingStrategy;
-import net.dasik.social.api.group.strategy.FlockingStrategy;
-import net.dasik.social.api.group.strategy.TerrestrialFlockingStrategy;
-
+/**
+ * Standard collection of flocking strategies.
+ */
 public class Strategies {
     public static final FlockingStrategy AERIAL = new AerialFlockingStrategy();
     public static final FlockingStrategy TERRESTRIAL = new TerrestrialFlockingStrategy();
 }
-

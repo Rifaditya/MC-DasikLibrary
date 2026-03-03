@@ -1,5 +1,25 @@
 # Changelog
 
+## [1.6.9+build.13] - 2026-03-04
+
+### Added
+- **Source Recovery**: Successfully restored the full feature set of `build.10` via high-fidelity decompilation (CFR). This process was necessary because local `build.10` source changes had not been synchronized with the Git repository during a transition, necessitating a recovery from the compiled JAR.
+- **Snapshot Stability**: Final architectural validation for Minecraft Snapshot 10 (26.1 Snapshot 10).
+
+### Fixed
+- **Mojang API Adaptation**: Corrected `DynamicGameRuleManager` type-safety and registry access issues following Snapshot 10's API modifications.
+
+## [1.6.9+build.12] - 2026-03-04
+
+### Added
+- **Systemic Refactor**: Overhauled `SocialRegistry` for O(1) shard-based performance and fixed critical unregistration memory leaks.
+- **Signal Evolution**: Converted `Signal` and `TickContext` into Java 25 `record`s for enhanced performance and immutability.
+- **Interface Injection**: Implemented `PathfinderMobMixin` providing robust `SocialEntity`, `GroupMember`, and `ProfileAware` support for vanilla entities.
+- **Protocol Compliance**: Injected mandatory Zenith Sovereign citations (`// Verified against: ...`) across all core API and implementation files.
+
+### Changed
+- **Version Bump**: Incrementing to build.12 following systemic core overhaul.
+
 ## [1.6.9+build.11] - 2026-03-03
 
 ### Added

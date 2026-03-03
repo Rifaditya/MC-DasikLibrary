@@ -1,20 +1,19 @@
 /*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  com.google.common.collect.ImmutableMap
- *  org.jetbrains.annotations.Nullable
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: Entity.java (Snapshot 10)
  */
 package net.dasik.social.api;
 
 import com.google.common.collect.ImmutableMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import net.dasik.social.api.SocialEvent;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Registry for SocialEvents. Frozen after initialization to ensure constant-time lookups.
+ */
 public class SocialEventRegistry {
-    private static final Map<String, SocialEvent> PENDING = new ConcurrentHashMap<String, SocialEvent>();
+    private static final Map<String, SocialEvent> PENDING = new ConcurrentHashMap<>();
     private static volatile ImmutableMap<String, SocialEvent> EVENTS = ImmutableMap.of();
     private static volatile boolean FROZEN = false;
 
@@ -26,17 +25,18 @@ public class SocialEventRegistry {
     }
 
     public static void freeze() {
-        EVENTS = ImmutableMap.copyOf(PENDING);
-        FROZEN = true;
+        if (!FROZEN) {
+            EVENTS = ImmutableMap.copyOf(PENDING);
+            FROZEN = true;
+        }
     }
 
     @Nullable
     public static SocialEvent get(String id) {
-        return (SocialEvent)EVENTS.get((Object)id);
+        return EVENTS.get(id);
     }
 
     public static boolean isFrozen() {
         return FROZEN;
     }
 }
-

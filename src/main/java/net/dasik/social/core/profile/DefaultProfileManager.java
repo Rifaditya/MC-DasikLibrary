@@ -1,14 +1,8 @@
 /*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  net.minecraft.world.entity.Mob
- *  net.minecraft.world.entity.ai.goal.GoalSelector
- *  org.jetbrains.annotations.Nullable
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: Mob.java (Snapshot 10)
  */
 package net.dasik.social.core.profile;
-// Verified against: Mob.java (Snapshot 10)
-
 
 import java.util.Comparator;
 import java.util.HashMap;
@@ -20,10 +14,10 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 import org.jetbrains.annotations.Nullable;
 
-public class DefaultProfileManager
-implements BehaviorProfileManager {
+public class DefaultProfileManager implements BehaviorProfileManager {
     private final Mob mob;
-    private final Map<String, BehaviorProfile> profiles = new HashMap<String, BehaviorProfile>();
+    private final Map<String, BehaviorProfile> profiles = new HashMap<>();
+    
     @Nullable
     private String activeProfileId;
     private boolean dirty = true;
@@ -80,7 +74,7 @@ implements BehaviorProfileManager {
         }
         BehaviorProfile best = this.profiles.values().stream()
             .max(Comparator.comparingInt((BehaviorProfile p) -> p.getMatchScore(this.mob))
-            .thenComparingInt(p -> p.getPriority()))
+            .thenComparingInt(BehaviorProfile::getPriority))
             .orElse(null);
         if (best != null && !best.getId().equals(this.activeProfileId)) {
             this.switchToProfile(best.getId());
@@ -111,4 +105,3 @@ implements BehaviorProfileManager {
         return ((MobGoalAccessor)this.mob).dasik$getGoalSelector();
     }
 }
-

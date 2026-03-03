@@ -1,14 +1,6 @@
 /*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  net.minecraft.server.level.ServerLevel
- *  net.minecraft.world.entity.Entity
- *  net.minecraft.world.level.portal.TeleportTransition
- *  org.spongepowered.asm.mixin.Mixin
- *  org.spongepowered.asm.mixin.injection.At
- *  org.spongepowered.asm.mixin.injection.Inject
- *  org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: Entity.java (Snapshot 10)
  */
 package net.dasik.social.mixin;
 
@@ -21,15 +13,13 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value={Entity.class})
+@Mixin(Entity.class)
 public abstract class ProfileTriggerMixin {
-    @Inject(method={"teleportCrossDimension"}, at={@At(value="RETURN")})
+    @Inject(method = "teleportCrossDimension", at = @At("RETURN"))
     private void dasik$onDimensionChange(ServerLevel oldLevel, ServerLevel newLevel, TeleportTransition transition, CallbackInfoReturnable<Entity> cir) {
-        ProfileAware aware;
-        Entity result = (Entity)cir.getReturnValue();
-        if (result instanceof ProfileAware && (aware = (ProfileAware)result).hasProfileSupport()) {
+        Entity result = cir.getReturnValue();
+        if (result instanceof ProfileAware aware && aware.hasProfileSupport()) {
             aware.getProfileManager().evaluateProfiles();
         }
     }
 }
-

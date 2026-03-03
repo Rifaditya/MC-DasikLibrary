@@ -1,13 +1,8 @@
 /*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  net.minecraft.world.entity.LivingEntity
- *  net.minecraft.world.phys.AABB
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: LivingEntity.java (Snapshot 10)
  */
 package net.dasik.social.core.group;
-// Verified against: LivingEntity.java (Snapshot 10)
-
 
 import java.util.Comparator;
 import java.util.List;
@@ -15,31 +10,56 @@ import net.dasik.social.api.group.GroupMember;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;
 
+/**
+ * Manages group logic including leader election and member maintenance.
+ */
 public class GroupManager {
+    /**
+     * Finds a suitable leader for the member within the search radius.
+     * Uses a deterministic election process based on entity UUIDs.
+     */
     public static <T extends LivingEntity> void findAndSetLeader(T member, double searchRadius) {
-        if (((GroupMember)member).hasLeader()) {
-            LivingEntity leader = (LivingEntity)((GroupMember)member).getLeader();
+        GroupMember memberInterface = (GroupMember) member;
+        
+        if (memberInterface.hasLeader()) {
+            LivingEntity leader = memberInterface.getLeader();
             if (leader == null || !leader.isAlive() || leader.distanceToSqr(member) > Math.pow(searchRadius * 2.0, 2.0)) {
-                ((GroupMember)member).setLeader(null);
+                memberInterface.setLeader(null);
             } else {
                 return;
             }
         }
+
         AABB box = member.getBoundingBox().inflate(searchRadius);
-        List<T> potentialLeaders = (List<T>)member.level().getEntitiesOfClass((Class<T>)member.getClass(), box, (entity) -> entity.isAlive() && entity != member);
+        @SuppressWarnings("unchecked")
+        List<T> potentialLeaders = (List<T>) member.level().getEntitiesOfClass(
+            member.getClass(), 
+            box, 
+            entity -> entity.isAlive() && entity != member
+        );
+
         if (potentialLeaders.isEmpty()) {
             return;
         }
+
         potentialLeaders.add(member);
-        LivingEntity electedLeader = potentialLeaders.stream().filter(e -> e != null && e.getUUID() != null).min(Comparator.comparing(e -> e.getUUID().toString())).orElse(member);
+        
+        // Deterministic election: entity with the lowest UUID becomes the leader
+        LivingEntity electedLeader = potentialLeaders.stream()
+            .filter(e -> e != null && e.getUUID() != null)
+            .min(Comparator.comparing(LivingEntity::getUUID))
+            .orElse(member);
+
         if (electedLeader != member) {
-            if (((GroupMember)electedLeader).hasLeader() && ((GroupMember)electedLeader).getLeader() != null) {
-                ((GroupMember)member).setLeader(((GroupMember)electedLeader).getLeader());
+            GroupMember leaderInterface = (GroupMember) electedLeader;
+            // If the elected entity itself follows someone, follow that person instead (cluster merging)
+            if (leaderInterface.hasLeader() && leaderInterface.getLeader() != null) {
+                memberInterface.setLeader(leaderInterface.getLeader());
             } else {
-                ((GroupMember)member).setLeader(electedLeader);
+                memberInterface.setLeader(electedLeader);
             }
         } else {
-            ((GroupMember)member).setLeader(null);
+            memberInterface.setLeader(null);
         }
     }
 }

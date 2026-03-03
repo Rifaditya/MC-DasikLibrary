@@ -1,8 +1,12 @@
 /*
- * Decompiled with CFR 0.152.
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: Entity.java (Snapshot 10)
  */
 package net.dasik.social.api;
 
+/**
+ * Defines the priority of a behavior track.
+ */
 public enum PriorityTier {
     CRITICAL(2),
     HIGH(8),
@@ -19,4 +23,3 @@ public enum PriorityTier {
         return this.maxTracks;
     }
 }
-

@@ -1,28 +1,21 @@
 /*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  net.minecraft.world.entity.Mob
- *  net.minecraft.world.entity.ai.goal.Goal
- *  net.minecraft.world.entity.ai.goal.GoalSelector
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: Mob.java (Snapshot 10)
  */
 package net.dasik.social.api.profile;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
-import net.dasik.social.api.profile.BehaviorCondition;
-import net.dasik.social.api.profile.BehaviorProfile;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 
-public class DefaultProfileBuilder
-implements BehaviorProfile.Builder {
+public class DefaultProfileBuilder implements BehaviorProfile.Builder {
     private final String id;
     private int priority = 0;
-    private final List<BehaviorCondition> conditions = new ArrayList<BehaviorCondition>();
-    private final List<GoalEntry> goalEntries = new ArrayList<GoalEntry>();
+    private final List<BehaviorCondition> conditions = new ArrayList<>();
+    private final List<GoalEntry> goalEntries = new ArrayList<>();
 
     public DefaultProfileBuilder(String id) {
         this.id = id;
@@ -54,8 +47,12 @@ implements BehaviorProfile.Builder {
         return new DefaultBehaviorProfile(this.id, this.priority, List.copyOf(this.conditions), List.copyOf(this.goalEntries));
     }
 
-    private record DefaultBehaviorProfile(String id, int priority, List<BehaviorCondition> conditions, List<GoalEntry> goalEntries) implements BehaviorProfile
-    {
+    private record DefaultBehaviorProfile(
+        String id, 
+        int priority, 
+        List<BehaviorCondition> conditions, 
+        List<GoalEntry> goalEntries
+    ) implements BehaviorProfile {
         @Override
         public String getId() {
             return this.id;
@@ -89,4 +86,3 @@ implements BehaviorProfile.Builder {
     record GoalEntry(int priority, Goal goal) {
     }
 }
-

@@ -1,15 +1,22 @@
 /*
- * Decompiled with CFR 0.152.
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: GoalSelector.java (Snapshot 10)
  */
 package net.dasik.social.api;
 
 import net.dasik.social.signal.Signal;
 
+/**
+ * Manages the lifecycle and execution of SocialEvents for an entity.
+ */
 public interface SocialScheduler {
+    /** Run a single logic tick. */
     public void tick();
 
-    public void onSignalReceived(Signal var1);
+    /** Handle an incoming social signal. */
+    public void onSignalReceived(Signal signal);
 
-    public boolean isEventActive(String var1);
+    /** @return True if an event with the given ID is currently active. */
+    public boolean isEventActive(String eventId);
 }
 

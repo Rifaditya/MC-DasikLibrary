@@ -1,12 +1,6 @@
 /*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  net.minecraft.locale.Language
- *  org.spongepowered.asm.mixin.Mixin
- *  org.spongepowered.asm.mixin.injection.At
- *  org.spongepowered.asm.mixin.injection.Inject
- *  org.spongepowered.asm.mixin.injection.callback.CallbackInfo
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: Language.java (Snapshot 10)
  */
 package net.dasik.social.mixin;
 
@@ -20,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(value={Language.class})
+@Mixin(Language.class)
 public abstract class LanguageMixin {
-    @Inject(method={"loadFromJson"}, at={@At(value="RETURN")})
+    @Inject(method = "loadFromJson", at = @At("RETURN"))
     private static void injectDynamicGameRuleTranslations(InputStream stream, BiConsumer<String, String> output, CallbackInfo ci) {
         Map<String, String> generatedTranslations = DynamicGameRuleManager.getGeneratedTranslations();
         for (Map.Entry<String, String> entry : generatedTranslations.entrySet()) {
@@ -30,4 +24,3 @@ public abstract class LanguageMixin {
         }
     }
 }
-

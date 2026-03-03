@@ -1,11 +1,6 @@
 /*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  net.minecraft.world.entity.Mob
- *  net.minecraft.world.entity.ai.goal.GoalSelector
- *  org.spongepowered.asm.mixin.Mixin
- *  org.spongepowered.asm.mixin.gen.Accessor
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: Mob.java (Snapshot 10)
  */
 package net.dasik.social.mixin;
 
@@ -14,9 +9,8 @@ import net.minecraft.world.entity.ai.goal.GoalSelector;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(value={Mob.class})
+@Mixin(Mob.class)
 public interface MobGoalAccessor {
-    @Accessor(value="goalSelector")
+    @Accessor("goalSelector")
     public GoalSelector dasik$getGoalSelector();
 }
-

@@ -1,16 +1,10 @@
 /*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  net.minecraft.server.level.ServerLevel
- *  net.minecraft.util.RandomSource
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: ServerLevel.java (Snapshot 10)
  */
 package net.dasik.social.core;
-// Verified against: ServerLevel.java (Snapshot 10)
-
 
 import java.util.Map;
-import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -23,11 +17,13 @@ import net.dasik.social.util.FastRandom;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 
-public class EntitySocialScheduler
-implements SocialScheduler {
+/**
+ * Entity-specific scheduler that manages the execution and preemption of SocialEvents.
+ */
+public class EntitySocialScheduler implements SocialScheduler {
     private final SocialEntity socialEntity;
-    private final Map<String, SocialEvent> activeTracks = new ConcurrentHashMap<String, SocialEvent>();
-    private final Queue<SocialEvent> inbox = new ConcurrentLinkedQueue<SocialEvent>();
+    private final Map<String, SocialEvent> activeTracks = new ConcurrentHashMap<>();
+    private final Queue<SocialEvent> inbox = new ConcurrentLinkedQueue<>();
 
     public EntitySocialScheduler(SocialEntity entity) {
         this.socialEntity = entity;
@@ -35,9 +31,7 @@ implements SocialScheduler {
 
     @Override
     public void onSignalReceived(Signal signal) {
-        if (signal == null) {
-            return;
-        }
+        if (signal == null) return;
         SocialEvent event = this.socialEntity.dasik$processSignal(signal);
         if (event != null) {
             this.inbox.offer(event);
@@ -53,8 +47,7 @@ implements SocialScheduler {
     @Override
     public boolean isEventActive(String eventId) {
         for (SocialEvent event : this.activeTracks.values()) {
-            if (!event.getId().equals(eventId)) continue;
-            return true;
+            if (event.getId().equals(eventId)) return true;
         }
         return false;
     }
@@ -95,9 +88,7 @@ implements SocialScheduler {
     }
 
     private void tickActiveEvents() {
-        if (this.activeTracks.isEmpty()) {
-            return;
-        }
+        if (this.activeTracks.isEmpty()) return;
         TickContext ctx = this.createTickContext();
         this.activeTracks.values().removeIf(event -> {
             boolean finished = event.tick(ctx);
@@ -110,29 +101,13 @@ implements SocialScheduler {
     }
 
     private TickContext createTickContext() {
-        final ServerLevel level = (ServerLevel)this.socialEntity.dasik$asEntity().level();
-        return new TickContext(){
-
-            @Override
-            public SocialEntity entity() {
-                return EntitySocialScheduler.this.socialEntity;
-            }
-
-            @Override
-            public long gameTime() {
-                return level.getGameTime();
-            }
-
-            @Override
-            public float partialTick() {
-                return 1.0f;
-            }
-
-            @Override
-            public RandomSource random() {
-                return FastRandom.INSTANCE;
-            }
-        };
+        ServerLevel level = (ServerLevel)this.socialEntity.dasik$asEntity().level();
+        return new TickContext(
+            this.socialEntity,
+            level.getGameTime(),
+            1.0f,
+            FastRandom.INSTANCE
+        );
     }
 }
 

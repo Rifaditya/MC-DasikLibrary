@@ -1,23 +1,22 @@
 /*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  net.minecraft.world.entity.LivingEntity
- *  org.jetbrains.annotations.Nullable
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: GroupMember.java (Snapshot 10)
  */
 package net.dasik.social.api.group;
 
-import net.dasik.social.api.group.FlockType;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 
-public interface GroupMember<T extends LivingEntity> {
+/**
+ * Interface for entities that can participate in flocking or group behaviors.
+ */
+public interface GroupMember {
     @Nullable
-    public T getLeader();
+    public LivingEntity getLeader();
 
     public boolean hasLeader();
 
-    public void setLeader(@Nullable T var1);
+    public void setLeader(@Nullable LivingEntity leader);
 
     public int getGroupSize();
 

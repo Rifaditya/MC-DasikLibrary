@@ -1,20 +1,20 @@
 /*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  org.jetbrains.annotations.Nullable
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: Mob.java (Snapshot 10)
  */
 package net.dasik.social.api.profile;
 
-import net.dasik.social.api.profile.BehaviorProfile;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Manages behavior profiles for a single entity.
+ */
 public interface BehaviorProfileManager {
-    public void register(BehaviorProfile var1);
+    public void register(BehaviorProfile profile);
 
-    public void unregister(String var1);
+    public void unregister(String profileId);
 
-    public void setActiveProfile(String var1);
+    public void setActiveProfile(String profileId);
 
     @Nullable
     public String getActiveProfileId();
@@ -28,4 +28,3 @@ public interface BehaviorProfileManager {
 
     public void tick();
 }
-

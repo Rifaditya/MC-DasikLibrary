@@ -1,8 +1,6 @@
 /*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  org.jetbrains.annotations.Nullable
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: Entity.java (Snapshot 10)
  */
 package net.dasik.social.core;
 
@@ -18,6 +16,10 @@ import net.dasik.social.api.SocialEntity;
 import net.dasik.social.util.FastRandom;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * Shard-based registry for O(1) concurrent entity management.
+ * Uses WeakReferences to prevent memory leaks while maintaining a high-performance fast-access array.
+ */
 public class SocialRegistry {
     private static final int SHARD_COUNT = Math.max(8, Runtime.getRuntime().availableProcessors() * 2);
     private static final Set<WeakReference<SocialEntity>>[] SHARDS;
@@ -35,8 +37,8 @@ public class SocialRegistry {
             return;
         }
         int shardIdx = SocialRegistry.getShardIndex(entity);
-        SHARDS[shardIdx].add(new WeakReference<SocialEntity>(entity));
-        SPECIES_INDEX.computeIfAbsent(entity.dasik$getSpeciesId(), k -> new ConcurrentLinkedQueue()).add(new WeakReference<SocialEntity>(entity));
+        SHARDS[shardIdx].add(new WeakReference<>(entity));
+        SPECIES_INDEX.computeIfAbsent(entity.dasik$getSpeciesId(), k -> new ConcurrentLinkedQueue<>()).add(new WeakReference<>(entity));
         ENTITY_COUNT.incrementAndGet();
         INDEX_VERSION.incrementAndGet();
     }
@@ -45,8 +47,6 @@ public class SocialRegistry {
         if (entity == null) {
             return;
         }
-        int shardIdx = SocialRegistry.getShardIndex(entity);
-        Set<WeakReference<SocialEntity>> shard = SHARDS[shardIdx];
         INDEX_VERSION.incrementAndGet();
         ENTITY_COUNT.decrementAndGet();
     }
@@ -57,7 +57,8 @@ public class SocialRegistry {
         if (INDEX_VERSION.get() != ARRAY_VERSION) {
             SocialRegistry.rebuildFastArray();
         }
-        if ((array = FAST_ACCESS_ARRAY).length == 0) {
+        array = FAST_ACCESS_ARRAY;
+        if (array.length == 0) {
             return null;
         }
         return array[FastRandom.INSTANCE.nextInt(array.length)];
@@ -67,12 +68,12 @@ public class SocialRegistry {
         if (INDEX_VERSION.get() == ARRAY_VERSION) {
             return;
         }
-        ArrayList<SocialEntity> liveEntities = new ArrayList<SocialEntity>(ENTITY_COUNT.get() + 100);
+        ArrayList<SocialEntity> liveEntities = new ArrayList<>(ENTITY_COUNT.get() + 100);
         for (Set<WeakReference<SocialEntity>> shard : SHARDS) {
             Iterator<WeakReference<SocialEntity>> it = shard.iterator();
             while (it.hasNext()) {
                 WeakReference<SocialEntity> ref = it.next();
-                SocialEntity ent = (SocialEntity)ref.get();
+                SocialEntity ent = ref.get();
                 if (ent == null || ent.dasik$asEntity().isRemoved()) {
                     it.remove();
                     continue;
@@ -107,15 +108,16 @@ public class SocialRegistry {
     }
 
     static {
-        SPECIES_INDEX = new ConcurrentHashMap(512);
+        SPECIES_INDEX = new ConcurrentHashMap<>(512);
         ENTITY_COUNT = new AtomicInteger(0);
         FAST_ACCESS_ARRAY = new SocialEntity[0];
         INDEX_VERSION = new AtomicLong(0L);
         ARRAY_VERSION = 0L;
-        SHARDS = new Set[SHARD_COUNT];
+        @SuppressWarnings("unchecked")
+        Set<WeakReference<SocialEntity>>[] shards = new Set[SHARD_COUNT];
+        SHARDS = shards;
         for (int i = 0; i < SHARD_COUNT; ++i) {
-            SocialRegistry.SHARDS[i] = ConcurrentHashMap.newKeySet();
+            SHARDS[i] = ConcurrentHashMap.newKeySet();
         }
     }
 }
-

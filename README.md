@@ -13,11 +13,11 @@ A shared Fabric library providing the "Hive Mind" social behavior system for Van
 Instead of each mod duplicating social AI code, Dasik Library provides:
 
 - **GlobalSocialSystem** - Single pulse engine using Highlander Rule (only one tick per game tick)
-- **SocialRegistry** - Shared entity tracking across all consumer mods
-- **EntitySocialScheduler** - Per-entity mood/ambiCurrent Version: `1.6.9+build.11` (Snapshot 26.1)
-- **SocialEvent** - Event contract for behaviors (foraging, roosting, howling, etc.)
-- **Leader-Follower API** - Generalized flocking, schooling, and swarming with modular strategies (Aerial/Terrestrial)
-- **DynamicGameRuleManager** - Generate infinite GameRules dynamically with automatic runtime English translation injection (No `.json` needed).
+- **SocialRegistry** - Shard-based O(1) entity tracking with automated memory management
+- **EntitySocialScheduler** - Per-entity dual-track scheduler (Mood & Ambient)
+- **Current Version**: `1.6.9+build.13` (Snapshot 26.1)
+- **Leader-Follower API** - Generalized flocking and swarming with modular strategies (Aerial/Terrestrial)
+- **DynamicGameRuleManager** - Generate infinite GameRules dynamically with automatic runtime English translation injection.
 
 ---
 
@@ -42,7 +42,7 @@ public interface SocialEntity {
     String dasik$getSpeciesId();
     LivingEntity dasik$asEntity();
     float dasik$getSocialScale();
-    @Nullable EntitySocialScheduler dasik$getScheduler();
+    @Nullable SocialScheduler dasik$getScheduler();
 }
 ```
 
@@ -57,9 +57,9 @@ SocialEventRegistry.register("mymod:howl", new HowlEvent());
 To support group flocking/swarming (aerial or terrestrial), implement `GroupMember` on your entity and add `FollowLeaderGoal` to your AI goals:
 
 ```java
-public interface GroupMember<T extends LivingEntity> {
-    T getLeader();
-    void setLeader(@Nullable T leader);
+public interface GroupMember {
+    @Nullable LivingEntity getLeader();
+    void setLeader(@Nullable LivingEntity leader);
     int getGroupSize();
     FlockType getFlockType(); // AERIAL or TERRESTRIAL
 }
@@ -89,4 +89,4 @@ GNU General Public License v3.0
 ## Links
 
 - [GitHub Repository](https://github.com/DasikIgaijinn/DasikLibrary)
-- [Modrinth](https://modrinth.com/mod/dasik-library) *(planned)*
+- [Modrinth](https://modrinth.com/mod/dasik-library)

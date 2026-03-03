@@ -16,7 +16,7 @@ Shared "Hive Mind" social AI engine for Vanilla Outsider mods. Provides:
 - Unified entity behavior scheduling
 - Leader-follower dynamics across species
 - Cross-mod signal broadcasting
-- O(1) random entity selection for pulse ticks
+- O(1) shard-based entity registry for high-performance selection
 
 ---
 
@@ -32,7 +32,7 @@ interface SocialEntity {
     String dasik$getSpeciesId();
     LivingEntity dasik$asEntity();
     float dasik$getSocialScale();
-    EntitySocialScheduler dasik$getScheduler();
+    SocialScheduler dasik$getScheduler();
 }
 ```
 
@@ -42,14 +42,14 @@ interface SocialEntity {
 
 ```java
 AtomicLong LAST_TICK; // Prevents duplicate execution
-ENGINE_VERSION = 200; // For future compatibility
+ENGINE_VERSION = 261; // Aligned with MC 26.1
 ```
 
 ### 3. SocialRegistry
 
-WeakHashMap-based tracking. Auto-cleanup on entity unload.
+Shard-based `WeakReference` tracking. O(1) access and selection. Auto-rebuilds on registry mutation.
 
-### 4. EntitySocialScheduler
+### 4. Entity Social Scheduler
 
 Per-entity dual-track scheduler:
 
@@ -64,8 +64,7 @@ Contract for all behavior events.
 
 ## Signal System
 
-> [!NOTE]  
-> `GlobalSocialSystem.broadcastSignal` is currently handled internally by the hive-mind pulse. Consumer-facing signal broadcasting is planned for v1.7.0.
+Signals are represented as Java 25 `record` types for thread-safe immutability.
 
 | Signal | Description |
 |--------|-------------|
@@ -81,16 +80,17 @@ Contract for all behavior events.
 1. Add dependency in `fabric.mod.json`
 2. Mixin implements `SocialEntity` with `dasik$` methods
 3. Register events with `SocialEventRegistry.register()`
-4. Call `SocialRegistry.registerEntity()` on entity init
+4. Call `SocialRegistry.register()` on entity initialization
 
 ---
 
 ## Version Compatibility
 
-| Engine Version | API Changes |
-|----------------|-------------|
-| 100 (1.0.0) | Initial release |
-| 160 (1.6.0) | AI Behavior Profile System |
+| Engine Version | Mod Version | API Changes |
+|----------------|-------------|-------------|
+| 100 | 1.0.0 | Initial release |
+| 160 | 1.6.0 | AI Behavior Profile System |
+| 261 | 1.6.9+build.13 | Java 25 Records, O(1) Shard Registry, Snapshot 10 Support |
 
 ---
 
@@ -105,20 +105,6 @@ BehaviorProfile       // Holds goals + conditions
 BehaviorProfileManager // Per-entity profile switcher
 ```
 
-### Design Rules
-
-> [!CAUTION]
-> **GUIDE (DO NOT DELETE)**
->
-> - Max **5 conditions** per profile
-> - Conditions: Dimension, Biome, Time, State, Custom
-> - Highest match count wins priority
-> - **Event-driven switching** (NOT polling):
->   - Dimension change → auto-evaluate
->   - Biome change → auto-evaluate  
->   - State change → call `markDirty()`
-> - See: `Doc/Develop/profile_guide.md`
-
 ### Trigger Events
 
 | Trigger | Method |
@@ -128,15 +114,13 @@ BehaviorProfileManager // Per-entity profile switcher
 | State | Manual `markDirty()` |
 | Manual | `setActiveProfile(id)` |
 
-### 6. Math Utils
+---
 
-- **StochasticUtil**: Probability-based rounding for fractional multipliers. Used by Ore Amplifier to handle sub-100% generation rates.
+## 7. Dynamic GameRule Manager (v1.6.9+)
 
-### 7. Dynamic GameRule Manager (v1.6.9+)
-
-Allows seamless creation of GameRules with automatic English translation injection, completely avoiding the need for static `.json` language files.
+Allows seamless creation of GameRules with automatic English translation injection.
 - `registerInteger` / `registerBoolean`: Returns standard GameRules while caching human-readable translations.
-- `LanguageMixin`: Injects cached translations directly into Minecraft's `Language` map at load, keeping the UI clean.
+- `LanguageMixin`: Injects cached translations directly into Minecraft's `Language` map.
 - `DynamicGameRuleManager`: Centralized registry for non-static gamerules.
 
 ---

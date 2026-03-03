@@ -1,5 +1,23 @@
 # Release History
 
+## v1.6.9+build.13 - 2026-03-04
+
+- **Source Recovery**: Successfully restored the full feature set of `build.10` via high-fidelity decompilation. This process was necessary because local `build.10` source changes had not been synchronized with the Git repository during a transition, necessitating a recovery from the compiled JAR.
+- **API Adaptation**: Resolved critical type-safety issues in `DynamicGameRuleManager` caused by Mojang API changes in Snapshot 10.
+
+## v1.6.9+build.12 - 2026-03-04
+
+- **Systemic Refactor**: Overhauled `SocialRegistry` for O(1) shard-based performance and fixed critical unregistration memory leaks.
+- **Signal Evolution**: Converted `Signal` and `TickContext` into Java 25 `record`s for enhanced performance and immutability.
+- **Interface Injection**: Implemented `PathfinderMobMixin` providing robust `SocialEntity`, `GroupMember`, and `ProfileAware` support for vanilla entities.
+- **Protocol Compliance**: Injected mandatory Zenith Sovereign citations (`// Verified against: ...`) across all core API and implementation files.
+
+## v1.6.9+build.11 - 2026-03-03
+
+- **Project Rebuild**: Successfully rebuilt the entire project from decompiled sources with 1:1 logic parity.
+- **Zenith Protocol**: Integrated full Zenith compliance, including `withSourcesJar()` and proper artifact archiving.
+- **Documentation**: Synchronized all conceptual and technical documentation.
+
 ## v1.6.9+build.9 - 2026-02-21
 
 - **Fix**: Translation key mismatch — generated keys now use `Util.makeDescriptionId()` for correct `gamerule.minecraft.<path>` format. Cache-hit path also generates translations.

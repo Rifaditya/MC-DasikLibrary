@@ -1,32 +1,42 @@
 /*
- * Decompiled with CFR 0.152.
+ * Zenith Sovereign Engineering - Dasik Library
+ * Verified against: Goal.java (Snapshot 10)
  */
 package net.dasik.social.api;
 
-import net.dasik.social.api.SocialEntity;
-import net.dasik.social.api.TickContext;
-
+/**
+ * Represents a discrete behavioral task or state triggered by the social system.
+ */
 public interface SocialEvent {
+    /** @return Registry ID of the event. */
     public String getId();
 
+    /** @return Execution priority. Higher values preempt lower values on the same track. */
     public int getPriorityValue();
 
+    /** @return Track ID for mutual exclusion. */
     public String getTrackId();
 
-    public boolean canPreempt(SocialEvent var1);
+    /** @return True if this event can preempt the specified running event. */
+    public boolean canPreempt(SocialEvent otherEvent);
 
-    public void onStart(TickContext var1);
+    /** Called when the event is first scheduled. */
+    public void onStart(TickContext context);
 
-    public boolean tick(TickContext var1);
+    /** 
+     * Called every tick while active.
+     * @return True if the event should continue, false if it should terminate.
+     */
+    public boolean tick(TickContext context);
 
-    public void onEnd(SocialEntity var1, EndReason var2);
+    /** Called when the event ends. */
+    public void onEnd(SocialEntity entity, EndReason reason);
 
-    public static enum EndReason {
+    public enum EndReason {
         EXPIRED,
         PREEMPTED,
         CANCELLED,
-        ENTITY_DIED;
-
+        ENTITY_DIED
     }
 }
 
