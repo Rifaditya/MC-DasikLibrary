@@ -1,0 +1,36 @@
+
+> Configure project :
+Fabric Loom: 1.15.3
+
+> Task :clean
+
+> Task :compileJava FAILED
+E:\Minecraft Project\DasikLibrary\src\main\java\net\dasik\social\mixin\UniversalAgeableMixin.java:84: error: incompatible types: Optional<Boolean> cannot be converted to boolean
+        this.setUniversalBaby(compound.getBoolean("IsUniversalBaby"));
+                                                 ^
+Note: E:\Minecraft Project\DasikLibrary\src\main\java\net\dasik\social\core\SocialRegistry.java uses unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+1 error
+
+[Incubating] Problems report is available at: file:///E:/Minecraft%20Project/DasikLibrary/build/reports/problems/problems-report.html
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':compileJava'.
+> Compilation failed; see the compiler output below.
+  E:\Minecraft Project\DasikLibrary\src\main\java\net\dasik\social\mixin\UniversalAgeableMixin.java:84: error: incompatible types: Optional<Boolean> cannot be converted to boolean
+          this.setUniversalBaby(compound.getBoolean("IsUniversalBaby"));
+                                                   ^
+  Note: E:\Minecraft Project\DasikLibrary\src\main\java\net\dasik\social\core\SocialRegistry.java uses unchecked or unsafe operations.
+  Note: Recompile with -Xlint:unchecked for details.
+  Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+  1 error
+
+* Try:
+> Check your code and dependencies to fix the compilation error(s)
+> Run with --scan to generate a Build Scan (powered by Develocity).
+
+BUILD FAILED in 2s
+2 actionable tasks: 2 executed

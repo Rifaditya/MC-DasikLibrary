@@ -1,0 +1,17 @@
+<svg width="1000" height="250" viewBox="0 0 1000 250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Shadow filter for contrast against light backgrounds if necessary -->
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="3" dy="3" stdDeviation="2" flood-color="#000000" flood-opacity="0.8"/>
+    </filter>
+  </defs>
+
+  <g font-family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" text-anchor="middle">
+      
+      <!-- Text with Shadow and White Fill -->
+      <text x="500" y="150" font-size="100" fill="#FFFFFF" stroke="none" filter="url(#shadow)">DASIK LIBRARY</text>
+      
+      <!-- Tagline -->
+      <text x="500" y="200" font-size="30" font-weight="bold" letter-spacing="10" fill="#FFFFFF" opacity="0.9" filter="url(#shadow)">CORE MOD</text>
+  </g>
+</svg>
