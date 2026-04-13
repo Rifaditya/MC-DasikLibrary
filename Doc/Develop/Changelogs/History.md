@@ -1,3 +1,9 @@
+## [1.6.9+build.15] - 2026-04-13
+
+### Changed
+- **Migration**: Updated workspace to target Minecraft version `26.1.2` ("Tiny Takeover" Release).
+
+
 # Release History
 
 ## v1.6.9+build.13 - 2026-03-04

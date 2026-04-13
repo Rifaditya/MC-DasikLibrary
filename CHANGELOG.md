@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.6.9+build.15] - 2026-04-13
+
+### Changed
+- **Migration**: Updated workspace to target Minecraft version `26.1.2` ("Tiny Takeover" Release).
+
+## [1.6.9+build.14] - 2026-03-04
+
+### Added
+- **DynamicGameRuleManager UI Tooltips**: Refactored `DynamicGameRuleManager` to use a Builder pattern, allowing mods to supply custom localized names and descriptions (tooltips) for their gamerules.
+
+### Changed
+- **API**: Deprecated old static functional methods `registerInteger` and `registerBoolean` in favor of the new parameterized Builder pattern, keeping them entirely functional for backward compatibility.
+
 ## [1.6.9+build.13] - 2026-03-04
 
 ### Added

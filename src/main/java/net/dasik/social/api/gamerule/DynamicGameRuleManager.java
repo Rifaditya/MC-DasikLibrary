@@ -4,7 +4,6 @@
  */
 package net.dasik.social.api.gamerule;
 
-import com.mojang.brigadier.arguments.ArgumentType;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.serialization.Codec;
@@ -33,68 +32,172 @@ public class DynamicGameRuleManager {
         return GameRuleCategory.register(id);
     }
 
-    @SuppressWarnings("unchecked")
+    public static BooleanBuilder booleanRule(String ruleName, GameRuleCategory category, boolean defaultValue) {
+        return new BooleanBuilder(ruleName, category, defaultValue);
+    }
+
+    public static IntegerBuilder integerRule(String ruleName, GameRuleCategory category, int defaultValue) {
+        return new IntegerBuilder(ruleName, category, defaultValue);
+    }
+
+    /**
+     * @deprecated Use {@link #integerRule(String, GameRuleCategory, int)} instead.
+     */
+    @Deprecated
     public static GameRule<Integer> registerInteger(String ruleName, GameRuleCategory category, int defaultValue) {
-        if (DYNAMIC_RULES.containsKey(ruleName)) {
-            return (GameRule<Integer>) DYNAMIC_RULES.get(ruleName);
+        return integerRule(ruleName, category, defaultValue).register();
+    }
+
+    /**
+     * @deprecated Use {@link #booleanRule(String, GameRuleCategory, boolean)} instead.
+     */
+    @Deprecated
+    public static GameRule<Boolean> registerBoolean(String ruleName, GameRuleCategory category, boolean defaultValue) {
+        return booleanRule(ruleName, category, defaultValue).register();
+    }
+
+    public static class BooleanBuilder {
+        private final String ruleName;
+        private final GameRuleCategory category;
+        private final boolean defaultValue;
+        private String description;
+        private String readableName;
+
+        BooleanBuilder(String ruleName, GameRuleCategory category, boolean defaultValue) {
+            this.ruleName = ruleName;
+            this.category = category;
+            this.defaultValue = defaultValue;
+            this.readableName = generateReadableName(ruleName);
         }
-        Identifier id = Identifier.parse(ruleName);
-        GameRule<?> existing = BuiltInRegistries.GAME_RULE.getValue(id);
-        if (existing != null) {
-            DYNAMIC_RULES.put(ruleName, existing);
-            String key = Util.makeDescriptionId("gamerule", id);
-            GENERATED_TRANSLATIONS.putIfAbsent(key, generateReadableName(ruleName));
-            return (GameRule<Integer>) existing;
+
+        public BooleanBuilder description(String description) {
+            this.description = description;
+            return this;
         }
-        try {
-            GameRule<Integer> rule = Registry.register(BuiltInRegistries.GAME_RULE, ruleName, 
-                new GameRule<>(category, GameRuleType.INT, IntegerArgumentType.integer(0), 
-                GameRuleTypeVisitor::visitInteger, Codec.INT, i -> i, defaultValue, FeatureFlagSet.of()));
-            DYNAMIC_RULES.put(ruleName, rule);
+
+        public BooleanBuilder name(String readableName) {
+            this.readableName = readableName;
+            return this;
+        }
+
+        @SuppressWarnings("unchecked")
+        public GameRule<Boolean> register() {
+            if (DYNAMIC_RULES.containsKey(ruleName)) {
+                return (GameRule<Boolean>) DYNAMIC_RULES.get(ruleName);
+            }
+            Identifier id = Identifier.parse(ruleName);
+            GameRule<?> existing = BuiltInRegistries.GAME_RULE.getValue(id);
+            if (existing != null) {
+                DYNAMIC_RULES.put(ruleName, existing);
+                injectTranslations(id);
+                return (GameRule<Boolean>) existing;
+            }
+            try {
+                GameRule<Boolean> rule = Registry.register(BuiltInRegistries.GAME_RULE, ruleName, 
+                    new GameRule<>(category, GameRuleType.BOOL, BoolArgumentType.bool(), 
+                    GameRuleTypeVisitor::visitBoolean, Codec.BOOL, b -> b ? 1 : 0, defaultValue, FeatureFlagSet.of()));
+                DYNAMIC_RULES.put(ruleName, rule);
+                injectTranslations(id);
+                return rule;
+            } catch (IllegalStateException e) {
+                return null;
+            }
+        }
+
+        private void injectTranslations(Identifier id) {
             String translationKey = Util.makeDescriptionId("gamerule", id);
-            GENERATED_TRANSLATIONS.put(translationKey, generateReadableName(ruleName));
-            return rule;
-        } catch (IllegalStateException e) {
-            return null;
+            GENERATED_TRANSLATIONS.put(translationKey, readableName);
+            if (description != null) {
+                GENERATED_TRANSLATIONS.put(translationKey + ".description", description);
+            }
         }
     }
 
-    @SuppressWarnings("unchecked")
-    public static GameRule<Boolean> registerBoolean(String ruleName, GameRuleCategory category, boolean defaultValue) {
-        if (DYNAMIC_RULES.containsKey(ruleName)) {
-            return (GameRule<Boolean>) DYNAMIC_RULES.get(ruleName);
+    public static class IntegerBuilder {
+        private final String ruleName;
+        private final GameRuleCategory category;
+        private final int defaultValue;
+        private int min = 0;
+        private int max = Integer.MAX_VALUE;
+        private String description;
+        private String readableName;
+
+        IntegerBuilder(String ruleName, GameRuleCategory category, int defaultValue) {
+            this.ruleName = ruleName;
+            this.category = category;
+            this.defaultValue = defaultValue;
+            this.readableName = generateReadableName(ruleName);
         }
-        Identifier id = Identifier.parse(ruleName);
-        GameRule<?> existing = BuiltInRegistries.GAME_RULE.getValue(id);
-        if (existing != null) {
-            DYNAMIC_RULES.put(ruleName, existing);
-            String key = Util.makeDescriptionId("gamerule", id);
-            GENERATED_TRANSLATIONS.putIfAbsent(key, generateReadableName(ruleName));
-            return (GameRule<Boolean>) existing;
+
+        public IntegerBuilder description(String description) {
+            this.description = description;
+            return this;
         }
-        try {
-            GameRule<Boolean> rule = Registry.register(BuiltInRegistries.GAME_RULE, ruleName, 
-                new GameRule<>(category, GameRuleType.BOOL, BoolArgumentType.bool(), 
-                GameRuleTypeVisitor::visitBoolean, Codec.BOOL, b -> b ? 1 : 0, defaultValue, FeatureFlagSet.of()));
-            DYNAMIC_RULES.put(ruleName, rule);
+
+        public IntegerBuilder name(String readableName) {
+            this.readableName = readableName;
+            return this;
+        }
+
+        public IntegerBuilder min(int min) {
+            this.min = min;
+            return this;
+        }
+
+        public IntegerBuilder max(int max) {
+            this.max = max;
+            return this;
+        }
+
+        public IntegerBuilder range(int min, int max) {
+            this.min = min;
+            this.max = max;
+            return this;
+        }
+
+        @SuppressWarnings("unchecked")
+        public GameRule<Integer> register() {
+            if (DYNAMIC_RULES.containsKey(ruleName)) {
+                return (GameRule<Integer>) DYNAMIC_RULES.get(ruleName);
+            }
+            Identifier id = Identifier.parse(ruleName);
+            GameRule<?> existing = BuiltInRegistries.GAME_RULE.getValue(id);
+            if (existing != null) {
+                DYNAMIC_RULES.put(ruleName, existing);
+                injectTranslations(id);
+                return (GameRule<Integer>) existing;
+            }
+            try {
+                GameRule<Integer> rule = Registry.register(BuiltInRegistries.GAME_RULE, ruleName, 
+                    new GameRule<>(category, GameRuleType.INT, IntegerArgumentType.integer(min, max), 
+                    GameRuleTypeVisitor::visitInteger, Codec.intRange(min, max), i -> i, defaultValue, FeatureFlagSet.of()));
+                DYNAMIC_RULES.put(ruleName, rule);
+                injectTranslations(id);
+                return rule;
+            } catch (IllegalStateException e) {
+                return null;
+            }
+        }
+
+        private void injectTranslations(Identifier id) {
             String translationKey = Util.makeDescriptionId("gamerule", id);
-            GENERATED_TRANSLATIONS.put(translationKey, generateReadableName(ruleName));
-            return rule;
-        } catch (IllegalStateException e) {
-            return null;
+            GENERATED_TRANSLATIONS.put(translationKey, readableName);
+            if (description != null) {
+                GENERATED_TRANSLATIONS.put(translationKey + ".description", description);
+            }
         }
     }
 
     public static int getInt(Level level, GameRule<Integer> rule) {
-        if (level instanceof ServerLevel serverLevel) {
-            return serverLevel.getGameRules().get(rule);
+        if (level instanceof ServerLevel) {
+            return ((ServerLevel) level).getGameRules().get(rule);
         }
         return 0;
     }
 
     public static boolean getBoolean(Level level, GameRule<Boolean> rule) {
-        if (level instanceof ServerLevel serverLevel) {
-            return serverLevel.getGameRules().get(rule);
+        if (level instanceof ServerLevel) {
+            return ((ServerLevel) level).getGameRules().get(rule);
         }
         return false;
     }
@@ -122,6 +225,11 @@ public class DynamicGameRuleManager {
         for (int i = 0; i < parts.length; ++i) {
             String part = parts[i];
             if (part.isEmpty()) continue;
+            // Remove 'truesleep:' or similar prefixes
+            if (part.contains(":")) {
+                part = part.substring(part.indexOf(":") + 1);
+                if (part.isEmpty()) continue;
+            }
             readable.append(Character.toUpperCase(part.charAt(0))).append(part.substring(1));
             if (i < parts.length - 1) {
                 readable.append(" ");

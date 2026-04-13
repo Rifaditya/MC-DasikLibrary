@@ -53,3 +53,11 @@ jar {
         rename { "${it}_${project.archives_base_name}" }
     }
 }
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
