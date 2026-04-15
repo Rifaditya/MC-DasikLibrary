@@ -37,6 +37,9 @@ public abstract class PathfinderMobMixin extends Mob implements SocialEntity, Gr
     @Unique
     private LivingEntity dasik$leader;
 
+    @Unique
+    private net.dasik.social.core.group.FlockState dasik$flockState;
+
     protected PathfinderMobMixin(EntityType<? extends Mob> entityType, Level level) {
         super(entityType, level);
     }
@@ -97,6 +100,16 @@ public abstract class PathfinderMobMixin extends Mob implements SocialEntity, Gr
     @Override
     public int getGroupSize() {
         return 1; // Default
+    }
+
+    @Override
+    public net.dasik.social.core.group.FlockState getFlockState() {
+        return this.dasik$flockState;
+    }
+
+    @Override
+    public void setFlockState(net.dasik.social.core.group.FlockState state) {
+        this.dasik$flockState = state;
     }
 
     @Override

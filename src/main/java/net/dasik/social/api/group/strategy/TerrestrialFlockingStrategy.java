@@ -23,7 +23,15 @@ public class TerrestrialFlockingStrategy implements FlockingStrategy {
         PathNavigation navigation = groundedMob.getNavigation();
 
         if (distSq < (double)(params.separationRadius() * params.separationRadius())) {
-            navigation.stop();
+            double distance = Math.sqrt(distSq);
+            // Distance-Based Linear Interpolation (Lerp) on the speedModifier.
+            double speedMod = params.maxSpeed() * (distance / params.separationRadius());
+            
+            if (distance < 0.5) {
+                navigation.stop(); // Only fully stop if extremely close to prevent pushing/jitter
+            } else {
+                navigation.moveTo(leader, speedMod);
+            }
             return;
         }
 

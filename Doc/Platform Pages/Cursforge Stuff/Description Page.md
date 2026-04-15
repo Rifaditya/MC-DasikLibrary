@@ -44,16 +44,19 @@ A standardized way for entities to communicate.
 
 - **Better Dogs**: Uses Dasik to handle Pack mechanics, howling, and wild wolf leader-follower logic.
 
-### 🐺 Leader-Follower API
+### 🐺 Leader-Follower API (Cached Boids)
 
-Built-in boids algorithm and grounded flocking support. Mods can simply implement `GroupMember` to gain instant swarming/flocking behaviors.
+The most advanced flocking API in the Fabric ecosystem.
+- **Cached Boids Pattern**: Supports massive swarms (100+ entities) with minimal CPU usage by pre-calculating group data on the Leader.
+- **Biomechanical Logic**: Alignment, Cohesion, and Separation steering for organic movement.
+- **Snapshot 26.1 Native**: Fully utilizes `WAYPOINT_TRANSMIT_RANGE` and `WAYPOINT_RECEIVE_RANGE` attributes.
 
 ---
 
 ## 📦 Install
 
 1. Install **[Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)**.
-2. Download `dasik-library-1.6.9+build.4.jar` (or latest) and place it in your `mods` folder.
+2. Download `dasik-library-1.6.9+build.16.jar` (or latest) and place it in your `mods` folder.
 3. *Required by all Vanilla Outsider mods.*
 
 ---

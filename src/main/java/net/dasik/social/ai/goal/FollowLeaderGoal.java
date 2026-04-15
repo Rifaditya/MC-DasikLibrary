@@ -42,7 +42,7 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
         }
         if (this.ticksSinceManagerCheck++ > 30 + this.mob.getRandom().nextInt(20)) {
             this.ticksSinceManagerCheck = 0;
-            GroupManager.findAndSetLeader(this.mob, this.searchRadius);
+            GroupManager.findAndSetLeader(this.mob, this.getReceiveRange(this.mob));
         }
         @SuppressWarnings("unchecked")
         T leader = (T) ((GroupMember) this.mob).getLeader();
@@ -63,16 +63,32 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
         if (leader == null || !leader.isAlive()) {
             return false;
         }
-        if (this.mob != null && this.mob.distanceToSqr(leader) > Math.pow(this.searchRadius * 3.0, 2.0)) {
+        double range = Math.max(this.getTransmitRange(leader), this.getReceiveRange(this.mob));
+        if (this.mob != null && this.mob.distanceToSqr(leader) > range * range) {
             ((GroupMember) this.mob).setLeader(null);
             return false;
         }
         return true;
     }
 
+    private double getTransmitRange(LivingEntity leader) {
+        if (leader != null && leader.getAttributes().hasAttribute(net.minecraft.world.entity.ai.attributes.Attributes.WAYPOINT_TRANSMIT_RANGE)) {
+            return leader.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.WAYPOINT_TRANSMIT_RANGE);
+        }
+        return this.searchRadius * 3.0; // Fallback to original logic
+    }
+
+    private double getReceiveRange(LivingEntity follower) {
+        if (follower != null && follower.getAttributes().hasAttribute(net.minecraft.world.entity.ai.attributes.Attributes.WAYPOINT_RECEIVE_RANGE)) {
+            return follower.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.WAYPOINT_RECEIVE_RANGE);
+        }
+        return this.searchRadius; // Fallback to original logic
+    }
+
     @Override
     public void start() {
-        this.timeToRecalcPath = 0;
+        // Tick Staggering: Offset the path recalc so flock members don't lag spike the server on the same tick
+        this.timeToRecalcPath = this.mob.getId() % 10;
     }
 
     @Override
@@ -94,6 +110,15 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
         }
         if (--this.timeToRecalcPath <= 0) {
             this.timeToRecalcPath = this.adjustedTickDelay(10);
+            
+            GroupMember leaderGM = (GroupMember) leader;
+            net.dasik.social.core.group.FlockState state = leaderGM.getFlockState();
+            
+            // Periodically compute flock state on behalf of the leader if it's outdated
+            if (state == null || this.mob.level().getGameTime() - state.getLastUpdateTime() > 20) {
+                GroupManager.computeFlockState(leader, this.getTransmitRange(leader));
+            }
+            
             this.defaultStrategy.execute(this.mob, leader, this.parameters);
         }
     }

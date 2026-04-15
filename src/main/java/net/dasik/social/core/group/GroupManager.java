@@ -62,5 +62,39 @@ public class GroupManager {
             memberInterface.setLeader(null);
         }
     }
+    public static void computeFlockState(LivingEntity leader, double searchRadius) {
+        if (leader == null || !leader.isAlive()) return;
+        
+        GroupMember leaderMember = (GroupMember) leader;
+        net.dasik.social.core.group.FlockState state = leaderMember.getFlockState();
+        if (state == null) {
+            state = new net.dasik.social.core.group.FlockState();
+            leaderMember.setFlockState(state);
+        }
+
+        AABB box = leader.getBoundingBox().inflate(searchRadius);
+        List<LivingEntity> flock = leader.level().getEntitiesOfClass(
+            LivingEntity.class, 
+            box, 
+            e -> e.isAlive() && e instanceof GroupMember gm && gm.hasLeader() && gm.getLeader() == leader
+        );
+        
+        flock.add(leader);
+
+        net.minecraft.world.phys.Vec3 com = net.minecraft.world.phys.Vec3.ZERO;
+        net.minecraft.world.phys.Vec3 avgVel = net.minecraft.world.phys.Vec3.ZERO;
+
+        for (LivingEntity entity : flock) {
+            com = com.add(entity.position());
+            avgVel = avgVel.add(entity.getDeltaMovement());
+        }
+
+        com = com.scale(1.0 / flock.size());
+        avgVel = avgVel.scale(1.0 / flock.size());
+
+        state.setCenterOfMass(com);
+        state.setAverageVelocity(avgVel);
+        state.setLastUpdateTime(leader.level().getGameTime());
+    }
 }
 

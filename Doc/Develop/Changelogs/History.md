@@ -1,3 +1,10 @@
+## [1.6.9+build.16] - 2026-04-15
+- **Cached Boids Pattern**: Implemented `FlockState` to shift from $O(N^2)$ sibling polling to $O(N)$ aggregated state computation, drastically reducing server overhead for large swarms.
+- **Biomechanical Refactor**: Rewrote `AerialFlockingStrategy` with proper Alignment, Cohesion, and Separation steering.
+- **Movement Smoothing**: Replaced terrestrial `navigation.stop()` with Distance-Based Linear Interpolation (Lerp) for jitter-free ground following.
+- **Snapshot 26.1 Alignment**: Integrated native support for `Attributes.WAYPOINT_TRANSMIT_RANGE` and `Attributes.WAYPOINT_RECEIVE_RANGE`.
+- **Optimization**: Implemented Tick Staggering in `FollowLeaderGoal` to distribute AI load evenly across the tick loop.
+
 ## [1.6.9+build.15] - 2026-04-13
 
 ### Changed

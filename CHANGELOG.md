@@ -1,9 +1,21 @@
 # Changelog
 
+## [1.6.9+build.16] - 2026-04-15
+
+### Added
+- **Cached Boids Pattern**: Implemented `FlockState` and `computeFlockState` to shift from $O(N^2)$ calculations to efficient $O(N)$ aggregated state computation.
+- **Biomechanical Steering**: Full Alignment, Cohesion, and Separation logic for `AerialFlockingStrategy`.
+- **Snapshot 26.1 Attributes**: Native integration with `Attributes.WAYPOINT_TRANSMIT_RANGE` and `Attributes.WAYPOINT_RECEIVE_RANGE`.
+
+### Changed
+- **Performance**: Implemented Tick Staggering in `FollowLeaderGoal` to spread AI load over 10 ticks.
+- **Movement Smoothing**: Switched `TerrestrialFlockingStrategy` to Distance-Based Linear Interpolation (Lerp) for smoother ground movement.
+
 ## [1.6.9+build.15] - 2026-04-13
 
 ### Changed
 - **Migration**: Updated workspace to target Minecraft version `26.1.2` ("Tiny Takeover" Release).
+- **API Break Fix**: Remapped `DynamicGameRuleManager` gamerule retrievals. `Level` and `ClientLevel` no longer natively carry `getGameRules()`. Wrapped getters downstream to correctly filter and cast into `ServerLevel` bound logic.
 
 ## [1.6.9+build.14] - 2026-03-04
 

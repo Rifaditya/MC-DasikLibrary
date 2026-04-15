@@ -6,6 +6,7 @@ package net.dasik.social.api.group;
 
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
+import net.dasik.social.core.group.FlockState;
 
 /**
  * Interface for entities that can participate in flocking or group behaviors.
@@ -21,5 +22,13 @@ public interface GroupMember {
     public int getGroupSize();
 
     public FlockType getFlockType();
+
+    @Nullable
+    default FlockState getFlockState() {
+        return null;
+    }
+
+    default void setFlockState(@Nullable FlockState state) {
+    }
 }
 

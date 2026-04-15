@@ -8,10 +8,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.phys.Vec3;
+import net.dasik.social.api.group.GroupMember;
+import net.dasik.social.core.group.FlockState;
+import java.util.List;
 
 /**
  * Flocking strategy for flying entities.
- * Focuses on 3D spatial positioning and world avoidance.
+ * Focuses on 3D spatial positioning and world avoidance using the Cached Boids Pattern.
  */
 public class AerialFlockingStrategy implements FlockingStrategy {
     @Override
@@ -20,17 +23,48 @@ public class AerialFlockingStrategy implements FlockingStrategy {
             return;
         }
 
-        Vec3 leaderPos = leader.position();
+        GroupMember leaderGM = (GroupMember) leader;
+        FlockState state = leaderGM.getFlockState();
+        if (state == null) {
+            // Fallback while waiting for GroupManager compute
+            Vec3 fallbackDir = leader.position().subtract(bat.position());
+            if (fallbackDir.lengthSqr() > params.cohesionRadius() * params.cohesionRadius()) {
+                bat.setDeltaMovement(bat.getDeltaMovement().add(fallbackDir.normalize().scale(0.05)));
+            }
+            return; 
+        }
+
         Vec3 myPos = bat.position();
-        Vec3 delta = leaderPos.subtract(myPos);
-        double distSq = delta.lengthSqr();
         Vec3 newVelocity = bat.getDeltaMovement();
 
-        if (distSq > (double)(params.cohesionRadius() * params.cohesionRadius())) {
-            newVelocity = newVelocity.add(delta.normalize().scale(0.05));
+        // Cohesion: Steer towards the flock's center of mass
+        Vec3 com = state.getCenterOfMass();
+        Vec3 cohesionDir = com.subtract(myPos);
+        double distToComSq = cohesionDir.lengthSqr();
+        
+        if (distToComSq > (double)(params.cohesionRadius() * params.cohesionRadius())) {
+            newVelocity = newVelocity.add(cohesionDir.normalize().scale(0.05));
         }
-        if (distSq < (double)(params.separationRadius() * params.separationRadius())) {
-            newVelocity = newVelocity.subtract(delta.normalize().scale(0.1));
+
+        // Alignment: Steer towards the flock's average velocity
+        Vec3 avgVel = state.getAverageVelocity();
+        if (avgVel.lengthSqr() > 0.001) {
+            newVelocity = newVelocity.add(avgVel.normalize().scale(0.05));
+        }
+
+        // Separation: Fast proximity check against immediately nearby entities (radius 1.0)
+        List<LivingEntity> peers = bat.level().getEntitiesOfClass(
+            LivingEntity.class, 
+            bat.getBoundingBox().inflate(1.0), 
+            e -> e != bat && e.isAlive()
+        );
+
+        for (LivingEntity peer : peers) {
+            Vec3 avoidDir = myPos.subtract(peer.position());
+            double distSq = avoidDir.lengthSqr();
+            if (distSq < 1.0 && distSq > 0.0001) {
+                newVelocity = newVelocity.add(avoidDir.normalize().scale(0.1 / Math.sqrt(distSq)));
+            }
         }
 
         BlockPos pos = bat.blockPosition();
