@@ -20,7 +20,7 @@ import net.minecraft.world.entity.ai.goal.Goal;
  */
 public class FollowLeaderGoal<T extends Mob> extends Goal {
     protected final T mob;
-    protected final GroupParameters parameters;
+    protected GroupParameters parameters;
     protected final double searchRadius;
     protected final FlockingStrategy defaultStrategy;
     protected int timeToRecalcPath = 0;
@@ -33,6 +33,15 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
         this.defaultStrategy = mob != null && ((GroupMember) mob).getFlockType() == FlockType.AERIAL 
             ? Strategies.AERIAL : Strategies.TERRESTRIAL;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+    }
+
+    /**
+     * Updates the flocking parameters at runtime.
+     * Safe to call periodically (e.g., on GameRule change) from a subclass tick.
+     * Verified against: FollowLeaderGoal.java (26.*)
+     */
+    public void setParameters(GroupParameters parameters) {
+        this.parameters = parameters;
     }
 
     @Override

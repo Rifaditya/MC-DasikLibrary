@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.6.9+build.22] - 2026-04-16
+
+### Changed
+- **Dynamic AI Parameters**: Removed `final` modifier from `FollowLeaderGoal.parameters`, enabling runtime AI behavior shifts without goal reconstruction.
+- **New API**: Added `FollowLeaderGoal.setParameters(GroupParameters)` — allows subclasses and consumer mods to update flocking parameters live (e.g., from a GameRule change).
+
+## [1.6.9+build.21] - 2026-04-16
+
+### Added
+- **FlockState API Expansion**: Added `memberCount` field and accessors to `FlockState`.
+- **Infrastructure**: `GroupManager.computeFlockState()` now automatically calculates and caches the total member count of a pack, allowing mods to read the size without performing $O(N)$ entity searches.
+
+## [1.6.9+build.20] - 2026-04-15
+
+### Changed
+- **Infrastructure**: Upgraded Fabric Loader to `0.19.1` to provide native support for **Java 25** Mixins.
+- **Sovereign Compliance**: Restored `compatibilityLevel: "JAVA_25"` in `dasik-library.mixins.json`, removing all Knot/Fabric subsystem warnings.
+- **Dependencies**: Synchronized with Fabric API `0.145.4+26.1.2`.
+
 ## [1.6.9+build.16] - 2026-04-15
 
 ### Added

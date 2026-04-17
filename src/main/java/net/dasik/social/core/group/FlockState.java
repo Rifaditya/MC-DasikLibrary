@@ -14,6 +14,8 @@ public class FlockState {
     private Vec3 centerOfMass = Vec3.ZERO;
     private Vec3 averageVelocity = Vec3.ZERO;
     private long lastUpdateTime = 0;
+    /** Cached member count (includes the leader). Updated by GroupManager.computeFlockState(). */
+    private int memberCount = 1;
 
     public Vec3 getCenterOfMass() {
         return centerOfMass;
@@ -37,5 +39,14 @@ public class FlockState {
 
     public void setLastUpdateTime(long lastUpdateTime) {
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    /** Returns the number of entities in this flock (leader + followers). */
+    public int getMemberCount() {
+        return memberCount;
+    }
+
+    public void setMemberCount(int memberCount) {
+        this.memberCount = memberCount;
     }
 }

@@ -94,6 +94,7 @@ public class GroupManager {
 
         state.setCenterOfMass(com);
         state.setAverageVelocity(avgVel);
+        state.setMemberCount(flock.size());
         state.setLastUpdateTime(leader.level().getGameTime());
     }
 }
