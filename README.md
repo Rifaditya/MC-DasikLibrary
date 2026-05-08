@@ -15,7 +15,7 @@ Instead of each mod duplicating social AI code, Dasik Library provides:
 - **GlobalSocialSystem** - Single pulse engine using Highlander Rule (only one tick per game tick)
 - **SocialRegistry** - Shard-based O(1) entity tracking with automated memory management
 - **EntitySocialScheduler** - Per-entity dual-track scheduler (Mood & Ambient)
-- **Current Version**: `1.6.9+build.13` (Snapshot 26.1)
+- **Current Version**: `1.6.9+build.23` (Snapshot 26.1)
 - **Leader-Follower API** - Generalized flocking and swarming with modular strategies (Aerial/Terrestrial)
 - **DynamicGameRuleManager** - Generate infinite GameRules dynamically with automatic runtime English translation injection.
 

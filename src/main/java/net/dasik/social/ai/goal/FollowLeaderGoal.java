@@ -14,6 +14,7 @@ import net.dasik.social.core.group.GroupManager;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.level.pathfinder.PathType;
 
 /**
  * AI goal for entities to follow a designated group leader using specific flocking strategies.
@@ -25,6 +26,7 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
     protected final FlockingStrategy defaultStrategy;
     protected int timeToRecalcPath = 0;
     protected int ticksSinceManagerCheck = 0;
+    protected float oldWaterCost;
 
     public FollowLeaderGoal(T mob, GroupParameters parameters, double searchRadius) {
         this.mob = mob;
@@ -98,6 +100,8 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
     public void start() {
         // Tick Staggering: Offset the path recalc so flock members don't lag spike the server on the same tick
         this.timeToRecalcPath = this.mob.getId() % 10;
+        this.oldWaterCost = this.mob.getPathfindingMalus(PathType.WATER);
+        this.mob.setPathfindingMalus(PathType.WATER, 0.0F);
     }
 
     @Override
@@ -105,6 +109,7 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
         if (this.mob != null && ((GroupMember) this.mob).getFlockType() == FlockType.TERRESTRIAL) {
             this.mob.getNavigation().stop();
         }
+        this.mob.setPathfindingMalus(PathType.WATER, this.oldWaterCost);
         this.timeToRecalcPath = 0;
     }
 

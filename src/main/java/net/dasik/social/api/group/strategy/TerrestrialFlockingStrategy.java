@@ -4,9 +4,14 @@
  */
 package net.dasik.social.api.group.strategy;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
+import net.minecraft.world.level.block.LeavesBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 
 /**
  * Flocking strategy for land-bound entities.
@@ -21,6 +26,11 @@ public class TerrestrialFlockingStrategy implements FlockingStrategy {
 
         double distSq = groundedMob.distanceToSqr(leader);
         PathNavigation navigation = groundedMob.getNavigation();
+
+        if (params.canTeleport() && distSq >= params.teleportDistance()) {
+            this.tryToTeleportToLeader(groundedMob, leader);
+            return;
+        }
 
         if (distSq < (double)(params.separationRadius() * params.separationRadius())) {
             double distance = Math.sqrt(distSq);
@@ -44,6 +54,46 @@ public class TerrestrialFlockingStrategy implements FlockingStrategy {
         } else if (groundedMob.getRandom().nextInt(10) == 0) {
             navigation.stop();
             groundedMob.getLookControl().setLookAt(leader, 10.0f, (float)groundedMob.getMaxHeadXRot());
+        }
+    }
+
+    protected void tryToTeleportToLeader(Mob mob, LivingEntity leader) {
+        BlockPos targetPos = leader.blockPosition();
+        for (int attempt = 0; attempt < 10; attempt++) {
+            int xd = mob.getRandom().nextIntBetweenInclusive(-3, 3);
+            int zd = mob.getRandom().nextIntBetweenInclusive(-3, 3);
+            if (Math.abs(xd) >= 2 || Math.abs(zd) >= 2) {
+                int yd = mob.getRandom().nextIntBetweenInclusive(-1, 1);
+                if (this.maybeTeleportTo(mob, targetPos.getX() + xd, targetPos.getY() + yd, targetPos.getZ() + zd)) {
+                    return;
+                }
+            }
+        }
+    }
+
+    private boolean maybeTeleportTo(Mob mob, int x, int y, int z) {
+        BlockPos pos = new BlockPos(x, y, z);
+        if (!this.canTeleportTo(mob, pos)) {
+            return false;
+        } else {
+            mob.snapTo((double)x + 0.5, (double)y, (double)z + 0.5, mob.getYRot(), mob.getXRot());
+            mob.getNavigation().stop();
+            return true;
+        }
+    }
+
+    private boolean canTeleportTo(Mob mob, BlockPos pos) {
+        PathType pathType = WalkNodeEvaluator.getPathTypeStatic(mob, pos);
+        if (pathType != PathType.WALKABLE) {
+            return false;
+        } else {
+            BlockState blockStateBelow = mob.level().getBlockState(pos.below());
+            if (blockStateBelow.getBlock() instanceof LeavesBlock) {
+                return false;
+            } else {
+                BlockPos delta = pos.subtract(mob.blockPosition());
+                return mob.level().noCollision(mob, mob.getBoundingBox().move(delta));
+            }
         }
     }
 }

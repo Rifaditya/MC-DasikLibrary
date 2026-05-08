@@ -1,3 +1,7 @@
+## [1.6.9+build.23] - 2026-04-22
+- **Leader Teleportation**: `FollowLeaderGoal` and Flocking Strategies now support teleportation when followers fall too far behind (default: 144 blocks sq), matching vanilla wolf parity.
+- **Water Navigation**: Terrestrial group members now temporarily ignore water pathfinding penalties when following a leader across bodies of water.
+
 ## [1.6.9+build.16] - 2026-04-15
 - **Cached Boids Pattern**: Implemented `FlockState` to shift from $O(N^2)$ sibling polling to $O(N)$ aggregated state computation, drastically reducing server overhead for large swarms.
 - **Biomechanical Refactor**: Rewrote `AerialFlockingStrategy` with proper Alignment, Cohesion, and Separation steering.

@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.6.9+build.24] - 2026-05-08
+
+### Added
+- **Enchantment API**: Added `DynamicEnchantmentManager` to handle GameRule-based enchantment capping in Mixins.
+- **Projectile API**: Added `ProjectileEffectHelper` to encapsulate threshold-based high-velocity effects (Sonic Juice).
+
+## [1.6.9+build.23] - 2026-04-22
+
+### Added
+- **Leader Teleportation**: `FollowLeaderGoal` and Flocking Strategies now support teleportation when followers fall too far behind (default: 144 blocks sq), matching vanilla wolf parity.
+- **Water Navigation**: Terrestrial group members now temporarily ignore water pathfinding penalties when following a leader across bodies of water.
+
 ## [1.6.9+build.22] - 2026-04-16
 
 ### Changed
