@@ -83,7 +83,7 @@ publishMods {
     github {
         repository = project.github_repo
         accessToken = providers.environmentVariable("GITHUB_TOKEN")
-        commitish = providers.environmentVariable("GITHUB_SHA").orElse("main")
+        commitish = providers.environmentVariable("GITHUB_SHA").orElse("master")
         tagName = project.mod_version
     }
 }
