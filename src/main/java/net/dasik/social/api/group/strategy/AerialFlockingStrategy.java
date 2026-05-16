@@ -49,27 +49,27 @@ public class AerialFlockingStrategy implements FlockingStrategy {
         double distToComSq = cohesionDir.lengthSqr();
         
         if (distToComSq > (double)(params.cohesionRadius() * params.cohesionRadius())) {
-            newVelocity = newVelocity.add(cohesionDir.normalize().scale(0.05));
+            newVelocity = newVelocity.add(cohesionDir.normalize().scale(params.cohesionWeight()));
         }
 
         // Alignment: Steer towards the flock's average velocity
         Vec3 avgVel = state.getAverageVelocity();
         if (avgVel.lengthSqr() > 0.001) {
-            newVelocity = newVelocity.add(avgVel.normalize().scale(0.05));
+            newVelocity = newVelocity.add(avgVel.normalize().scale(params.alignmentWeight()));
         }
 
-        // Separation: Fast proximity check against immediately nearby entities (radius 1.0)
+        // Separation: Proximity check against immediately nearby entities
         List<LivingEntity> peers = bat.level().getEntitiesOfClass(
             LivingEntity.class, 
-            bat.getBoundingBox().inflate(1.0), 
+            bat.getBoundingBox().inflate(params.separationRadius()), 
             e -> e != bat && e.isAlive()
         );
 
         for (LivingEntity peer : peers) {
             Vec3 avoidDir = myPos.subtract(peer.position());
             double distSq = avoidDir.lengthSqr();
-            if (distSq < 1.0 && distSq > 0.0001) {
-                newVelocity = newVelocity.add(avoidDir.normalize().scale(0.1 / Math.sqrt(distSq)));
+            if (distSq < (double)(params.separationRadius() * params.separationRadius()) && distSq > 0.0001) {
+                newVelocity = newVelocity.add(avoidDir.normalize().scale(params.separationWeight() / Math.sqrt(distSq)));
             }
         }
 

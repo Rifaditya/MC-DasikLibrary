@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.7.0] - 2026-05-11
+
+### Added
+- **Parameterized Boids Weights**: Added `alignmentWeight`, `cohesionWeight`, and `separationWeight` to `GroupParameters` for advanced aerial murmuration control.
+- **Movement Stability Triggers**: Integrated `startDistance` and `stopDistance` logic into `FollowLeaderGoal`. Entities now only engage movement logic when a significant threshold is reached, reducing pathfinding overhead and jitter.
+
+### Changed
+- **API (Breaking)**: Updated `GroupParameters` record to include Boids weights and distance triggers. Consumer mods must update constructor calls to `1.7.0` specification.
+- **Aerial Refinement**: `AerialFlockingStrategy` now utilizes the new weighted Boids parameters, enabling realistic "Starlings" style murmuration behavior for flying entities.
+- **Terrestrial Optimization**: Land-bound flocking now respects the `stopDistance` parameter to prevent pushing/jittering when at the destination.
+
 ## [1.6.9+build.24] - 2026-05-08
 
 ### Added

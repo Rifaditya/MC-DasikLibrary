@@ -57,7 +57,10 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
         }
         @SuppressWarnings("unchecked")
         T leader = (T) ((GroupMember) this.mob).getLeader();
-        return this.isValidLeader(leader);
+        if (!this.isValidLeader(leader)) {
+            return false;
+        }
+        return this.mob.distanceToSqr(leader) > (double)(this.parameters.startDistance() * this.parameters.startDistance());
     }
 
     @Override
@@ -67,7 +70,10 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
         }
         @SuppressWarnings("unchecked")
         T leader = (T) ((GroupMember) this.mob).getLeader();
-        return this.isValidLeader(leader);
+        if (!this.isValidLeader(leader)) {
+            return false;
+        }
+        return this.mob.distanceToSqr(leader) > (double)(this.parameters.stopDistance() * this.parameters.stopDistance());
     }
 
     protected boolean isValidLeader(T leader) {
