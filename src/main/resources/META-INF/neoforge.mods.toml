@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[2,)"
+license="GPL-3.0-or-later"
+issueTrackerURL="https://github.com/Dasik/Instant-Gratification-dasik-library"
+
+[[mods]]
+modId="dasiklibrary"
+version="1.0.0+build.1"
+displayName="DasikLibrary NF"
+authors="Dasik (Rifaditya)"
+description="NeoForge implementation of Dasik Library"
+logoFile="assets/dasiklibrary/icon.png"
+
+[[dependencies."dasiklibrary"]]
+    modId="neoforge"
+    type="required"
+    versionRange="[26.1.2,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies."dasiklibrary"]]
+    modId="minecraft"
+    type="required"
+    versionRange="[26.1.2,)"
+    ordering="NONE"
+    side="BOTH"

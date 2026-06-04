@@ -1,0 +1,100 @@
+plugins {
+    id 'net.neoforged.moddev' version '2.0.+'
+    id 'maven-publish'
+    id 'me.modmuss50.mod-publish-plugin' version '2.0.0-beta.1'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+        name = 'ParchmentMC'
+        url = 'https://maven.parchmentmc.org'
+    }
+}
+
+dependencies {
+}
+
+neoForge {
+    version = project.neoforge_version
+    mods {
+        "dasiklibrary" {
+            sourceSet project.sourceSets.main
+        }
+    }
+}
+
+processResources {
+    inputs.property "version", project.version
+    inputs.property "minecraft_version", project.minecraft_version
+    filesMatching("META-INF/neoforge.mods.toml") {
+        expand "version": project.version,
+               "minecraft_version": project.minecraft_version
+    }
+}
+
+java {
+    withSourcesJar()
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 25
+}
+
+jar {
+    from("LICENSE") {
+        rename { String name -> name + "_" + project.archives_base_name }
+    }
+}
+
+publishMods {
+    file = jar.archiveFile
+    additionalFiles.from(sourcesJar.archiveFile)
+    changelog = "Build " + project.mod_version + ": Initial Release"
+    type = STABLE
+    modLoaders.add("neoforge")
+
+    modrinth {
+        projectId = project.modrinth_id
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        minecraftVersions.add(project.minecraft_version)
+        requires {
+            slug = "neoforge"
+        }
+    }
+
+    curseforge {
+        projectId = project.curseforge_id
+        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+        minecraftVersions.add(project.minecraft_version)
+        requires {
+            slug = "neoforge"
+        }
+    }
+
+    github {
+        repository = project.github_repo
+        accessToken = providers.environmentVariable("GITHUB_TOKEN")
+        commitish = providers.environmentVariable("GITHUB_SHA").orElse("master")
+        tagName = project.mod_version
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+}
