@@ -1,5 +1,39 @@
 # Changelog
 
+## [1.8.0] - 2026-06-04
+
+### Added
+- **Genetics & Breeding API**: Introduced a generic, entity-agnostic, and attribute-agnostic genetics registry and calculation engine (`net.dasik.social.api.genetics`).
+- **EntityGenetics Attachment**: Registered standard persistent Fabric Attachment `dasik-library:genetics` to track parent UUIDs, inbreeding state, and dynamic trait modifiers across world save cycles.
+- **Inbreeding Verification & Outcross Recovery**: Added standard calculation formulas for triangular mutations, average inheritance, inbreeding penalties, and genetic outcross recovery.
+
+## [1.7.4] - 2026-05-26
+
+### Added
+- **Config Helper**: Introduced a generic `ConfigHelper` providing safe configuration loading, saving, atomic temporary file swaps, size-limit checks, version checking, and backup generation to be shared across consumer mods.
+
+## [1.7.3] - 2026-05-26
+
+### Added
+- **GameRule Helpers**: Added `getPct`, `getChance`, `getProb`, and `getDecileFloat` to `DynamicGameRuleManager` to centralize math conversions (percentages, permilles, deciles) for GameRule values.
+
+## [1.7.2] - 2026-05-26
+
+### Added
+- **Client-Side Integrated Server Helper**: Introduced `ClientGameRuleHelper` to fetch game rules from the integrated server thread in singleplayer/local play on the client side.
+- **Dedicated Server Classloading Protection**: Added client environment checks (`FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT`) to lazily load the client-side helper, preventing classloading crashes (such as missing `Minecraft` class) on dedicated servers.
+
+### Changed
+- **Dual-Side Game Rule Lookups**: Refactored `DynamicGameRuleManager.getInt` and `DynamicGameRuleManager.getBoolean` to automatically detect environment type, cast `Level` to `ServerLevel` on logical servers, and fallback to `ClientGameRuleHelper` on client environments.
+
+## [1.7.1] - 2026-05-16
+
+### Added
+- **Legacy Compatibility Shim**: Added a secondary constructor to `GroupParameters` to restore binary compatibility for mods compiled against older library versions (3-float signature).
+
+### Changed
+- **API Hardening**: Finalized the 10-parameter record structure for advanced terrestrial steering including weights for Cohesion, Separation, and Alignment.
+
 ## [1.7.0] - 2026-05-11
 
 ### Added

@@ -1,3 +1,33 @@
+## [1.8.0] - 2026-06-04
+### Summary
+The **"Universal Genetics & Breeding API"** update. Abstracts and centralizes genetics, selective breeding, inbreeding penalties, and outcross recovery from Better Dogs into a reusable library package.
+- **Genetics & Breeding API**: Introduced a generic, entity-agnostic, and attribute-agnostic genetics registry and calculation engine (`net.dasik.social.api.genetics`).
+- **EntityGenetics Attachment**: Registered standard persistent Fabric Attachment `dasik-library:genetics` to track parent UUIDs, inbreeding state, and dynamic trait modifiers across world save cycles.
+- **Inbreeding Verification & Outcross Recovery**: Added standard calculation formulas for triangular mutations, average inheritance, inbreeding penalties, and genetic outcross recovery.
+
+## [1.7.4] - 2026-05-26
+### Summary
+The **"Config Infrastructure Standardization"** update. Centralized configuration reading/writing code for all consumer mods.
+- **Config Helper**: Introduced a generic `ConfigHelper` providing safe configuration loading, saving, atomic temporary file swaps, size-limit checks, version checking, and backup generation to be shared across consumer mods.
+
+## [1.7.3] - 2026-05-26
+### Summary
+The **"Game Rule Helper Integration"** update. Implemented standard utility conversion methods for GameRule value queries.
+- **GameRule Helpers**: Added `getPct`, `getChance`, `getProb`, and `getDecileFloat` to `DynamicGameRuleManager` to centralize math conversions (percentages, permilles, deciles) for GameRule values.
+
+## [1.7.2] - 2026-05-26
+### Summary
+The **"Centralized Dual-Side Game Rule Lookup"** update. Implements support for querying game rules correctly on both client levels (singleplayer integrated server) and server levels (dedicated servers).
+- **Client-Side Integrated Server Helper**: Introduced `ClientGameRuleHelper` to fetch game rules from the integrated server thread in singleplayer/local play on the client side.
+- **Dedicated Server Classloading Protection**: Added client environment checks (`FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT`) to lazily load the client-side helper, preventing classloading crashes (such as missing `Minecraft` class) on dedicated servers.
+- **Dual-Side Game Rule Lookups**: Refactored `DynamicGameRuleManager.getInt` and `DynamicGameRuleManager.getBoolean` to automatically detect environment type, cast `Level` to `ServerLevel` on logical servers, and fallback to `ClientGameRuleHelper` on client environments.
+
+## [1.7.1] - 2026-05-16
+### Summary
+The **"Stability & Parity"** update. Implemented legacy compatibility measures and finalized the 26.1.2 terrestrial steering suite.
+- **Legacy Compatibility Shim**: Added a secondary constructor to `GroupParameters` to restore binary compatibility for mods compiled against older library versions (3-float signature).
+- **API Hardening**: Finalized the 10-parameter record structure for advanced terrestrial steering including weights for Cohesion, Separation, and Alignment.
+
 ## [1.6.9+build.23] - 2026-04-22
 - **Leader Teleportation**: `FollowLeaderGoal` and Flocking Strategies now support teleportation when followers fall too far behind (default: 144 blocks sq), matching vanilla wolf parity.
 - **Water Navigation**: Terrestrial group members now temporarily ignore water pathfinding penalties when following a leader across bodies of water.

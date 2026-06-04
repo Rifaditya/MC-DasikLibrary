@@ -17,5 +17,6 @@ public class DasikLibraryMod implements ModInitializer {
     public void onInitialize() {
         LOGGER.info("Initializing Dasik Library (Engine v{})", 200);
         PlayerVisionTracker.init();
+        var ignored = net.dasik.social.api.genetics.GeneticsEngine.GENETICS;
     }
 }

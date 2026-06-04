@@ -9,6 +9,8 @@ import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.serialization.Codec;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.Identifier;
@@ -189,17 +191,61 @@ public class DynamicGameRuleManager {
     }
 
     public static int getInt(Level level, GameRule<Integer> rule) {
-        if (level instanceof ServerLevel) {
-            return ((ServerLevel) level).getGameRules().get(rule);
+        if (level == null || rule == null) {
+            return rule != null ? rule.defaultValue() : 0;
         }
-        return 0;
+        if (level instanceof ServerLevel serverLevel) {
+            try {
+                return serverLevel.getGameRules().get(rule);
+            } catch (Exception e) {
+                return rule.defaultValue();
+            }
+        }
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+            try {
+                return ClientGameRuleHelper.getInt(level, rule);
+            } catch (Throwable t) {
+                // Classloading safety / fallback
+            }
+        }
+        return rule.defaultValue();
     }
 
     public static boolean getBoolean(Level level, GameRule<Boolean> rule) {
-        if (level instanceof ServerLevel) {
-            return ((ServerLevel) level).getGameRules().get(rule);
+        if (level == null || rule == null) {
+            return rule != null ? rule.defaultValue() : false;
         }
-        return false;
+        if (level instanceof ServerLevel serverLevel) {
+            try {
+                return serverLevel.getGameRules().get(rule);
+            } catch (Exception e) {
+                return rule.defaultValue();
+            }
+        }
+        if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT) {
+            try {
+                return ClientGameRuleHelper.getBoolean(level, rule);
+            } catch (Throwable t) {
+                // Classloading safety / fallback
+            }
+        }
+        return rule.defaultValue();
+    }
+
+    public static double getPct(Level level, GameRule<Integer> rule) {
+        return getInt(level, rule) / 100.0;
+    }
+
+    public static float getProb(Level level, GameRule<Integer> rule) {
+        return getInt(level, rule) / 1000.0f;
+    }
+
+    public static float getChance(Level level, GameRule<Integer> rule) {
+        return getInt(level, rule) / 100.0f;
+    }
+
+    public static float getDecileFloat(Level level, GameRule<Integer> rule) {
+        return getInt(level, rule) / 10.0f;
     }
 
     public static Map<String, GameRule<?>> getDynamicRules() {

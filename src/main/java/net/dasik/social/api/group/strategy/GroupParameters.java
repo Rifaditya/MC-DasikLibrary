@@ -19,6 +19,14 @@ public record GroupParameters(
     float cohesionWeight,
     float separationWeight
 ) {
+    /**
+     * Legacy constructor for binary compatibility (Build 1.6.9 and earlier).
+     * Delegates to canonical constructor with default Zenith terrestrial boid parameters.
+     */
+    public GroupParameters(float cohesionRadius, float separationRadius, float maxSpeed) {
+        this(cohesionRadius, separationRadius, maxSpeed, true, 144.0f, 6.0f, 2.0f, 0.0f, 0.0f, 0.0f);
+    }
+
     public static final GroupParameters DEFAULT_AERIAL = new GroupParameters(3.0f, 1.0f, 0.4f, true, 144.0f, 6.0f, 2.0f, 0.05f, 0.05f, 0.1f);
     public static final GroupParameters DEFAULT_TERRESTRIAL = new GroupParameters(5.0f, 1.5f, 1.2f, true, 144.0f, 6.0f, 2.0f, 0.0f, 0.0f, 0.0f);
 }
