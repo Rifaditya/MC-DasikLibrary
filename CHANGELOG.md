@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.8.1] - 2026-06-05
+
+### Added
+- **Genetics-Based Loot Modification API**: Introduced `GeneticsLootModifier` functional interface and `GeneticsLootRegistry` mapping `EntityType<?>` to modifiers.
+- **LivingEntityLootMixin**: Intercepts `LivingEntity.dropFromLootTable` using a `@ModifyVariable` hook to wrap the item stack consumer, allowing registered modifiers to replace, scale, or remove drops dynamically based on entity genetics.
+
 ## [1.8.0] - 2026-06-04
 
 ### Added

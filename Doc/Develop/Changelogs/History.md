@@ -1,3 +1,9 @@
+## [1.8.1] - 2026-06-05
+### Summary
+The **"Genetics-Based Loot Modification API"** update. Implements a generic API to dynamically customize entity drops based on genetics traits.
+- **Genetics-Based Loot Modification API**: Introduced `GeneticsLootModifier` functional interface and `GeneticsLootRegistry` mapping `EntityType<?>` to modifiers.
+- **LivingEntityLootMixin**: Intercepts `LivingEntity.dropFromLootTable` using a `@ModifyVariable` hook to wrap the item stack consumer, allowing registered modifiers to replace, scale, or remove drops dynamically based on entity genetics.
+
 ## [1.8.0] - 2026-06-04
 ### Summary
 The **"Universal Genetics & Breeding API"** update. Abstracts and centralizes genetics, selective breeding, inbreeding penalties, and outcross recovery from Better Dogs into a reusable library package.
