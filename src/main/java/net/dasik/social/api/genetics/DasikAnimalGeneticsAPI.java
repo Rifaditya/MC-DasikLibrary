@@ -74,4 +74,49 @@ public class DasikAnimalGeneticsAPI {
         }
         GeneticsEngine.rollInitialStats(entity, variantKey);
     }
+
+    // ========== Size-Stats & Scale API ==========
+
+    public static float getScale(LivingEntity entity) {
+        if (entity == null) {
+            return 1.0f;
+        }
+        float scale = getTrait(entity, "scale", 1.0f);
+        if (Float.isNaN(scale) || Float.isInfinite(scale)) {
+            return 1.0f;
+        }
+        return Math.clamp(scale, 0.5f, 2.0f);
+    }
+
+    public static void setScale(LivingEntity entity, float scale) {
+        if (entity == null) {
+            return;
+        }
+        float clampedScale = Float.isNaN(scale) || Float.isInfinite(scale) ? 1.0f : Math.clamp(scale, 0.5f, 2.0f);
+        EntityGenetics old = GeneticsEngine.getGenetics(entity);
+        java.util.Map<String, Float> newTraits = new java.util.HashMap<>(old.traits());
+        newTraits.put("scale", clampedScale);
+        GeneticsEngine.setGenetics(entity, new EntityGenetics(
+                old.parent1Uuid(),
+                old.parent2Uuid(),
+                old.inbred(),
+                old.traitsRolled(),
+                newTraits
+        ));
+        GeneticsEngine.applyGeneticsModifiers(entity);
+    }
+
+    public static boolean isRunt(LivingEntity entity) {
+        if (entity == null) {
+            return false;
+        }
+        return getScale(entity) < 0.85f || isInbred(entity);
+    }
+
+    public static boolean isGiant(LivingEntity entity) {
+        if (entity == null) {
+            return false;
+        }
+        return getScale(entity) > 1.15f;
+    }
 }
