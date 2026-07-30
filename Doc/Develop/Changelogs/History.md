@@ -1,3 +1,15 @@
+## [1.8.3] - 2026-07-11
+### Summary
+The **"Size-Stats Genetics API"** update. Implements a high-level builder API and helper classes to map genetic size/scale traits to other entity attributes.
+- **Size-Stats Genetics API**: Introduced a high-level builder `SizeStatsBuilder` to easily configure genetics-based physical size scaling mapped to vanilla `minecraft:scale`.
+- **Linked Attribute Modifiers**: Added `LinkedAttributeRegistry`, `LinkedAttribute`, and `LinkMode` to map genetics traits (like size) to other attributes (e.g., max health, movement speed, attack damage) with automatic proportional, inverse, or squared scaling.
+- **GeneticsEngine Integration**: Refactored `GeneticsEngine.applyGeneticsModifiers` to apply linked modifiers automatically, preserving full backward compatibility with existing TraitConfigs.
+
+## [1.8.2] - 2026-06-06
+### Summary
+The **"GuiHelper Isolation"** update. Implemented dedicated classloader reflection resolver for ModMenu / YACL screens.
+- **GuiHelper API**: Introduced `net.dasik.social.api.config.GuiHelper` dynamic configuration screen resolver utilizing classloader isolation and reflection to prevent dedicated server crashes.
+
 ## [1.8.1] - 2026-06-05
 ### Summary
 The **"Genetics-Based Loot Modification API"** update. Implements a generic API to dynamically customize entity drops based on genetics traits.

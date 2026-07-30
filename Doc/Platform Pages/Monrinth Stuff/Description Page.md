@@ -11,10 +11,10 @@
 
 # 🧠 Dasik Library
 
-**No Backports:** This library targets **Minecraft 26.1+** (Snapshot 5). Older versions are unsupported.
+**No Backports:** This library targets **Minecraft 26.2+**. Older versions are unsupported.
 
 > **This is a Core Library / API.**
-> It provides shared functionality for my mods (Vanilla Outsider, Better Dogs). It does nothing on its own.
+> It provides shared functionality for my mods (Vanilla Outsider, Instant Gratification, and Delayed Gratification collections). It does nothing on its own.
 
 **Dasik Library** provides a unified **Hive Mind** architecture for complex social behaviors. Entities become aware of "Social Events" (Alerts, Moods, Requests) and participate in a global, optimized social scheduler.
 
@@ -43,27 +43,29 @@ A standardized way for entities to communicate.
 ### 🤝 Inter-Mod Compat
 
 - **Better Dogs**: Uses Dasik to handle Pack mechanics, howling, and wild wolf leader-follower logic.
+- **MCA Female Gender Bridge**: Integrates genetics & breeding physics solvers.
+- **Collapsible Game Rule Screen**: Utilizes dynamic GameRule registration and localization helpers.
 
 ### 🐺 Leader-Follower API (Cached Boids)
 
 The most advanced flocking API in the Fabric ecosystem.
 - **Cached Boids Pattern**: Supports massive swarms (100+ entities) with minimal CPU usage by pre-calculating group data on the Leader.
 - **Biomechanical Logic**: Alignment, Cohesion, and Separation steering for organic movement.
-- **Snapshot 26.1 Native**: Fully utilizes `WAYPOINT_TRANSMIT_RANGE` and `WAYPOINT_RECEIVE_RANGE` attributes.
+- **Minecraft 26.2+ Native**: Fully utilizes native 26.2+ entity attributes and dynamic GameRule registration.
 
 ---
 
 ## 📦 Install
 
 1. Install **[Fabric API](https://modrinth.com/mod/fabric-api)**.
-2. Download `dasik-library-1.6.9+build.16.jar` (or latest) and place it in your `mods` folder.
-3. *Required by all Vanilla Outsider mods.*
+2. Download `dasik-library-1.8.5.jar` (or latest) and place it in your `mods` folder.
+3. *Required by all Vanilla Outsider, Instant Gratification, and Delayed Gratification mods.*
 
 ---
 
 ## ☕ Support
 
-If you enjoy the **Vanilla Outsider** ecosystem, consider fueling the next update!
+If you enjoy the ecosystem, consider fueling the next update!
 
 [![Ko-fi](https://img.shields.io/badge/Ko--fi-Support%20Me-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/dasikigaijin/tip)
 [![SocioBuzz](https://img.shields.io/badge/SocioBuzz-Local_Support-7BB32E?style=for-the-badge)](https://sociabuzz.com/dasikigaijin/tribe)
@@ -78,16 +80,14 @@ If you enjoy the **Vanilla Outsider** ecosystem, consider fueling the next updat
 
 | Role | Author |
 | :--- | :--- |
-| **Architect** | **Rifaditya** (Dasik) |
-| **Collection** | Vanilla Outsider |
+| **Creator** | **Dasik (Rifaditya)** |
+| **Collection** | Vanilla Outsider / Instant Gratification / Delayed Gratification |
 | **License** | LGPLv3 |
 
 ---
 
 > [!IMPORTANT]
-> **Modpack Permissions:** You are free to include this mod in modpacks, **provided the modpack is hosted on the same platform** (e.g. Modrinth).
->
-> **Cross-platform distribution is not permitted.** If you download this mod from Modrinth, your modpack must also be published on Modrinth.
+> **📦 Modpack Permissions:** You are free to include this mod in any modpack on any platform. However, the mod itself must be downloaded from its official distribution pages on **Modrinth** or **CurseForge**. Re-uploading or redistributing the mod jar file to third-party sites is strictly prohibited unless explicitly permitted by the creator.
 
 ---
 

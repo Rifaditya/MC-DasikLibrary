@@ -1,3 +1,1 @@
-The core library and API for all Rifaditya (Dasik) mods, including the Vanilla Outsider collection.
-Provides shared social AI and a unified signal system for my mods.
-**You only need this if another mod requires it.**
+The core library and API for all Dasik (Rifaditya) mods, including Vanilla Outsider, Instant Gratification, and Delayed Gratification collections. Provides shared social AI, genetics engine, boids flocking, and dynamic GameRule localization.

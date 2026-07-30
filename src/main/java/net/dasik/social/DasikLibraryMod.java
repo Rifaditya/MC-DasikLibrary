@@ -15,6 +15,7 @@ public class DasikLibraryMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
+        net.dasik.social.util.ModVersionGuard.checkClass("Dasik Library", "net.minecraft.world.entity.EntityTypes");
         LOGGER.info("Initializing Dasik Library (Engine v{})", 200);
         PlayerVisionTracker.init();
         var ignored = net.dasik.social.api.genetics.GeneticsEngine.GENETICS;

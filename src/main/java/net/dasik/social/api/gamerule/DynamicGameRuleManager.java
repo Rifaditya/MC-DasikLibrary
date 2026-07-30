@@ -1,7 +1,8 @@
 /*
  * Zenith Sovereign Engineering - Dasik Library
- * Verified against: GameRules.java (Snapshot 10)
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
+// Verified against: GameRules.java (Snapshot 10)
 package net.dasik.social.api.gamerule;
 
 import com.mojang.brigadier.arguments.BoolArgumentType;
@@ -246,6 +247,30 @@ public class DynamicGameRuleManager {
 
     public static float getDecileFloat(Level level, GameRule<Integer> rule) {
         return getInt(level, rule) / 10.0f;
+    }
+
+    /**
+     * Looks up a registered integer GameRule by its string key.
+     *
+     * @param key The GameRule key (e.g., "betterdogs:bd_wolf_min_scale_percent").
+     * @return The registered GameRule, or null if not found.
+     */
+    @SuppressWarnings("unchecked")
+    public static GameRule<Integer> getIntRule(String key) {
+        return (GameRule<Integer>) DYNAMIC_RULES.get(key);
+    }
+
+    /**
+     * Queries an integer GameRule value by its string key.
+     *
+     * @param level        The world level.
+     * @param key          The GameRule key.
+     * @param defaultValue Fallback value if the GameRule is not registered.
+     * @return The GameRule value, or the default value if not found.
+     */
+    public static int getIntVal(Level level, String key, int defaultValue) {
+        GameRule<Integer> rule = getIntRule(key);
+        return rule != null ? getInt(level, rule) : defaultValue;
     }
 
     public static Map<String, GameRule<?>> getDynamicRules() {

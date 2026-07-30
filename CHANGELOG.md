@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.8.4] - 2026-07-22
+
+### ⚠️ Version Guard Notice
+- Includes zero-dependency `ModVersionGuard` pre-release protection. Halts startup with an explicit warning banner if run on incompatible Minecraft drops or missing core dependencies (`fabric-api`) to prevent world save corruption.
+
+### Fixed
+- **ModVersionGuard ClassLoader Patch**: Updated `ModVersionGuard.java` to resolve target classes via `Thread.currentThread().getContextClassLoader()` for Knot ClassLoader integration during startup.
+
+## [1.8.3] - 2026-07-20
+
+### Changed
+- **Minecraft 26.2 Support**: Updated library build configuration and compatibility bounds for Minecraft 26.2.
+
 ## [1.8.1] - 2026-06-05
 
 ### Added

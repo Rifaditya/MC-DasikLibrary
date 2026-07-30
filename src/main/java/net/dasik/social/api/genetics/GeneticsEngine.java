@@ -1,7 +1,8 @@
 /*
- * Dasik Library
- * Verified against: LivingEntity.java, AttributeModifier.java (26.1.2+)
+ * Zenith Sovereign Engineering - Dasik Library
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
+// Verified against: LivingEntity.java, AttributeModifier.java (26.1.2+)
 package net.dasik.social.api.genetics;
 
 import java.util.HashMap;
@@ -48,6 +49,9 @@ public class GeneticsEngine {
             String traitId = entry.getKey();
             MutationRule rule = config.getMutationRule(variantKey, traitId);
             float rolledValue = rule.roll(rand);
+            float min = GeneticsLimitRegistry.getMin(entity, traitId, entry.getValue().minLimit());
+            float max = GeneticsLimitRegistry.getMax(entity, traitId, entry.getValue().maxLimit());
+            rolledValue = Math.max(min, Math.min(max, rolledValue));
             rolledTraits.put(traitId, rolledValue);
         }
 
@@ -112,7 +116,9 @@ public class GeneticsEngine {
                 finalStat = avg;
             }
 
-            finalStat = Math.max(trait.minLimit(), Math.min(trait.maxLimit(), finalStat));
+            float min = GeneticsLimitRegistry.getMin(baby, traitId, trait.minLimit());
+            float max = GeneticsLimitRegistry.getMax(baby, traitId, trait.maxLimit());
+            finalStat = Math.max(min, Math.min(max, finalStat));
             babyTraits.put(traitId, finalStat);
         }
 
@@ -150,6 +156,10 @@ public class GeneticsEngine {
             attribute.removeModifier(modifierId);
 
             float val = data.traits().getOrDefault(traitId, 0.0f);
+            float min = GeneticsLimitRegistry.getMin(entity, traitId, trait.minLimit());
+            float max = GeneticsLimitRegistry.getMax(entity, traitId, trait.maxLimit());
+            val = Math.max(min, Math.min(max, val));
+
             if (val != 0.0f) {
                 boolean isMaxHealth = "minecraft:generic.max_health".equals(trait.attributeId());
                 float prevMaxHealth = 0f;
@@ -167,6 +177,66 @@ public class GeneticsEngine {
                 if (isMaxHealth) {
                     float newMaxHealth = entity.getMaxHealth();
                     if (val < 0.0f) {
+                        if (entity.getHealth() > newMaxHealth) {
+                            entity.setHealth(newMaxHealth);
+                        }
+                    } else {
+                        if (wasAtFullHealth && entity.getHealth() < newMaxHealth) {
+                            entity.heal(newMaxHealth - prevMaxHealth);
+                        }
+                    }
+                }
+
+                // Apply linked attribute modifiers (Size-Stats API)
+                applyLinkedModifiers(entity, traitId, val);
+            }
+        }
+    }
+
+    /**
+     * Applies linked attribute modifiers for a given trait.
+     *
+     * <p>If a trait (e.g., "size") has linked attributes registered via
+     * {@link LinkedAttributeRegistry}, this method computes and applies
+     * the corresponding modifiers on each linked attribute.</p>
+     *
+     * @param entity  The living entity.
+     * @param traitId The trait ID that triggered this (e.g., "size").
+     * @param traitValue The rolled trait value.
+     */
+    private static void applyLinkedModifiers(LivingEntity entity, String traitId, float traitValue) {
+        java.util.List<LinkedAttribute> links = LinkedAttributeRegistry.getLinks(entity.getType(), traitId);
+        if (links.isEmpty()) return;
+
+        for (LinkedAttribute link : links) {
+            var linkedAttrOpt = BuiltInRegistries.ATTRIBUTE.get(Identifier.parse(link.attributeId()));
+            if (linkedAttrOpt.isEmpty()) continue;
+
+            var linkedAttr = entity.getAttribute(linkedAttrOpt.get());
+            if (linkedAttr == null) continue;
+
+            Identifier linkedModId = Identifier.fromNamespaceAndPath(
+                DasikLibraryMod.MOD_ID, "genetics_" + traitId + "_linked_" + link.attributeId().replace(':', '_'));
+            linkedAttr.removeModifier(linkedModId);
+
+            float modifierValue = link.computeModifier(traitValue);
+            if (modifierValue != 0.0f) {
+                boolean isMaxHealth = "minecraft:max_health".equals(link.attributeId())
+                    || "minecraft:generic.max_health".equals(link.attributeId());
+                float prevMaxHealth = 0f;
+                boolean wasAtFullHealth = false;
+
+                if (isMaxHealth) {
+                    prevMaxHealth = entity.getMaxHealth();
+                    wasAtFullHealth = entity.getHealth() >= prevMaxHealth;
+                }
+
+                linkedAttr.addPermanentModifier(new AttributeModifier(
+                    linkedModId, modifierValue, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
+
+                if (isMaxHealth) {
+                    float newMaxHealth = entity.getMaxHealth();
+                    if (modifierValue < 0.0f) {
                         if (entity.getHealth() > newMaxHealth) {
                             entity.setHealth(newMaxHealth);
                         }
