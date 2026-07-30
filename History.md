@@ -1,5 +1,8 @@
 # Technical History: DasikLibrary
 
+## Version 1.8.8 (2026-07-31)
+- **Dynamic Trait Modifiers & Stat Reset API**: Added `setTrait`, `modifyTrait`, and `resetGenetics` to `DasikAnimalGeneticsAPI` for dynamic stat modification and attribute resets.
+
 ## Version 1.8.7 (2026-07-31)
 - **Kinship & Pedigree API Expansion**: Added `isRelated`, `isParentOf`, `areSiblings`, and `predictInbreedingRiskPercent` to `DasikAnimalGeneticsAPI` for family tree tracking and inbreeding risk prediction.
 

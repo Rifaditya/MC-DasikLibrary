@@ -5,8 +5,11 @@
 // Verified against: LivingEntity.java, GeneticsEngine.java (26.2+)
 package net.dasik.social.api.genetics;
 
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.LivingEntity;
 
 /**
@@ -183,5 +186,57 @@ public class DasikAnimalGeneticsAPI {
             return 50;
         }
         return 0;
+    }
+
+    // ========== Dynamic Trait Modifiers & Stat Reset API ==========
+
+    public static void setTrait(LivingEntity entity, String traitId, float value) {
+        if (entity == null || traitId == null) {
+            return;
+        }
+        EntityGenetics old = GeneticsEngine.getGenetics(entity);
+        java.util.Map<String, Float> newTraits = new java.util.HashMap<>(old.traits());
+        newTraits.put(traitId, value);
+        GeneticsEngine.setGenetics(entity, new EntityGenetics(
+                old.parent1Uuid(),
+                old.parent2Uuid(),
+                old.inbred(),
+                true,
+                newTraits
+        ));
+        GeneticsEngine.applyGeneticsModifiers(entity);
+    }
+
+    public static void modifyTrait(LivingEntity entity, String traitId, float delta) {
+        if (entity == null || traitId == null) {
+            return;
+        }
+        float current = getTrait(entity, traitId, 0.0f);
+        setTrait(entity, traitId, current + delta);
+    }
+
+    public static void resetGenetics(LivingEntity entity) {
+        if (entity == null) {
+            return;
+        }
+        GeneticsEngine.setGenetics(entity, EntityGenetics.DEFAULT);
+
+        GeneticsConfig config = EntityGeneticsRegistry.getConfig(entity.getType());
+        if (config != null) {
+            for (Map.Entry<String, TraitConfig> entry : config.traits().entrySet()) {
+                String traitId = entry.getKey();
+                TraitConfig trait = entry.getValue();
+                if (trait.attributeId().isEmpty()) continue;
+
+                var attributeTypeOpt = BuiltInRegistries.ATTRIBUTE.get(Identifier.parse(trait.attributeId()));
+                if (attributeTypeOpt.isEmpty()) continue;
+
+                var attribute = entity.getAttribute(attributeTypeOpt.get());
+                if (attribute != null) {
+                    Identifier modifierId = Identifier.fromNamespaceAndPath(net.dasik.social.DasikLibraryMod.MOD_ID, "genetics_" + traitId);
+                    attribute.removeModifier(modifierId);
+                }
+            }
+        }
     }
 }
