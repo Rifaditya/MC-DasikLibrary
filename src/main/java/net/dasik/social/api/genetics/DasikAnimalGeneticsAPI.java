@@ -119,4 +119,69 @@ public class DasikAnimalGeneticsAPI {
         }
         return getScale(entity) > 1.15f;
     }
+
+    // ========== Kinship & Pedigree API ==========
+
+    public static boolean isRelated(LivingEntity animal1, LivingEntity animal2) {
+        if (animal1 == null || animal2 == null) {
+            return false;
+        }
+        EntityGenetics d1 = GeneticsEngine.getGenetics(animal1);
+        EntityGenetics d2 = GeneticsEngine.getGenetics(animal2);
+        return GeneticsEngine.checkInbreeding(animal1, animal2, d1, d2);
+    }
+
+    public static boolean isParentOf(LivingEntity parent, LivingEntity offspring) {
+        if (parent == null || offspring == null) {
+            return false;
+        }
+        UUID parentUuid = parent.getUUID();
+        return getParent1Uuid(offspring).map(parentUuid::equals).orElse(false)
+                || getParent2Uuid(offspring).map(parentUuid::equals).orElse(false);
+    }
+
+    public static boolean areSiblings(LivingEntity animal1, LivingEntity animal2) {
+        if (animal1 == null || animal2 == null || animal1.equals(animal2)) {
+            return false;
+        }
+        UUID p1_1 = getParent1Uuid(animal1).orElse(null);
+        UUID p1_2 = getParent2Uuid(animal1).orElse(null);
+        UUID p2_1 = getParent1Uuid(animal2).orElse(null);
+        UUID p2_2 = getParent2Uuid(animal2).orElse(null);
+
+        if (p1_1 != null && (p1_1.equals(p2_1) || p1_1.equals(p2_2))) {
+            return true;
+        }
+        if (p1_2 != null && (p1_2.equals(p2_1) || p1_2.equals(p2_2))) {
+            return true;
+        }
+        return false;
+    }
+
+    public static int predictInbreedingRiskPercent(LivingEntity parent1, LivingEntity parent2) {
+        if (parent1 == null || parent2 == null) {
+            return 0;
+        }
+        if (isParentOf(parent1, parent2) || isParentOf(parent2, parent1)) {
+            return 100;
+        }
+        UUID p1_1 = getParent1Uuid(parent1).orElse(null);
+        UUID p1_2 = getParent2Uuid(parent1).orElse(null);
+        UUID p2_1 = getParent1Uuid(parent2).orElse(null);
+        UUID p2_2 = getParent2Uuid(parent2).orElse(null);
+
+        if (p1_1 == null && p1_2 == null && p2_1 == null && p2_2 == null) {
+            return 0;
+        }
+
+        boolean match1 = p1_1 != null && (p1_1.equals(p2_1) || p1_1.equals(p2_2));
+        boolean match2 = p1_2 != null && (p1_2.equals(p2_1) || p1_2.equals(p2_2));
+
+        if (match1 && match2) {
+            return 100;
+        } else if (match1 || match2) {
+            return 50;
+        }
+        return 0;
+    }
 }

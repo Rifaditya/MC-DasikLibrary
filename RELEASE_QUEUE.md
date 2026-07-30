@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.8.7`** (2026-07-31) - **Kinship & Pedigree API Expansion:** Added `isRelated`, `isParentOf`, `areSiblings`, and `predictInbreedingRiskPercent` to `DasikAnimalGeneticsAPI`.
 - [ ] **`1.8.6`** (2026-07-31) - **Universal DasikAnimalGeneticsAPI & Size-Stats Expansion:** Introduced `DasikAnimalGeneticsAPI` facade with standardized getters/setters (`getHealthBonus`, `getDamageMod`, `getSpeedMod`, `isInbred`, `inherit`, `rollStats`) and Size-Stats scale methods (`getScale`, `setScale`, `isRunt`, `isGiant`).
 - [x] **`1.8.5`** (2026-07-22) - - **Minecraft 26.2+ Stability Release**: Official target alignment for Minecraft 26.2+ release JAR with open-ended forward compatibility bounds (`"minecraft": ">=26.2-"`).
 - [x] **`1.6.9+build.5`** (2026-02-21) - - **DynamicGameRuleManager**: Introduced DynamicGameRuleManager capable of dynamic GameRule generation with cached human-readable string values for localization. - - **LanguageMixin**: Injects auto-generated readable GameRule names from `DynamicGameRuleManager` into Minecraft's native language map so they are properly rendered in the Game Rules configuration screen.
