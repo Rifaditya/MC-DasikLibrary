@@ -15,7 +15,8 @@ Instead of each mod duplicating social AI and infrastructure code, Dasik Library
 - **GlobalSocialSystem**: Single pulse engine using Highlander Rule (only one tick per game tick).
 - **SocialRegistry**: Shard-based O(1) entity tracking with automated memory management.
 - **EntitySocialScheduler**: Per-entity dual-track scheduler (Mood & Ambient).
-- **Current Version**: `1.8.5` (Minecraft 26.2+)
+- **Current Version**: `1.8.8` (Minecraft 26.2+)
+- **DasikAnimalGeneticsAPI**: High-level universal genetics facade providing Size-Stats & Scale (`0.5x` - `2.0x`), Kinship & Pedigree family tree risk prediction, and Dynamic Trait Modifiers & Stat Reset across all animal mods.
 - **Leader-Follower API**: Generalized flocking and swarming with modular strategies (Aerial/Terrestrial).
 - **DynamicGameRuleManager**: Generate infinite GameRules dynamically with automatic runtime English translation injection.
 - **Genetics & Breeding Engine**: Entity-agnostic genetics attachment, inbreeding verification, and linked attribute scaling.
@@ -65,11 +66,27 @@ public interface GroupMember {
     int getGroupSize();
     FlockType getFlockType(); // AERIAL or TERRESTRIAL
 }
-```
 
-```java
 // Inside your entity's registerGoals
 this.goalSelector.addGoal(5, new FollowLeaderGoal<>(this, GroupParameters.DEFAULT_TERRESTRIAL, 32.0D));
+```
+
+### Animal Genetics API (`DasikAnimalGeneticsAPI`)
+
+```java
+// Size-Stats & Scale API
+float scale = DasikAnimalGeneticsAPI.getScale(entity); // Clamped [0.5f, 2.0f]
+DasikAnimalGeneticsAPI.setScale(entity, 1.5f);
+boolean isRunt = DasikAnimalGeneticsAPI.isRunt(entity);
+
+// Kinship & Pedigree API
+boolean isRelated = DasikAnimalGeneticsAPI.isRelated(animal1, animal2);
+int inbreedingRisk = DasikAnimalGeneticsAPI.predictInbreedingRiskPercent(parent1, parent2);
+
+// Dynamic Trait Modifiers & Stat Reset API
+DasikAnimalGeneticsAPI.setTrait(entity, "max_health", 5.0f);
+DasikAnimalGeneticsAPI.modifyTrait(entity, "max_health", 3.0f);
+DasikAnimalGeneticsAPI.resetGenetics(entity);
 ```
 
 ---
