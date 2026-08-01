@@ -15,12 +15,12 @@ Instead of each mod duplicating social AI and infrastructure code, Dasik Library
 - **GlobalSocialSystem**: Single pulse engine using Highlander Rule (only one tick per game tick).
 - **SocialRegistry**: Shard-based O(1) entity tracking with automated memory management.
 - **EntitySocialScheduler**: Per-entity dual-track scheduler (Mood & Ambient).
-- **Current Version**: `1.8.8` (Minecraft 26.2+)
+- **Current Version**: `1.8.9` (Minecraft 26.1.2+)
 - **DasikAnimalGeneticsAPI**: High-level universal genetics facade providing Size-Stats & Scale (`0.5x` - `2.0x`), Kinship & Pedigree family tree risk prediction, and Dynamic Trait Modifiers & Stat Reset across all animal mods.
 - **Leader-Follower API**: Generalized flocking and swarming with modular strategies (Aerial/Terrestrial).
 - **DynamicGameRuleManager**: Generate infinite GameRules dynamically with automatic runtime English translation injection.
 - **Genetics & Breeding Engine**: Entity-agnostic genetics attachment, inbreeding verification, and linked attribute scaling.
-- **ModVersionGuard**: Standalone, Knot-safe ClassLoader startup guard for open-ended version bounds (`"minecraft": ">=26.2-"`).
+- **ModVersionGuard**: Standalone, Knot-safe ClassLoader startup guard for open-ended version bounds (`"minecraft": ">=26.1.2-"`).
 
 ---
 

@@ -5,9 +5,10 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
-- [ ] **`1.8.8`** (2026-07-31) - **Dynamic Trait Modifiers & Stat Reset API:** Added `setTrait`, `modifyTrait`, and `resetGenetics` to `DasikAnimalGeneticsAPI`.
-- [ ] **`1.8.7`** (2026-07-31) - **Kinship & Pedigree API Expansion:** Added `isRelated`, `isParentOf`, `areSiblings`, and `predictInbreedingRiskPercent` to `DasikAnimalGeneticsAPI`.
-- [ ] **`1.8.6`** (2026-07-31) - **Universal DasikAnimalGeneticsAPI & Size-Stats Expansion:** Introduced `DasikAnimalGeneticsAPI` facade with standardized getters/setters (`getHealthBonus`, `getDamageMod`, `getSpeedMod`, `isInbred`, `inherit`, `rollStats`) and Size-Stats scale methods (`getScale`, `setScale`, `isRunt`, `isGiant`).
+- [x] **`1.8.9`** (2026-08-01) - **Minecraft 26.1.2+ Compatibility Restoration:** Adjusted `fabric.mod.json` bounds (`">=26.1.2-"`) and `ModVersionGuard` check target (`EntityType`) to ensure dual compatibility across MC 26.1.2 and MC 26.2+. (Resolves GitHub issue #1).
+- [x] **`1.8.8`** (2026-07-31) - **Dynamic Trait Modifiers & Stat Reset API:** Added `setTrait`, `modifyTrait`, and `resetGenetics` to `DasikAnimalGeneticsAPI`.
+- [x] **`1.8.7`** (2026-07-31) - **Kinship & Pedigree API Expansion:** Added `isRelated`, `isParentOf`, `areSiblings`, and `predictInbreedingRiskPercent` to `DasikAnimalGeneticsAPI`.
+- [x] **`1.8.6`** (2026-07-31) - **Universal DasikAnimalGeneticsAPI & Size-Stats Expansion:** Introduced `DasikAnimalGeneticsAPI` facade with standardized getters/setters (`getHealthBonus`, `getDamageMod`, `getSpeedMod`, `isInbred`, `inherit`, `rollStats`) and Size-Stats scale methods (`getScale`, `setScale`, `isRunt`, `isGiant`).
 - [x] **`1.8.5`** (2026-07-22) - - **Minecraft 26.2+ Stability Release**: Official target alignment for Minecraft 26.2+ release JAR with open-ended forward compatibility bounds (`"minecraft": ">=26.2-"`).
 - [x] **`1.6.9+build.5`** (2026-02-21) - - **DynamicGameRuleManager**: Introduced DynamicGameRuleManager capable of dynamic GameRule generation with cached human-readable string values for localization. - - **LanguageMixin**: Injects auto-generated readable GameRule names from `DynamicGameRuleManager` into Minecraft's native language map so they are properly rendered in the Game Rules configuration screen.
 - [x] **`1.6.9+build.6`** (2026-02-21) - - **Documentation**: Updated all READMEs and platform pages to highlight the new "Dynamic Translations" feature making GameRules human-readable. - - **Documentation**: Replaced "Architect" with "Creator" in Platform Page Author roles.

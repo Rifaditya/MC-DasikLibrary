@@ -1,5 +1,8 @@
 # Technical History: DasikLibrary
 
+## Version 1.8.9 (2026-08-01)
+- **Minecraft 26.1.2+ Compatibility Restoration**: Adjusted `fabric.mod.json` bounds (`">=26.1.2-"`) and updated `ModVersionGuard` check target (`EntityType`) to guarantee seamless operation on Minecraft 26.1.2 as well as 26.2+.
+
 ## Version 1.8.8 (2026-07-31)
 - **Dynamic Trait Modifiers & Stat Reset API**: Added `setTrait`, `modifyTrait`, and `resetGenetics` to `DasikAnimalGeneticsAPI` for dynamic stat modification and attribute resets.
 

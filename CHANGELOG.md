@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.8.9] - 2026-08-01
+
+### Fixed
+- **Minecraft 26.1.2 Compatibility**: Adjusted `fabric.mod.json` dependency bounds to `"minecraft": ">=26.1.2-"` to ensure `dasik-library` loads seamlessly on both MC 26.1.2 and MC 26.2+.
+- **ModVersionGuard Class Check**: Updated `ModVersionGuard.checkClass` in `DasikLibraryMod` to check `"net.minecraft.world.entity.EntityType"` (present on 26.1.2 and 26.2+) instead of `EntityTypes` (introduced in 26.2). Resolves GitHub issue #1.
+
 ## [1.8.4] - 2026-07-22
 
 ### ⚠️ Version Guard Notice
