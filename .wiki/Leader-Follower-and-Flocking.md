@@ -30,19 +30,22 @@ Where:
 
 ```java
 public record GroupParameters(
-    int maxGroupSize,
-    double searchRadius,
-    double followSpeed,
-    double stopDistance,
-    double startDistance,
-    float separationWeight,
-    float cohesionWeight,
+    float cohesionRadius, 
+    float separationRadius, 
+    float maxSpeed, 
+    boolean canTeleport, 
+    float teleportDistance,
+    float startDistance,
+    float stopDistance,
     float alignmentWeight,
-    boolean allowLeaderReassignment,
-    FlockType flockType
+    float cohesionWeight,
+    float separationWeight
 ) {
+    public static final GroupParameters DEFAULT_AERIAL = new GroupParameters(
+        3.0f, 1.0f, 0.4f, true, 144.0f, 6.0f, 2.0f, 0.05f, 0.05f, 0.1f
+    );
     public static final GroupParameters DEFAULT_TERRESTRIAL = new GroupParameters(
-        8, 16.0D, 1.25D, 3.0D, 6.0D, 1.5f, 1.0f, 0.5f, true, FlockType.TERRESTRIAL
+        5.0f, 1.5f, 1.2f, true, 144.0f, 6.0f, 2.0f, 0.0f, 0.0f, 0.0f
     );
 }
 ```

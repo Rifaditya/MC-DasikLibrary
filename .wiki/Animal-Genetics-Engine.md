@@ -5,8 +5,8 @@
 | **Core Package** | `net.dasik.social.api.genetics` |
 | **Attachment Identifier** | `dasik-library:genetics` |
 | **Scale Bounds** | `0.1x` to `3.0x` (Default: `0.5x` - `2.0x`) |
-| **Runt Threshold** | Scale $< 0.75x$ |
-| **Giant Threshold** | Scale $> 1.45x$ |
+| **Runt Threshold** | Scale $< 0.85x$ (or Inbred) |
+| **Giant Threshold** | Scale $> 1.15x$ |
 | **Data Codec** | `EntityGenetics.CODEC` |
 
 ---
