@@ -13,21 +13,22 @@
 
 ## 🧬 Overview & DNA Structure
 
-The **Animal Genetics Engine** provides an entity-agnostic persistent genetics system backed by Fabric's `AttachmentType`. Every genetic entity stores:
+The **Animal Genetics Engine** provides an entity-agnostic persistent genetics system backed by Fabric's `AttachmentType`. Every genetic entity stores an `EntityGenetics` record:
 
-1. **DNA Signature (`long`)**: Bit-masked 64-bit integer encoding physical traits, scale modifiers, and gene dominance.
-2. **Pedigree Metadata**: Parent 1 UUID, Parent 2 UUID, and generation depth counter.
-3. **Inbreeding Coefficient ($F$)**: Percentage value derived from pedigree overlaps.
-4. **Dynamic Trait Modifiers**: Map of attribute keys to numerical modifiers (e.g. `max_health`, `movement_speed`).
+1. **`parent1Uuid` (`Optional<UUID>`)**: Primary parent UUID if born via breeding.
+2. **`parent2Uuid` (`Optional<UUID>`)**: Secondary parent UUID if born via breeding.
+3. **`inbred` (`boolean`)**: Flag indicating whether parents shared lineage.
+4. **`traitsRolled` (`boolean`)**: Flag indicating initial random stat rolling completed.
+5. **`traits` (`Map<String, Float>`)**: Dynamic trait values (`scale`, `max_health`, `attack_damage`, `movement_speed`).
 
 ```ascii
- ┌─────────────────────────────────────────────────────────────┐
- │                      EntityGenetics                         │
- ├──────────────────────────────┬──────────────────────────────┤
- │ DNA Signature: 64-bit Long   │ Inbreeding Coefficient: float│
- │ Parent 1 UUID: UUID          │ Generation Depth: int        │
- │ Parent 2 UUID: UUID          │ Dynamic Traits: Map<Str,Flt> │
- └──────────────────────────────┴──────────────────────────────┘
+ ┌────────────────────────────────────────────────────────────────────────┐
+ │                           EntityGenetics                               │
+ ├───────────────────────────────────┬────────────────────────────────────┤
+ │ parent1Uuid: Optional<UUID>       │ inbred: boolean                    │
+ │ parent2Uuid: Optional<UUID>       │ traitsRolled: boolean              │
+ │ traits: Map<String, Float>        │ Codec: EntityGenetics.CODEC        │
+ └───────────────────────────────────┴────────────────────────────────────┘
 ```
 
 ---

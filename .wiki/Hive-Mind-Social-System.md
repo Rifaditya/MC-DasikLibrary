@@ -62,9 +62,9 @@ public class CustomSocialMob extends PathfinderMob implements SocialEntity {
     @Override
     public void tick() {
         super.tick();
-        if (!this.level().isClientSide()) {
+        if (this.level() instanceof ServerLevel serverLevel) {
             SocialRegistry.register(this);
-            GlobalSocialSystem.tick(this.level());
+            GlobalSocialSystem.pulse(serverLevel);
         }
     }
 

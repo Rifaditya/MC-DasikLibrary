@@ -2,11 +2,11 @@
 
 | Mixin Class | Target Class | Injection Point | Purpose |
 | :--- | :--- | :--- | :--- |
-| `LanguageMixin` | `Language` / `ClientLanguage` | `@Inject` on `get` | Dynamic GameRule translation injection |
+| `LanguageMixin` | `net.minecraft.locale.Language` | `@Inject` on `loadFromJson` (`RETURN`) | Dynamic GameRule translation injection |
 | `LivingEntityLootMixin` | `LivingEntity` | `@ModifyVariable` on `dropFromLootTable` | Intercept drops for genetics loot scaling |
-| `MobGoalAccessor` | `Mob` | `@Accessor` on `goalSelector` | Direct goal selector access for AI injections |
-| `PathfinderMobMixin` | `PathfinderMob` | `@Inject` on `tick` | Hive Mind pulse registration hook |
-| `ProfileTriggerMixin` | `LivingEntity` | `@Inject` on `customServerAiStep` | Behavior profile state machine trigger |
+| `MobGoalAccessor` | `Mob` | `@Accessor("goalSelector")` | Direct goal selector access for AI injections |
+| `PathfinderMobMixin` | `PathfinderMob` | `@Inject` on `<init>` (`RETURN`) | Hive Mind pulse registration hook |
+| `ProfileTriggerMixin` | `Entity` | `@Inject` on `teleportCrossDimension` (`RETURN`) | Profile trigger on dimension travel |
 
 ---
 

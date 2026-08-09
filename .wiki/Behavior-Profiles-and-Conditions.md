@@ -30,12 +30,16 @@
 ## 💻 Developer Code Example
 
 ```java
-BehaviorProfile nightProfile = DefaultProfileBuilder.create("night_hunter")
-    .when(BehaviorCondition.isNight())
-    .withSpeedMultiplier(1.35f)
+// Create a profile using DefaultProfileBuilder
+BehaviorProfile netherProfile = new DefaultProfileBuilder("nether_hunter")
+    .priority(10)
+    .condition(BehaviorCondition.inDimension(Level.NETHER))
+    .goals(configurator -> configurator.add(2, new FollowLeaderGoal<>(mob, GroupParameters.DEFAULT_TERRESTRIAL, 16.0D)))
     .build();
 
-BehaviorProfileManager.register(EntityTypes.WOLF, nightProfile);
+// Register profile on manager instance
+BehaviorProfileManager manager = new BehaviorProfileManager();
+manager.registerProfile(netherProfile);
 ```
 
 ---

@@ -16,11 +16,20 @@ In Minecraft 26.2, dynamic GameRules are serialized into `level.dat` / `game_rul
 
 ```java
 // IntegerBuilder initialization fix in DynamicGameRuleManager
-public static GameRules.Key<GameRules.IntValue> registerInt(String name, GameRules.Category category, int defaultValue) {
-    int minBound = Math.min(Integer.MIN_VALUE, defaultValue);
-    // Prevents encodeUnchecked bounds check failure during world save
-    GameRules.Type<GameRules.IntValue> type = GameRules.Type.createIntRule(defaultValue, minBound, Integer.MAX_VALUE);
-    return GameRules.register(name, category, type);
+public class IntegerBuilder {
+    private int min = Integer.MIN_VALUE;
+    private int max = Integer.MAX_VALUE;
+
+    public GameRule<Integer> register() {
+        int effectiveMin = Math.min(min, defaultValue);
+        int effectiveMax = Math.max(max, defaultValue);
+        // Uses Codec.INT.intRange(effectiveMin, effectiveMax) to prevent encodeUnchecked bounds check failure
+        GameRule<Integer> rule = new GameRule<>(
+            GameRuleType.INT, defaultValue, Codec.INT.intRange(effectiveMin, effectiveMax), 
+            FeatureFlagSet.of(), category, visitor
+        );
+        return Registry.register(BuiltInRegistries.GAME_RULE, Identifier.parse(ruleName), rule);
+    }
 }
 ```
 

@@ -4,8 +4,8 @@
 | :--- | :--- |
 | **Scheduler Engine** | `net.dasik.social.core.EntitySocialScheduler` |
 | **Event Registry** | `net.dasik.social.api.SocialEventRegistry` |
-| **Priority Levels** | `PriorityTier` (`CRITICAL`, `HIGH`, `NORMAL`, `LOW`, `BACKGROUND`) |
-| **Signal Modes** | `SignalType` (`EMERGENCY`, `SOCIAL`, `AMBIENT`, `TACTICAL`) |
+| **Priority Levels** | `PriorityTier` (`CRITICAL`, `HIGH`, `NORMAL`, `LOW`) |
+| **Signal Modes** | `SignalType` (`DANGER`, `OWNER_ACTION`, `THUNDER`, `DEATH_CRY`, `FOOD_DETECTED`, `SOCIAL_INVITE`) |
 
 ---
 
@@ -33,39 +33,35 @@ Every social entity carries an `EntitySocialScheduler` which processes dual-trac
 
 ---
 
-## 📢 `SocialEventRegistry` & Signal Dispatch
+## 📢 `SocialEventRegistry` & Event Implementation
 
-Mods can broadcast social signals to surrounding entities using `SocialEventRegistry`:
+Mods implement `SocialEvent` and register instances with `SocialEventRegistry` during mod initialization:
 
 ```java
-// Registering a social event handler
-SocialEventRegistry.register("betterdogs:howl", (source, target, signalType, context) -> {
-    if (signalType == SignalType.TACTICAL) {
-        target.getNavigation().moveTo(source.getX(), source.getY(), source.getZ(), 1.25D);
-    }
-});
+public class HowlEvent implements SocialEvent {
+    @Override public String getId() { return "betterdogs:howl"; }
+    @Override public int getPriorityValue() { return 80; }
+    @Override public String getTrackId() { return "pack_command"; }
+    @Override public boolean canPreempt(SocialEvent other) { return other.getPriorityValue() < 80; }
+    @Override public void onStart(TickContext context) {}
+    @Override public boolean tick(TickContext context) { return false; }
+    @Override public void onEnd(SocialEntity entity, EndReason reason) {}
+}
 
-// Broadcasting an event
-SocialEventRegistry.broadcast(
-    sourceEntity, 
-    32.0D, // Radius in blocks
-    SignalType.TACTICAL, 
-    PriorityTier.HIGH, 
-    "betterdogs:howl"
-);
+// Register during mod initialization (frozen on first pulse)
+SocialEventRegistry.register(new HowlEvent());
 ```
 
 ---
 
 ## 📊 Priority Tier Matrix
 
-| Tier | Priority Value | Execution Policy | Typical Usage |
+| Tier | Max Tracks | Allocation Policy | Typical Usage |
 | :--- | :--- | :--- | :--- |
-| `CRITICAL` | `0` | Immediate override, bypasses cooldowns | Combat survival, hazard escape |
-| `HIGH` | `1` | Preempts normal goals | Pack call response, horn commands |
-| `NORMAL` | `2` | Standard priority | Social greeting, idle flocking |
-| `LOW` | `3` | Yields to active goals | Ambient inspection |
-| `BACKGROUND` | `4` | Runs when idle | Background mood updating |
+| `CRITICAL` | `2` | Immediate override, high priority | Hazard escape, combat survival |
+| `HIGH` | `8` | Preempts low/normal tasks | Tactical commands, pack calls |
+| `NORMAL` | `16` | Standard execution budget | Social interaction, idle movement |
+| `LOW` | `32` | Max capacity, low priority | Background ambient inspection |
 
 ---
 

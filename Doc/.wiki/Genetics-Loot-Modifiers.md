@@ -39,14 +39,14 @@
 Registering a loot modifier for wolves based on physical scale:
 
 ```java
-GeneticsLootRegistry.register(EntityTypes.WOLF, (entity, originalStack, genetics) -> {
-    float scale = genetics.getScale();
-    if (originalStack.is(Items.BONE)) {
+GeneticsLootRegistry.register(EntityTypes.WOLF, (entity, genetics, stack, random) -> {
+    float scale = DasikAnimalGeneticsAPI.getScale(entity);
+    if (stack.is(Items.BONE)) {
         // Scale bone drop count proportionally to entity scale
-        int newCount = Math.max(1, Math.round(originalStack.getCount() * scale));
+        int newCount = Math.max(1, Math.round(stack.getCount() * scale));
         return new ItemStack(Items.BONE, newCount);
     }
-    return originalStack;
+    return stack;
 });
 ```
 
