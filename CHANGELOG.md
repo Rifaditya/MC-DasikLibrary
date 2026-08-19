@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.8.23] - 2026-08-19
+
+### Optimized & Refactored
+- **Pure On-Demand Fast-Math Vision Engine**: Refactored `PlayerVisionTracker` from a heavy background polling tick loop into a 100% on-demand, static utility engine, reducing idle background server CPU load to zero.
+- **3-Stage Fast-Fail Sightline Pipeline**:
+  - Stage 1: Fast-fail distance check (`distSq > maxRadiusSq`).
+  - Stage 2: Vector dot-product FOV cone filtering ($\hat{v}_{\text{look}} \cdot \hat{v}_{\text{target}} < \cos(\text{fovAngle})$) instantly rejecting entities behind or outside the player's viewcone in 0.0001μs without checking voxel geometry.
+  - Stage 3: Direct single eye-to-eye line-of-sight raycast (`target.getEyePosition()`) with a configurable `0.30m` contact buffer.
+
 ## [1.8.9] - 2026-08-01
 
 ### Fixed

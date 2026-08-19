@@ -1,5 +1,8 @@
 # Technical History: DasikLibrary
 
+## Version 1.8.23 (2026-08-19)
+- **Pure On-Demand Fast-Math Vision Engine**: Refactored `PlayerVisionTracker` to a 100% on-demand static utility with zero idle background CPU overhead and a 3-stage fast-fail pipeline (Distance -> Vector Dot-Product FOV -> Single Eye Raycast with contact buffer).
+
 ## Version 1.8.9 (2026-08-01)
 - **Minecraft 26.1.2+ Compatibility Restoration**: Adjusted `fabric.mod.json` bounds (`">=26.1.2-"`) and updated `ModVersionGuard` check target (`EntityType`) to guarantee seamless operation on Minecraft 26.1.2 as well as 26.2+.
 

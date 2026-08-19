@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [x] **`1.8.23`** (2026-08-19) - **Pure On-Demand Fast-Math Vision Engine:** Refactored `PlayerVisionTracker` to a 100% on-demand static utility with zero idle CPU overhead and 3-stage fast-fail pipeline (Distance -> Vector Dot-Product FOV -> Single Eye Raycast with contact buffer).
 - [x] **`1.8.9`** (2026-08-01) - **Minecraft 26.1.2+ Compatibility Restoration:** Adjusted `fabric.mod.json` bounds (`">=26.1.2-"`) and `ModVersionGuard` check target (`EntityType`) to ensure dual compatibility across MC 26.1.2 and MC 26.2+. (Resolves GitHub issue #1).
 - [x] **`1.8.8`** (2026-07-31) - **Dynamic Trait Modifiers & Stat Reset API:** Added `setTrait`, `modifyTrait`, and `resetGenetics` to `DasikAnimalGeneticsAPI`.
 - [x] **`1.8.7`** (2026-07-31) - **Kinship & Pedigree API Expansion:** Added `isRelated`, `isParentOf`, `areSiblings`, and `predictInbreedingRiskPercent` to `DasikAnimalGeneticsAPI`.
