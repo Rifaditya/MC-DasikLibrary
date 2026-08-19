@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.24] - 2026-08-19
+
+### Fixed
+- **Gamerule Codec Range Serialization**: Updated `DynamicGameRuleManager.IntegerBuilder` to support full 32-bit integer ranges (`[Integer.MIN_VALUE : Integer.MAX_VALUE]`) and use unbounded `Codec.INT` by default. Automatically expands codec and argument bounds to encompass negative default values (e.g. negative health or damage percentages), preventing Mojang Codec `IllegalStateException` crashes during world saving and loading.
+
 ## [1.8.23] - 2026-08-19
 
 ### Optimized & Refactored

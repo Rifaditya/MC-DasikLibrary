@@ -120,7 +120,7 @@ public class DynamicGameRuleManager {
         private final String ruleName;
         private final GameRuleCategory category;
         private final int defaultValue;
-        private int min = 0;
+        private int min = Integer.MIN_VALUE;
         private int max = Integer.MAX_VALUE;
         private String description;
         private String readableName;
@@ -171,9 +171,18 @@ public class DynamicGameRuleManager {
                 return (GameRule<Integer>) existing;
             }
             try {
+                int effectiveMin = Math.min(min, defaultValue);
+                int effectiveMax = Math.max(max, defaultValue);
+                Codec<Integer> codec = (effectiveMin == Integer.MIN_VALUE && effectiveMax == Integer.MAX_VALUE)
+                        ? Codec.INT
+                        : Codec.intRange(effectiveMin, effectiveMax);
+                IntegerArgumentType argType = (effectiveMin == Integer.MIN_VALUE && effectiveMax == Integer.MAX_VALUE)
+                        ? IntegerArgumentType.integer()
+                        : IntegerArgumentType.integer(effectiveMin, effectiveMax);
+
                 GameRule<Integer> rule = Registry.register(BuiltInRegistries.GAME_RULE, ruleName, 
-                    new GameRule<>(category, GameRuleType.INT, IntegerArgumentType.integer(min, max), 
-                    GameRuleTypeVisitor::visitInteger, Codec.intRange(min, max), i -> i, defaultValue, FeatureFlagSet.of()));
+                    new GameRule<>(category, GameRuleType.INT, argType, 
+                    GameRuleTypeVisitor::visitInteger, codec, i -> i, defaultValue, FeatureFlagSet.of()));
                 DYNAMIC_RULES.put(ruleName, rule);
                 injectTranslations(id);
                 return rule;
