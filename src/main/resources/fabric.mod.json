@@ -5,15 +5,15 @@
   "name": "Dasik Library",
   "description": "Shared Hive Mind social AI engine for Vanilla Outsider mods",
   "authors": [
-    "Dasik",
-    "Rifaditya"
+    "Dasik (Rifaditya)"
   ],
   "contact": {
-    "homepage": "https://example.com/",
-    "sources": "https://github.com/example/dasik-library"
+    "homepage": "https://modrinth.com/mod/dasik-library",
+    "sources": "https://github.com/Rifaditya/DasikLibrary-Rebuilt",
+    "issues": "https://github.com/Rifaditya/DasikLibrary-Rebuilt/issues"
   },
-  "license": "LGPL-3.0",
-  "icon": "icon.png",
+  "license": "GPL-3.0-or-later",
+  "icon": "assets/dasik-library/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
@@ -24,8 +24,15 @@
     "dasik-library.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.18.4",
+    "fabricloader": ">=0.16.10",
     "minecraft": ">=26.1.2-",
-    "java": ">=25"
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "custom": {
+    "modrinth": {
+      "projectId": "OQpYq8uX",
+      "slug": "dasik-library"
+    }
   }
 }

@@ -1,3 +1,20 @@
+## [1.8.27] - 2026-08-23
+
+### Added
+- **Universal Dynamic Registry Scanner (`DynamicRegistryScanner`)**: Introduced `DynamicRegistryScanner.subscribe(...)` to allow mods to subscribe to any registry (Items, EntityTypes, Blocks, etc.) with a 3-tier discovery pipeline: startup scanning of existing entries, real-time `RegistryEntryAddedCallback` listener, and a `ServerLifecycleEvents.SERVER_STARTING` safety sweep.
+- **On-Demand Dynamic GameRule Unfreeze**: Updated `DynamicGameRuleManager.register()` with `MappedRegistryAccessor` to unlock `BuiltInRegistries.GAME_RULE` on demand while registering rules and restore state in `finally`, completely eliminating registry lockouts across all consumer mods.
+
+## [1.8.26] - 2026-08-20
+### Summary
+The **"Pure SemVer & Universal Compatibility"** update. Standardized `mod_version` to pure SemVer `1.8.26` without Minecraft version suffixes, confirming open-ended forward compatibility (`"minecraft": ">=26.1.2-"`) across `26.1.2`, `26.2`, `26.3`, and future Minecraft releases.
+- **Pure SemVer Standardization**: Configured build to produce `dasik-library-1.8.26.jar`.
+- **Multi-Version Publishing & Profile Sync**: Added publishing targets for `26.1.2`, `26.2`, `26.3` and automatic profile synchronization to `Fabric 26.1.2`, `Fabric 26.2 (1)`, `Fabric 26.x test the latest`, and `Fabric 26.3ish`.
+
+## [1.8.25] - 2026-08-20
+### Summary
+The **"Modrinth Auto-Detection & Manifest Standardization"** update. Integrates comprehensive metadata, project IDs, links, and license alignment for seamless Modrinth parsing.
+- **Modrinth Metadata Auto-Detection**: Added `custom.modrinth` metadata block (`projectId: "OQpYq8uX"`, `slug: "dasik-library"`), updated live contact and issue tracker URLs (`https://modrinth.com/mod/dasik-library`), corrected license identifier to `GPL-3.0-or-later`, normalized Fabric Loader version bounds (`>=0.16.10`), and declared `"fabric-api": "*"` in `depends`.
+
 ## [1.8.3] - 2026-07-11
 ### Summary
 The **"Size-Stats Genetics API"** update. Implements a high-level builder API and helper classes to map genetic size/scale traits to other entity attributes.

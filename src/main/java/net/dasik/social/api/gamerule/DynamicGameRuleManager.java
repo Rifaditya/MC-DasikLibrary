@@ -96,13 +96,13 @@ public class DynamicGameRuleManager {
                 return (GameRule<Boolean>) existing;
             }
             try {
-                GameRule<Boolean> rule = Registry.register(BuiltInRegistries.GAME_RULE, ruleName, 
-                    new GameRule<>(category, GameRuleType.BOOL, BoolArgumentType.bool(), 
-                    GameRuleTypeVisitor::visitBoolean, Codec.BOOL, b -> b ? 1 : 0, defaultValue, FeatureFlagSet.of()));
+                GameRule<Boolean> ruleObject = new GameRule<>(category, GameRuleType.BOOL, BoolArgumentType.bool(), 
+                    GameRuleTypeVisitor::visitBoolean, Codec.BOOL, b -> b ? 1 : 0, defaultValue, FeatureFlagSet.of());
+                GameRule<Boolean> rule = registerWithUnfreeze(ruleName, ruleObject);
                 DYNAMIC_RULES.put(ruleName, rule);
                 injectTranslations(id);
                 return rule;
-            } catch (IllegalStateException e) {
+            } catch (Exception e) {
                 return null;
             }
         }
@@ -180,13 +180,13 @@ public class DynamicGameRuleManager {
                         ? IntegerArgumentType.integer()
                         : IntegerArgumentType.integer(effectiveMin, effectiveMax);
 
-                GameRule<Integer> rule = Registry.register(BuiltInRegistries.GAME_RULE, ruleName, 
-                    new GameRule<>(category, GameRuleType.INT, argType, 
-                    GameRuleTypeVisitor::visitInteger, codec, i -> i, defaultValue, FeatureFlagSet.of()));
+                GameRule<Integer> ruleObject = new GameRule<>(category, GameRuleType.INT, argType, 
+                    GameRuleTypeVisitor::visitInteger, codec, i -> i, defaultValue, FeatureFlagSet.of());
+                GameRule<Integer> rule = registerWithUnfreeze(ruleName, ruleObject);
                 DYNAMIC_RULES.put(ruleName, rule);
                 injectTranslations(id);
                 return rule;
-            } catch (IllegalStateException e) {
+            } catch (Exception e) {
                 return null;
             }
         }
@@ -197,6 +197,25 @@ public class DynamicGameRuleManager {
             if (description != null) {
                 GENERATED_TRANSLATIONS.put(translationKey + ".description", description);
             }
+        }
+    }
+
+    private static <T> GameRule<T> registerWithUnfreeze(String ruleName, GameRule<T> ruleObject) {
+        if (BuiltInRegistries.GAME_RULE instanceof net.minecraft.core.MappedRegistry<?> mappedGameRule) {
+            net.dasik.social.mixin.MappedRegistryAccessor accessor = (net.dasik.social.mixin.MappedRegistryAccessor) mappedGameRule;
+            boolean wasFrozen = accessor.isFrozen();
+            if (wasFrozen) {
+                accessor.setFrozen(false);
+            }
+            try {
+                return Registry.register(BuiltInRegistries.GAME_RULE, ruleName, ruleObject);
+            } finally {
+                if (wasFrozen) {
+                    accessor.setFrozen(true);
+                }
+            }
+        } else {
+            return Registry.register(BuiltInRegistries.GAME_RULE, ruleName, ruleObject);
         }
     }
 

@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.8.27] - 2026-08-23
+
+### Added
+- **Universal Dynamic Registry Scanner (`DynamicRegistryScanner`)**: Introduced `DynamicRegistryScanner.subscribe(...)` to allow mods to subscribe to any registry (Items, EntityTypes, Blocks, etc.) with a 3-tier discovery pipeline: startup scanning of existing entries, real-time `RegistryEntryAddedCallback` listener, and a `ServerLifecycleEvents.SERVER_STARTING` safety sweep.
+- **On-Demand Dynamic GameRule Unfreeze**: Updated `DynamicGameRuleManager.register()` with `MappedRegistryAccessor` to unlock `BuiltInRegistries.GAME_RULE` on demand while registering rules and restore state in `finally`, completely eliminating registry lockouts across all consumer mods.
+
+## [1.8.26] - 2026-08-20
+
+### Changed
+- **Pure SemVer Standardization**: Standardized `mod_version` to pure SemVer `1.8.26` (`dasik-library-1.8.26.jar`) without Minecraft version suffixes, reflecting its universal forward compatibility (`"minecraft": ">=26.1.2-"`) across all Modern releases (`26.1.2`, `26.2`, `26.3`, and future drops).
+- **Multi-Version Publishing & Profile Sync**: Configured Modrinth and CurseForge publishing to explicitly declare compatibility across `26.1.2`, `26.2`, and `26.3`. Updated automated release deployment to sync directly into `Fabric 26.1.2`, `Fabric 26.2 (1)`, `Fabric 26.x test the latest`, and `Fabric 26.3ish` profile mod directories.
+
+## [1.8.25] - 2026-08-20
+
+### Fixed
+- **Modrinth Metadata Auto-Detection**: Added `custom.modrinth` metadata block (`projectId: "OQpYq8uX"`, `slug: "dasik-library"`), updated live contact and issue tracker URLs (`https://modrinth.com/mod/dasik-library`), corrected license identifier to `GPL-3.0-or-later`, normalized Fabric Loader version bounds (`>=0.16.10`), and declared `"fabric-api": "*"` in `depends`. Enables instant automatic metadata, loader, dependency, and game version recognition on Modrinth.
+
 ## [1.8.24] - 2026-08-19
 
 ### Fixed
