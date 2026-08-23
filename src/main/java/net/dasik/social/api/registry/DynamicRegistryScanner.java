@@ -46,7 +46,14 @@ public class DynamicRegistryScanner {
             });
         } catch (Throwable ignored) {}
 
-        // 3. Final safety sweep on server starting (ensuring 100% mod coverage before commands/world load)
+        // 3. Pre-command registration sweep (ensuring all modded items/rules exist before Brigadier builds /gamerule)
+        try {
+            net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
+                scanRegistry(registry, filter, consumer, processed);
+            });
+        } catch (Throwable ignored) {}
+
+        // 4. Final safety sweep on server starting (ensuring 100% mod coverage before world load)
         try {
             ServerLifecycleEvents.SERVER_STARTING.register(server -> {
                 scanRegistry(registry, filter, consumer, processed);

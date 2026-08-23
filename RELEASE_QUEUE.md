@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.8.28`** (2026-08-23) - **Dynamic GameRule Persistence & Command Registration Hook:** Added `GameRuleMapMixin` for dynamic GameRule world persistence and hooked `CommandRegistrationCallback` in `DynamicRegistryScanner` for instant `/gamerule` recognition.
 - [ ] **`1.8.27`** (2026-08-23) - **Universal Dynamic Registry Scanner & GameRule Unlocker:** Added `DynamicRegistryScanner` with 3-tier discovery pipeline (`subscribe`), and updated `DynamicGameRuleManager` with `MappedRegistryAccessor` on-demand unfreezing to prevent GameRule registry lockouts across all consumer mods.
 - [ ] **`1.8.26`** (2026-08-20) - **Pure SemVer Standardization & Universal Forward Compatibility:** Standardized `mod_version` to pure SemVer `1.8.26` without Minecraft version suffixes, reflecting universal forward compatibility (`"minecraft": ">=26.1.2-"`) across `26.1.2`, `26.2`, `26.3`, and future releases.
 - [x] **`1.8.25`** (2026-08-20) - **Modrinth Auto-Detection & Manifest Standardization:** Injected `custom.modrinth` metadata, updated contact URLs, standardized `GPL-3.0-or-later` licensing, declared `"fabric-api": "*"`, and normalized loader constraints (`>=0.16.10`).

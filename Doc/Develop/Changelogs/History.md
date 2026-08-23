@@ -1,3 +1,9 @@
+## [1.8.28] - 2026-08-23
+
+### Fixed
+- **Dynamic GameRule World Save Persistence (`GameRuleMapMixin`)**: Added mixin to vanilla `GameRuleMap` (`SavedData`) to dynamically accept registered dynamic GameRules on `has()`, `get()`, and `set()`. Ensures dynamic GameRule values modified via `/gamerule` commands are properly saved to disk (`level.dat` / `game_rules.dat`) and persist across game and server restarts.
+- **Pre-Command Tree Registry Hook (`CommandRegistrationCallback`)**: Integrated `CommandRegistrationCallback.EVENT` into `DynamicRegistryScanner.subscribe(...)` to execute discovery sweeps immediately before Brigadier compiles the `/gamerule` command tree, ensuring modded item GameRules are recognized from the very first frame without requiring `/reload`.
+
 ## [1.8.27] - 2026-08-23
 
 ### Added
