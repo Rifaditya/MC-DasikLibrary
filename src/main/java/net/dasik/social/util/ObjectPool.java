@@ -1,6 +1,5 @@
-/*
- * Decompiled with CFR 0.152.
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: Queue.java (Java 25)
 package net.dasik.social.util;
 
 import java.util.Queue;

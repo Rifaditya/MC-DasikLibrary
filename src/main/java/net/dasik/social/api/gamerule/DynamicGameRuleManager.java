@@ -1,7 +1,4 @@
-/*
- * Zenith Sovereign Engineering - Dasik Library
- * SPDX-License-Identifier: GPL-3.0-or-later
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 // Verified against: GameRules.java (Snapshot 10)
 package net.dasik.social.api.gamerule;
 

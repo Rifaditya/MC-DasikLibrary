@@ -1,3 +1,4 @@
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 // Verified against: Minecraft.java (26.1.2+), ServerLevel.java (26.1.2+)
 package net.dasik.social.api.gamerule;
 

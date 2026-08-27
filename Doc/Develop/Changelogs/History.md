@@ -1,3 +1,11 @@
+## [1.8.29] - 2026-08-27
+
+### Fixed
+- **Mixin Member Naming Standard (`LanguageMixin`)**: Prefixed injected method with `dasik$` (`dasik$injectDynamicGameRuleTranslations`) to ensure 100% compliance with Mixin naming standards.
+- **Orphaned Mixin Removal (`PathfinderMobMixin`)**: Safely removed deprecated, unregistered experimental entity mixin file from source tree to guarantee 1:1 parity with `dasik-library.mixins.json`.
+- **License Header Standardization**: Injected standard simplified GPLv3 headers across 15 internal and API source files.
+- **Build Script Hygiene**: Cleaned obsolete `loom.mixin` configuration block in `build.gradle` for Loom 1.15+ compatibility.
+
 ## [1.8.28] - 2026-08-23
 
 ### Fixed

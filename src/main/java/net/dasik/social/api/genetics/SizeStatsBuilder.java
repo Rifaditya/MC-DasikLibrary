@@ -1,7 +1,4 @@
-/*
- * Zenith Sovereign Engineering - Dasik Library
- * SPDX-License-Identifier: GPL-3.0-or-later
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 // Verified against: Attributes.java, AttributeModifier.java (26.2+)
 package net.dasik.social.api.genetics;
 

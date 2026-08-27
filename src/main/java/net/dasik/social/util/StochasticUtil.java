@@ -1,9 +1,5 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  net.minecraft.util.RandomSource
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: RandomSource.java (26.2+)
 package net.dasik.social.util;
 
 import net.minecraft.util.RandomSource;

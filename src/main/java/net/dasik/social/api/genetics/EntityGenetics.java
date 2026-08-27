@@ -1,7 +1,5 @@
-/*
- * Dasik Library
- * Verified against: UUIDUtil.java (26.1.2+)
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: UUIDUtil.java (26.1.2+)
 package net.dasik.social.api.genetics;
 
 import com.mojang.serialization.Codec;

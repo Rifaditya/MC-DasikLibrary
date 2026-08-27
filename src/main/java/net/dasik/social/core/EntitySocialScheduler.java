@@ -1,7 +1,5 @@
-/*
- * Zenith Sovereign Engineering - Dasik Library
- * Verified against: ServerLevel.java (Snapshot 10)
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: ServerLevel.java (Snapshot 10)
 package net.dasik.social.core;
 
 import java.util.Map;

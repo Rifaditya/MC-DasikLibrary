@@ -1,7 +1,5 @@
-/*
- * Zenith Sovereign Engineering - Dasik Library
- * Verified against: Player.java / ServerPlayer.java (Java 25)
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: Player.java / ServerPlayer.java (Java 25)
 package net.dasik.social.api.vision;
 
 import net.minecraft.core.BlockPos;

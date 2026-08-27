@@ -1,10 +1,5 @@
-/*
- * Decompiled with CFR 0.152.
- * 
- * Could not load the following classes:
- *  net.minecraft.util.RandomSource
- *  net.minecraft.world.level.levelgen.PositionalRandomFactory
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: RandomSource.java (26.2+)
 package net.dasik.social.util;
 
 import java.util.concurrent.ThreadLocalRandom;

@@ -1,7 +1,5 @@
-/*
- * Zenith Sovereign Engineering - Dasik Library
- * Verified against: Language.java (Snapshot 10)
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: Language.java (Snapshot 10)
 package net.dasik.social.mixin;
 
 import java.io.InputStream;
@@ -17,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Language.class)
 public abstract class LanguageMixin {
     @Inject(method = "loadFromJson", at = @At("RETURN"))
-    private static void injectDynamicGameRuleTranslations(InputStream stream, BiConsumer<String, String> output, CallbackInfo ci) {
+    private static void dasik$injectDynamicGameRuleTranslations(InputStream stream, BiConsumer<String, String> output, CallbackInfo ci) {
         Map<String, String> generatedTranslations = DynamicGameRuleManager.getGeneratedTranslations();
         for (Map.Entry<String, String> entry : generatedTranslations.entrySet()) {
             output.accept(entry.getKey(), entry.getValue());

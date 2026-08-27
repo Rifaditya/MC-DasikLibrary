@@ -1,7 +1,5 @@
-/*
- * Zenith Sovereign Engineering - Dasik Library
- * Verified against: Entity.java (Snapshot 10)
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: Entity.java (Snapshot 10)
 package net.dasik.social.mixin;
 
 import net.dasik.social.api.profile.ProfileAware;

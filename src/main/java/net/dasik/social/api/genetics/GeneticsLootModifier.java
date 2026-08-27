@@ -1,7 +1,5 @@
-/*
- * Dasik Library
- * Verified against: LivingEntity.java (26.2+)
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: LivingEntity.java (26.2+)
 package net.dasik.social.api.genetics;
 
 import net.minecraft.util.RandomSource;

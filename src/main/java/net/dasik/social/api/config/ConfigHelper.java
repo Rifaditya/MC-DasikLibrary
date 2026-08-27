@@ -1,7 +1,5 @@
-/*
- * Zenith Sovereign Engineering - Dasik Library
- * Verified against: Files.java (Java 25)
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: Files.java (Java 25)
 package net.dasik.social.api.config;
 
 import com.google.gson.Gson;

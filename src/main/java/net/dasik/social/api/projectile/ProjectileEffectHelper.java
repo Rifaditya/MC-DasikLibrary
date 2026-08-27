@@ -1,3 +1,5 @@
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: ServerLevel.java, SoundEvents.java (26.2+)
 package net.dasik.social.api.projectile;
 
 import net.minecraft.core.particles.ParticleTypes;

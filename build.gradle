@@ -42,12 +42,6 @@ processResources {
     }
 }
 
-loom {
-    mixin {
-        defaultRefmapName = "dasik-library-refmap.json"
-    }
-}
-
 java {
     withSourcesJar()
     toolchain {

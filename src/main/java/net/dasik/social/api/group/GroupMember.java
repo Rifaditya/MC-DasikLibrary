@@ -1,7 +1,5 @@
-/*
- * Zenith Sovereign Engineering - Dasik Library
- * Verified against: GroupMember.java (Snapshot 10)
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: GroupMember.java (Snapshot 10)
 package net.dasik.social.api.group;
 
 import net.minecraft.world.entity.LivingEntity;

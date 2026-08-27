@@ -1,7 +1,5 @@
-/*
- * Dasik Library
- * Verified against: AttributeModifier.java (26.1.2+)
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: AttributeModifier.java (26.1.2+)
 package net.dasik.social.api.genetics;
 
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;

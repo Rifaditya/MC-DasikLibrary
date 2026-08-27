@@ -1,3 +1,5 @@
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: Enchantment.java (26.2+)
 package net.dasik.social.api.enchantment;
 
 import net.dasik.social.api.gamerule.DynamicGameRuleManager;

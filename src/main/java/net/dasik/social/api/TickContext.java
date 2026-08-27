@@ -1,7 +1,5 @@
-/*
- * Zenith Sovereign Engineering - Dasik Library
- * Verified against: TickContext.java (Snapshot 10)
- */
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
+// Verified against: TickContext.java (Snapshot 10)
 package net.dasik.social.api;
 
 import net.minecraft.util.RandomSource;
