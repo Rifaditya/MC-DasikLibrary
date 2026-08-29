@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.33]
+
+### Added
+- **Server Startup Pruning Lifecycle Hook (`ServerLifecycleEvents.SERVER_STARTING`)**: Connected `DynamicGameRuleManager.pruneOrphanedRules()` to server startup in `DasikLibraryMod`, automatically purging orphaned GameRules before player connections with diagnostic logging.
+
 ## [1.8.32]
 
 ### Added
