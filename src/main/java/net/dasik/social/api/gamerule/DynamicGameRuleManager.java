@@ -56,6 +56,44 @@ public class DynamicGameRuleManager {
         return booleanRule(ruleName, category, defaultValue).register();
     }
 
+    /**
+     * Unregisters a dynamically registered GameRule and purges its generated translations.
+     *
+     * @param id The identifier of the GameRule to unregister.
+     * @return true if the rule was found and removed, false otherwise.
+     */
+    public static boolean unregister(Identifier id) {
+        if (id == null) {
+            return false;
+        }
+        String ruleName = id.toString();
+        GameRule<?> removed = DYNAMIC_RULES.remove(ruleName);
+        String translationKey = Util.makeDescriptionId("gamerule", id);
+        GENERATED_TRANSLATIONS.remove(translationKey);
+        GENERATED_TRANSLATIONS.remove(translationKey + ".description");
+        return removed != null;
+    }
+
+    /**
+     * Unregisters a dynamically registered GameRule by its string identifier.
+     *
+     * @param ruleName The string key of the GameRule (e.g. "ig:ore_minecraft_iron_ore").
+     * @return true if the rule was found and removed, false otherwise.
+     */
+    public static boolean unregister(String ruleName) {
+        if (ruleName == null || ruleName.isEmpty()) {
+            return false;
+        }
+        Identifier id = Identifier.tryParse(ruleName);
+        if (id != null) {
+            return unregister(id);
+        }
+        GameRule<?> removed = DYNAMIC_RULES.remove(ruleName);
+        GENERATED_TRANSLATIONS.remove("gamerule." + ruleName);
+        GENERATED_TRANSLATIONS.remove("gamerule." + ruleName + ".description");
+        return removed != null;
+    }
+
     public static class BooleanBuilder {
         private final String ruleName;
         private final GameRuleCategory category;

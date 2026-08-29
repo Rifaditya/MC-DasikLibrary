@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.30]
+
+### Added
+- **Single-Rule Dynamic GameRule Unregistration (`DynamicGameRuleManager.unregister`)**: Introduced `unregister(Identifier id)` and `unregister(String ruleName)` to allow consumer mods to explicitly unregister dynamic GameRules on demand, automatically purging internal registry references and generated translation mappings.
+
 ## [1.8.29] - 2026-08-27
 
 ### Fixed
