@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.32]
+
+### Added
+- **Automated Orphaned Mod Registry Pruning Engine (`DynamicGameRuleManager.pruneOrphanedRules`)**: Added `pruneOrphanedRules()` and `extractModId(String ruleKey)` to automatically detect and prune orphaned dynamic GameRules and generated translations when a parent mod is uninstalled, preserving core Vanilla namespaces (`minecraft:`, `c:`, `fabric:`, `dasik-library:`).
+
 ## [1.8.31]
 
 ### Added

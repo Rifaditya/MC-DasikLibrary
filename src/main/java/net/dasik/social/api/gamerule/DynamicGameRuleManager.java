@@ -127,6 +127,63 @@ public class DynamicGameRuleManager {
         return count;
     }
 
+    /**
+     * Extracts the declaring mod ID from a dynamic GameRule key.
+     * Supports standard keys ("modid:rule_name") and prefixed keys ("ig:ore_<modid>_*").
+     *
+     * @param ruleKey The string key of the GameRule.
+     * @return The detected mod ID, or null if the key belongs to vanilla or cannot be determined.
+     */
+    public static String extractModId(String ruleKey) {
+        if (ruleKey == null || ruleKey.isEmpty()) {
+            return null;
+        }
+        Identifier id = Identifier.tryParse(ruleKey);
+        if (id != null) {
+            String namespace = id.getNamespace();
+            if (namespace.equals("minecraft") || namespace.equals("c") || namespace.equals("fabric")
+                    || namespace.equals("fabric-api") || namespace.equals("dasik-library")) {
+                return null;
+            }
+            if (namespace.equals("ig") && id.getPath().startsWith("ore_")) {
+                String remainder = id.getPath().substring(4); // remove "ore_"
+                if (remainder.startsWith("minecraft_")) {
+                    return null; // Vanilla ore
+                }
+                int idx = remainder.indexOf('_');
+                if (idx > 0) {
+                    return remainder.substring(0, idx);
+                }
+                return remainder;
+            }
+            return namespace;
+        }
+        return null;
+    }
+
+    /**
+     * Automatically sweeps all dynamically registered GameRules and unregisters any rules
+     * whose declaring mod is no longer loaded in the Fabric runtime.
+     *
+     * @return The count of orphaned GameRules pruned.
+     */
+    public static int pruneOrphanedRules() {
+        FabricLoader loader = FabricLoader.getInstance();
+        if (loader == null) {
+            return 0;
+        }
+        int prunedCount = 0;
+        for (String ruleName : DYNAMIC_RULES.keySet()) {
+            String modId = extractModId(ruleName);
+            if (modId != null && !loader.isModLoaded(modId)) {
+                if (unregister(ruleName)) {
+                    prunedCount++;
+                }
+            }
+        }
+        return prunedCount;
+    }
+
     public static class BooleanBuilder {
         private final String ruleName;
         private final GameRuleCategory category;
