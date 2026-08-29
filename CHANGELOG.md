@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.31]
+
+### Added
+- **Mod Namespace Bulk Dynamic GameRule Unregistration (`DynamicGameRuleManager.unregisterModRules`)**: Added `unregisterModRules(String modId)` to allow programmatic purging of all dynamic GameRules and associated translations registered by a specific mod ID or prefixed pattern (`ig:ore_<modid>_*`).
+
 ## [1.8.30]
 
 ### Added

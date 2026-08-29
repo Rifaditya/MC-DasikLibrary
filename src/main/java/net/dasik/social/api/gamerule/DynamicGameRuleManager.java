@@ -94,6 +94,39 @@ public class DynamicGameRuleManager {
         return removed != null;
     }
 
+    /**
+     * Unregisters all dynamically registered GameRules belonging to a specific mod ID.
+     * Matches both direct namespace rules ("modid:rule_name") and prefixed rules ("ig:ore_modid_*").
+     *
+     * @param modId The mod identifier whose rules should be unregistered.
+     * @return The count of rules successfully unregistered.
+     */
+    public static int unregisterModRules(String modId) {
+        if (modId == null || modId.isEmpty()) {
+            return 0;
+        }
+        int count = 0;
+        for (String ruleName : DYNAMIC_RULES.keySet()) {
+            Identifier id = Identifier.tryParse(ruleName);
+            if (id != null) {
+                if (id.getNamespace().equals(modId)) {
+                    if (unregister(id)) {
+                        count++;
+                    }
+                } else if (id.getNamespace().equals("ig") && id.getPath().startsWith("ore_" + modId + "_")) {
+                    if (unregister(id)) {
+                        count++;
+                    }
+                }
+            } else if (ruleName.startsWith(modId + ":") || ruleName.startsWith("ig:ore_" + modId + "_")) {
+                if (unregister(ruleName)) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
     public static class BooleanBuilder {
         private final String ruleName;
         private final GameRuleCategory category;
