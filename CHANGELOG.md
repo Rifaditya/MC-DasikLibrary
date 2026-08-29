@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.34]
+
+### Added
+- **DynamicGameRuleManager Reality Test Suite (`DynamicGameRuleManagerTest`)**: Added comprehensive headless JUnit 5 assertions verifying standard and prefixed mod ID extraction (`ig:ore_<modid>_*`), human-readable name generation, and boundary/null-safe unregistration.
+
 ## [1.8.33]
 
 ### Added
