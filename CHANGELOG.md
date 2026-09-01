@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.36]
+
+### Added
+- **DynamicGameRuleManager Unregistration Logging & Test Suite Expansion (`DynamicGameRuleManagerTest`)**: Added class-level SLF4J logger with debug tracing for unregistration events, and expanded headless JUnit 5 assertions verifying single-rule and bulk mod rule unregistration and translation dictionary cleanup.
+
 ## [1.8.35]
 
 ### Fixed

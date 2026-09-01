@@ -20,11 +20,14 @@ import net.minecraft.world.level.gamerules.GameRule;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import net.minecraft.world.level.gamerules.GameRuleType;
 import net.minecraft.world.level.gamerules.GameRuleTypeVisitor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Manager for dynamic Gamerule registration and state access.
  */
 public class DynamicGameRuleManager {
+    private static final Logger LOGGER = LoggerFactory.getLogger(DynamicGameRuleManager.class);
     private static final Map<String, GameRule<?>> DYNAMIC_RULES = new ConcurrentHashMap<>();
     private static final Map<String, String> GENERATED_TRANSLATIONS = new ConcurrentHashMap<>();
 
@@ -71,6 +74,9 @@ public class DynamicGameRuleManager {
         String translationKey = Util.makeDescriptionId("gamerule", id);
         GENERATED_TRANSLATIONS.remove(translationKey);
         GENERATED_TRANSLATIONS.remove(translationKey + ".description");
+        if (removed != null && LOGGER.isDebugEnabled()) {
+            LOGGER.debug("DynamicGameRuleManager: Unregistered dynamic GameRule '{}'", ruleName);
+        }
         return removed != null;
     }
 
@@ -91,6 +97,9 @@ public class DynamicGameRuleManager {
         GameRule<?> removed = DYNAMIC_RULES.remove(ruleName);
         GENERATED_TRANSLATIONS.remove("gamerule." + ruleName);
         GENERATED_TRANSLATIONS.remove("gamerule." + ruleName + ".description");
+        if (removed != null && LOGGER.isDebugEnabled()) {
+            LOGGER.debug("DynamicGameRuleManager: Unregistered dynamic GameRule '{}'", ruleName);
+        }
         return removed != null;
     }
 

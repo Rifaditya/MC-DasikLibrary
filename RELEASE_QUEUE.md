@@ -5,6 +5,8 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.8.36`** - **DynamicGameRuleManager Unregistration Logging & Test Suite Expansion:** Added class-level SLF4J logger with debug tracing and expanded JUnit 5 test assertions for dynamic rule unregistration.
+- [ ] **`1.8.35`** - **Genetics Scale Attribute Modifier Delta Math:** Fixed `applyGeneticsModifiers` to apply `(val - 1.0f)` to `minecraft:scale`, preventing vanilla animals from becoming 2.0x gigantic, and added `GeneticsScaleTest`.
 - [x] **`1.8.34`** - **DynamicGameRuleManager Reality Test Suite:** Added JUnit 5 test assertions covering dynamic rule unregistration and mod ID extraction in `DynamicGameRuleManagerTest`.
 - [x] **`1.8.33`** - **Server Startup Pruning Lifecycle Hook:** Connected `pruneOrphanedRules()` to `ServerLifecycleEvents.SERVER_STARTING` in `DasikLibraryMod`.
 - [x] **`1.8.32`** - **Automated Orphaned Mod Registry Pruning Engine:** Added `pruneOrphanedRules()` and `extractModId(String ruleKey)` to `DynamicGameRuleManager` with automated orphaned mod detection.

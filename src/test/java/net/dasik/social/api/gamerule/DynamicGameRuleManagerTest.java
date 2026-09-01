@@ -1,13 +1,26 @@
 // Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 package net.dasik.social.api.gamerule;
 
+import com.mojang.brigadier.arguments.BoolArgumentType;
+import com.mojang.serialization.Codec;
 import net.minecraft.resources.Identifier;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.level.gamerules.GameRule;
+import net.minecraft.world.level.gamerules.GameRuleCategory;
+import net.minecraft.world.level.gamerules.GameRuleType;
+import net.minecraft.world.level.gamerules.GameRuleTypeVisitor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DynamicGameRuleManagerTest {
+
+    private static final GameRuleCategory DUMMY_CATEGORY = GameRuleCategory.register(Identifier.parse("testmod:dummy_cat"));
+    private static final GameRule<Boolean> DUMMY_RULE = new GameRule<>(
+            DUMMY_CATEGORY, GameRuleType.BOOL, BoolArgumentType.bool(),
+            GameRuleTypeVisitor::visitBoolean, Codec.BOOL, b -> b ? 1 : 0, true, FeatureFlagSet.of()
+    );
 
     @Test
     @DisplayName("Verify mod ID extraction from standard and prefixed rule identifiers")
@@ -56,5 +69,49 @@ public class DynamicGameRuleManagerTest {
         assertEquals(0, DynamicGameRuleManager.unregisterModRules(null));
         assertEquals(0, DynamicGameRuleManager.unregisterModRules(""));
         assertEquals(0, DynamicGameRuleManager.unregisterModRules("nonexistent_mod"));
+    }
+
+    @Test
+    @DisplayName("Verify unregister by Identifier and String removes rule and generated translations")
+    public void testUnregisterRemovesRulesAndTranslations() {
+        Identifier ruleId = Identifier.parse("testmod:sample_rule");
+        String ruleName = ruleId.toString();
+
+        // Simulate registered state in dynamic maps
+        DynamicGameRuleManager.getDynamicRules().put(ruleName, DUMMY_RULE);
+        DynamicGameRuleManager.getGeneratedTranslations().put("gamerule.testmod.sample_rule", "Sample Rule");
+        DynamicGameRuleManager.getGeneratedTranslations().put("gamerule.testmod.sample_rule.description", "Description of sample rule");
+
+        assertTrue(DynamicGameRuleManager.getDynamicRules().containsKey(ruleName));
+        assertTrue(DynamicGameRuleManager.getGeneratedTranslations().containsKey("gamerule.testmod.sample_rule"));
+        assertTrue(DynamicGameRuleManager.getGeneratedTranslations().containsKey("gamerule.testmod.sample_rule.description"));
+
+        // Unregister by Identifier
+        boolean unregistered = DynamicGameRuleManager.unregister(ruleId);
+        assertTrue(unregistered);
+        assertFalse(DynamicGameRuleManager.getDynamicRules().containsKey(ruleName));
+        assertFalse(DynamicGameRuleManager.getGeneratedTranslations().containsKey("gamerule.testmod.sample_rule"));
+        assertFalse(DynamicGameRuleManager.getGeneratedTranslations().containsKey("gamerule.testmod.sample_rule.description"));
+    }
+
+    @Test
+    @DisplayName("Verify bulk unregisterModRules removes all rules for target mod ID")
+    public void testBulkUnregisterModRules() {
+        // Register entries for target mod and other mods
+        DynamicGameRuleManager.getDynamicRules().put("custommod:rule_a", DUMMY_RULE);
+        DynamicGameRuleManager.getDynamicRules().put("custommod:rule_b", DUMMY_RULE);
+        DynamicGameRuleManager.getDynamicRules().put("ig:ore_custommod_ruby_ore", DUMMY_RULE);
+        DynamicGameRuleManager.getDynamicRules().put("othermod:rule_c", DUMMY_RULE);
+
+        int unregisteredCount = DynamicGameRuleManager.unregisterModRules("custommod");
+        assertEquals(3, unregisteredCount);
+
+        assertFalse(DynamicGameRuleManager.getDynamicRules().containsKey("custommod:rule_a"));
+        assertFalse(DynamicGameRuleManager.getDynamicRules().containsKey("custommod:rule_b"));
+        assertFalse(DynamicGameRuleManager.getDynamicRules().containsKey("ig:ore_custommod_ruby_ore"));
+        assertTrue(DynamicGameRuleManager.getDynamicRules().containsKey("othermod:rule_c"));
+
+        // Cleanup
+        DynamicGameRuleManager.unregister("othermod:rule_c");
     }
 }
