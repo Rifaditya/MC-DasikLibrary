@@ -157,7 +157,10 @@ public class GeneticsEngine {
             float max = GeneticsLimitRegistry.getMax(entity, traitId, trait.maxLimit());
             val = Math.max(min, Math.min(max, val));
 
-            if (val != 0.0f) {
+            boolean isScale = "minecraft:scale".equals(trait.attributeId()) || "minecraft:generic.scale".equals(trait.attributeId());
+            float modifierVal = isScale ? (val - 1.0f) : val;
+
+            if (modifierVal != 0.0f) {
                 boolean isMaxHealth = "minecraft:generic.max_health".equals(trait.attributeId());
                 float prevMaxHealth = 0f;
                 float prevHealth = 0f;
@@ -169,11 +172,11 @@ public class GeneticsEngine {
                     wasAtFullHealth = prevHealth >= prevMaxHealth;
                 }
 
-                attribute.addPermanentModifier(new AttributeModifier(modifierId, val, trait.getOperation()));
+                attribute.addPermanentModifier(new AttributeModifier(modifierId, modifierVal, trait.getOperation()));
 
                 if (isMaxHealth) {
                     float newMaxHealth = entity.getMaxHealth();
-                    if (val < 0.0f) {
+                    if (modifierVal < 0.0f) {
                         if (entity.getHealth() > newMaxHealth) {
                             entity.setHealth(newMaxHealth);
                         }
@@ -183,10 +186,10 @@ public class GeneticsEngine {
                         }
                     }
                 }
-
-                // Apply linked attribute modifiers (Size-Stats API)
-                applyLinkedModifiers(entity, traitId, val);
             }
+
+            // Apply linked attribute modifiers (Size-Stats API)
+            applyLinkedModifiers(entity, traitId, val);
         }
     }
 

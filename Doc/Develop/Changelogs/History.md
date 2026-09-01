@@ -1,3 +1,29 @@
+## [1.8.35]
+
+### Fixed
+- **Genetics Scale Attribute Modifier Delta Math (`GeneticsEngine`)**: Fixed an issue where `applyGeneticsModifiers` applied the raw scale factor `val` (e.g. `1.0f`) directly to `minecraft:scale` instead of the modifier delta `(val - 1.0f)`. This prevents vanilla animals from unintentionally spawning or rolling at 2.0x (gigantic) size.
+- **Genetics Scale Reality Tests (`GeneticsScaleTest`)**: Added automated JUnit 5 test suite verifying scale factor delta math and linked attribute calculations.
+
+## [1.8.34]
+
+### Added
+- **DynamicGameRuleManager Reality Test Suite (`DynamicGameRuleManagerTest`)**: Added comprehensive headless JUnit 5 assertions verifying standard and prefixed mod ID extraction (`ig:ore_<modid>_*`), human-readable name generation, and boundary/null-safe unregistration.
+
+## [1.8.33]
+
+### Added
+- **Server Startup Pruning Lifecycle Hook (`ServerLifecycleEvents.SERVER_STARTING`)**: Connected `DynamicGameRuleManager.pruneOrphanedRules()` to server startup in `DasikLibraryMod`, automatically purging orphaned GameRules before player connections with diagnostic logging.
+
+## [1.8.32]
+
+### Added
+- **Automated Orphaned Mod Registry Pruning Engine (`DynamicGameRuleManager.pruneOrphanedRules`)**: Added `pruneOrphanedRules()` and `extractModId(String ruleKey)` to automatically detect and prune orphaned dynamic GameRules and generated translations when a parent mod is uninstalled, preserving core Vanilla namespaces (`minecraft:`, `c:`, `fabric:`, `dasik-library:`).
+
+## [1.8.31]
+
+### Added
+- **Mod Namespace Bulk Dynamic GameRule Unregistration (`DynamicGameRuleManager.unregisterModRules`)**: Added `unregisterModRules(String modId)` to allow programmatic purging of all dynamic GameRules and associated translations registered by a specific mod ID or prefixed pattern (`ig:ore_<modid>_*`).
+
 ## [1.8.30]
 
 ### Added

@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.8.35]
+
+### Fixed
+- **Genetics Scale Attribute Modifier Delta Math (`GeneticsEngine`)**: Fixed an issue where `applyGeneticsModifiers` applied the raw scale factor `val` (e.g. `1.0f`) directly to `minecraft:scale` instead of the modifier delta `(val - 1.0f)`. This prevents vanilla animals from unintentionally spawning or rolling at 2.0x (gigantic) size.
+- **Genetics Scale Reality Tests (`GeneticsScaleTest`)**: Added automated JUnit 5 test suite verifying scale factor delta math and linked attribute calculations.
+
 ## [1.8.34]
 
 ### Added
