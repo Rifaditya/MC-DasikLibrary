@@ -108,38 +108,53 @@ public class DasikSupportHelper {
             Object builder = createBuilderMethod.invoke(null);
             Class<?> builderClass = builder.getClass();
 
-            findMethod(builderClass, "name").invoke(builder, getButtonText());
-
-            Class<?> descClass = Class.forName("dev.isxander.yacl3.api.OptionDescription");
-            Method descCreateBuilderMethod = descClass.getMethod("createBuilder");
-            Object descBuilder = descCreateBuilderMethod.invoke(null);
-            findMethod(descBuilder.getClass(), "text").invoke(descBuilder, new Object[]{new Object[]{getTooltipText()}});
-            Object desc = findMethod(descBuilder.getClass(), "build").invoke(descBuilder);
-            findMethod(builderClass, "description").invoke(builder, desc);
-
-            Consumer<Screen> action = DasikSupportHelper::openKofi;
-            Method actionMethod = null;
+            // 1. Row label name
             for (Method m : builderClass.getMethods()) {
-                if (m.getName().equals("action") && m.getParameterCount() == 1 && m.getParameterTypes()[0] == Consumer.class) {
-                    actionMethod = m;
+                if (m.getName().equals("name") && m.getParameterCount() == 1) {
+                    m.invoke(builder, getButtonText());
                     break;
                 }
             }
-            if (actionMethod != null) {
-                actionMethod.invoke(builder, action);
-            } else {
-                BiConsumer<Screen, Object> biAction = (screen, opt) -> openKofi(screen);
-                for (Method m : builderClass.getMethods()) {
-                    if (m.getName().equals("action") && m.getParameterCount() == 1 && m.getParameterTypes()[0] == BiConsumer.class) {
-                        m.invoke(builder, biAction);
-                        break;
-                    }
+
+            // 2. Text displayed inside the button plate widget
+            for (Method m : builderClass.getMethods()) {
+                if (m.getName().equals("text") && m.getParameterCount() == 1) {
+                    m.invoke(builder, getButtonText());
+                    break;
                 }
             }
 
-            return findMethod(builderClass, "build").invoke(builder);
+            // 3. Tooltip description via OptionDescription (using Collection overload for clean reflection)
+            Class<?> descClass = Class.forName("dev.isxander.yacl3.api.OptionDescription");
+            Method descCreateBuilderMethod = descClass.getMethod("createBuilder");
+            Object descBuilder = descCreateBuilderMethod.invoke(null);
+            for (Method m : descBuilder.getClass().getMethods()) {
+                if (m.getName().equals("text") && m.getParameterCount() == 1 && java.util.Collection.class.isAssignableFrom(m.getParameterTypes()[0])) {
+                    m.invoke(descBuilder, java.util.List.of(getTooltipText()));
+                    break;
+                }
+            }
+            Object desc = descBuilder.getClass().getMethod("build").invoke(descBuilder);
+            for (Method m : builderClass.getMethods()) {
+                if (m.getName().equals("description") && m.getParameterCount() == 1) {
+                    m.invoke(builder, desc);
+                    break;
+                }
+            }
+
+            // 4. Click Action
+            BiConsumer<Object, Object> biAction = (screen, opt) -> openKofi((Screen) screen);
+            for (Method m : builderClass.getMethods()) {
+                if (m.getName().equals("action") && m.getParameterCount() == 1 && BiConsumer.class.isAssignableFrom(m.getParameterTypes()[0])) {
+                    m.invoke(builder, biAction);
+                    break;
+                }
+            }
+
+            Method buildMethod = builderClass.getMethod("build");
+            return buildMethod.invoke(builder);
         } catch (Throwable t) {
-            LOGGER.debug("YACL not present or failed to build YACL button option: {}", t.getMessage());
+            LOGGER.warn("Failed to build YACL button option via reflection: {}", t.getMessage());
             return null;
         }
     }
