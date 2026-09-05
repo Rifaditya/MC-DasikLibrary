@@ -29,11 +29,16 @@ public class DasikSupportHelper {
 
     public static final String KOFI_URL = "https://ko-fi.com/dasikigaijin";
 
+    public static final String KEY_LABEL = "dasiklibrary.support.kofi.label";
     public static final String KEY_BUTTON = "dasiklibrary.support.kofi.button";
     public static final String KEY_TOOLTIP = "dasiklibrary.support.kofi.tooltip";
     public static final String KEY_CHAT_PROMPT = "dasiklibrary.support.kofi.chat_prompt";
     public static final String KEY_CHAT_LINK = "dasiklibrary.support.kofi.chat_link";
     public static final String KEY_CHAT_HOVER = "dasiklibrary.support.kofi.chat_hover";
+
+    public static Component getLabelText() {
+        return Component.translatable(KEY_LABEL);
+    }
 
     public static Component getButtonText() {
         return Component.translatable(KEY_BUTTON);
@@ -111,7 +116,7 @@ public class DasikSupportHelper {
             // 1. Row label name
             for (Method m : builderClass.getMethods()) {
                 if (m.getName().equals("name") && m.getParameterCount() == 1) {
-                    m.invoke(builder, getButtonText());
+                    m.invoke(builder, getLabelText());
                     break;
                 }
             }

@@ -23,8 +23,14 @@ public class DasikSupportHelperTest {
     }
 
     @Test
-    @DisplayName("Verify button and tooltip return translatable components with standard keys")
+    @DisplayName("Verify label, button, and tooltip return translatable components with standard keys")
     public void testButtonAndTooltipComponents() {
+        Component label = DasikSupportHelper.getLabelText();
+        assertNotNull(label);
+        ComponentContents labelContents = label.getContents();
+        assertInstanceOf(TranslatableContents.class, labelContents);
+        assertEquals(DasikSupportHelper.KEY_LABEL, ((TranslatableContents) labelContents).getKey());
+
         Component button = DasikSupportHelper.getButtonText();
         assertNotNull(button);
         ComponentContents buttonContents = button.getContents();
