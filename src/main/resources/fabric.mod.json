@@ -33,6 +33,12 @@
     "modrinth": {
       "projectId": "JVMIalSJ",
       "slug": "dasik-library"
+    },
+    "modmenu": {
+      "links": {
+        "modmenu.donate": "https://ko-fi.com/dasikigaijin",
+        "modmenu.kofi": "https://ko-fi.com/dasikigaijin"
+      }
     }
   }
 }

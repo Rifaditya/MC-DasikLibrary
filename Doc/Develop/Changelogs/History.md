@@ -1,3 +1,10 @@
+## [1.8.37]
+
+### Added
+- **In-Game Creator Support Engine (`DasikSupportHelper`)**: Introduced centralized `DasikSupportHelper` providing client-safe `ConfirmLinkScreen.confirmLinkNow` browser opening for `https://ko-fi.com/dasikigaijin`, translatable UI button and tooltip components, and clickable Brigadier chat footers with `ClickEvent.OpenUrl` and hover tooltips.
+- **Support Localization Keys (`en_us.json`)**: Added standardized translation keys under `dasiklibrary.support.kofi.*` for buttons, tooltips, and chat prompts.
+- **Support Engine Reality Tests (`DasikSupportHelperTest`)**: Added automated JUnit 5 test suite verifying URL parsing, component composition, non-null safety, and ClickEvent URI targets.
+
 ## [1.8.36]
 
 ### Added
