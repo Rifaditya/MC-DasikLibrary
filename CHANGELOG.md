@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.8.38]
+
+### Added
+- **Centralized YACL Creator Support Button Helper (`DasikSupportHelper.createYaclButton`)**: Added dynamic reflection-based builder that instantiates `dev.isxander.yacl3.api.ButtonOption` with Ko-fi title, description, and click action safely without hard compile-time or runtime classpath dependencies.
+- **Headless Safety Test Expansion (`DasikSupportHelperTest`)**: Added automated JUnit 5 test verifying `createYaclButton()` executes safely and returns cleanly in headless test environments.
+
 ## [1.8.37]
 
 ### Added

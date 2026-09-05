@@ -15,7 +15,9 @@ import net.minecraft.network.chat.Style;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Method;
 import java.net.URI;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**
@@ -91,5 +93,63 @@ public class DasikSupportHelper {
         } catch (Throwable t) {
             LOGGER.error("Failed to open confirmation screen for URL: {}", url, t);
         }
+    }
+
+    /**
+     * Dynamically builds a YetAnotherConfigLib (YACL) ButtonOption for Ko-fi creator support.
+     * Uses reflection so Dasik Library does not need a hard compile-time or runtime dependency on YACL.
+     *
+     * @return the built YACL ButtonOption/Option instance, or null if YACL is absent or an error occurs.
+     */
+    public static Object createYaclButton() {
+        try {
+            Class<?> buttonOptClass = Class.forName("dev.isxander.yacl3.api.ButtonOption");
+            Method createBuilderMethod = buttonOptClass.getMethod("createBuilder");
+            Object builder = createBuilderMethod.invoke(null);
+            Class<?> builderClass = builder.getClass();
+
+            findMethod(builderClass, "name").invoke(builder, getButtonText());
+
+            Class<?> descClass = Class.forName("dev.isxander.yacl3.api.OptionDescription");
+            Method descCreateBuilderMethod = descClass.getMethod("createBuilder");
+            Object descBuilder = descCreateBuilderMethod.invoke(null);
+            findMethod(descBuilder.getClass(), "text").invoke(descBuilder, new Object[]{new Object[]{getTooltipText()}});
+            Object desc = findMethod(descBuilder.getClass(), "build").invoke(descBuilder);
+            findMethod(builderClass, "description").invoke(builder, desc);
+
+            Consumer<Screen> action = DasikSupportHelper::openKofi;
+            Method actionMethod = null;
+            for (Method m : builderClass.getMethods()) {
+                if (m.getName().equals("action") && m.getParameterCount() == 1 && m.getParameterTypes()[0] == Consumer.class) {
+                    actionMethod = m;
+                    break;
+                }
+            }
+            if (actionMethod != null) {
+                actionMethod.invoke(builder, action);
+            } else {
+                BiConsumer<Screen, Object> biAction = (screen, opt) -> openKofi(screen);
+                for (Method m : builderClass.getMethods()) {
+                    if (m.getName().equals("action") && m.getParameterCount() == 1 && m.getParameterTypes()[0] == BiConsumer.class) {
+                        m.invoke(builder, biAction);
+                        break;
+                    }
+                }
+            }
+
+            return findMethod(builderClass, "build").invoke(builder);
+        } catch (Throwable t) {
+            LOGGER.debug("YACL not present or failed to build YACL button option: {}", t.getMessage());
+            return null;
+        }
+    }
+
+    private static Method findMethod(Class<?> clazz, String name) {
+        for (Method m : clazz.getMethods()) {
+            if (m.getName().equals(name)) {
+                return m;
+            }
+        }
+        throw new RuntimeException("Method " + name + " not found on " + clazz.getName());
     }
 }

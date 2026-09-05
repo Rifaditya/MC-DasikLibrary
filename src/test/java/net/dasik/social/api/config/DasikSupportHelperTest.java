@@ -73,4 +73,10 @@ public class DasikSupportHelperTest {
         // Null safety
         assertDoesNotThrow(() -> DasikSupportHelper.appendCommandFooter(null));
     }
+
+    @Test
+    @DisplayName("Verify createYaclButton does not throw when called headlessly")
+    public void testCreateYaclButtonSafeHeadless() {
+        assertDoesNotThrow(DasikSupportHelper::createYaclButton);
+    }
 }
