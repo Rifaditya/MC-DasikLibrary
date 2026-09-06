@@ -4,6 +4,7 @@ package net.dasik.social.core.group;
 
 import java.util.Comparator;
 import java.util.List;
+import net.dasik.social.api.annotation.DasikApiStatus;
 import net.dasik.social.api.group.GroupMember;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;
@@ -11,6 +12,7 @@ import net.minecraft.world.phys.AABB;
 /**
  * Manages group logic including leader election and member maintenance.
  */
+@DasikApiStatus.Internal
 public class GroupManager {
     /**
      * Finds a suitable leader for the member within the search radius.

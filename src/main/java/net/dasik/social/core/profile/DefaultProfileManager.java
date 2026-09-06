@@ -5,6 +5,7 @@ package net.dasik.social.core.profile;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import net.dasik.social.api.annotation.DasikApiStatus;
 import net.dasik.social.api.profile.BehaviorProfile;
 import net.dasik.social.api.profile.BehaviorProfileManager;
 import net.dasik.social.mixin.MobGoalAccessor;
@@ -12,6 +13,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 import org.jetbrains.annotations.Nullable;
 
+@DasikApiStatus.Internal
 public class DefaultProfileManager implements BehaviorProfileManager {
     private final Mob mob;
     private final Map<String, BehaviorProfile> profiles = new HashMap<>();

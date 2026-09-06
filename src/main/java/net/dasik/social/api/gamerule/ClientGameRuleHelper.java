@@ -2,12 +2,17 @@
 // Verified against: Minecraft.java (26.1.2+), ServerLevel.java (26.1.2+)
 package net.dasik.social.api.gamerule;
 
+import net.dasik.social.api.annotation.DasikApiStatus;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gamerules.GameRule;
 
+@DasikApiStatus.Public
+@Environment(EnvType.CLIENT)
 public class ClientGameRuleHelper {
     public static int getInt(Level level, GameRule<Integer> rule) {
         Minecraft minecraft = Minecraft.getInstance();

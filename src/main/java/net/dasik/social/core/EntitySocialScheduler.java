@@ -10,6 +10,7 @@ import net.dasik.social.api.SocialEntity;
 import net.dasik.social.api.SocialEvent;
 import net.dasik.social.api.SocialScheduler;
 import net.dasik.social.api.TickContext;
+import net.dasik.social.api.annotation.DasikApiStatus;
 import net.dasik.social.signal.Signal;
 import net.dasik.social.util.FastRandom;
 import net.minecraft.server.level.ServerLevel;
@@ -18,6 +19,7 @@ import net.minecraft.util.RandomSource;
 /**
  * Entity-specific scheduler that manages the execution and preemption of SocialEvents.
  */
+@DasikApiStatus.Internal
 public class EntitySocialScheduler implements SocialScheduler {
     private final SocialEntity socialEntity;
     private final Map<String, SocialEvent> activeTracks = new ConcurrentHashMap<>();

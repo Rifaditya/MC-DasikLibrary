@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.39]
+
+### Added
+- **Branded API Governance Subsystem (`@DasikApiStatus` & `@APIDasikStatus`)**: Introduced formal lifecycle and visibility annotations (`.Public`, `.Internal`, `.Experimental`) under `net.dasik.social.api.annotation`. Meta-annotated with `org.jetbrains.annotations.ApiStatus` for instant IDE warning highlights across developer toolchains.
+- **Client Side-Safety Enforcements (`@Environment(EnvType.CLIENT)`)**: Formally annotated client-only UI, screen, and config builders in `DasikSupportHelper`, `GuiHelper`, and `ClientGameRuleHelper` to strictly guard client-server classloading boundaries.
+- **Internal Engine Encapsulation**: Formally encapsulated internal schedulers, ticking engines, and registries (`GlobalSocialSystem`, `EntitySocialScheduler`, `SocialRegistry`, `GroupManager`, `DefaultProfileManager`, `ModVersionGuard`) under `@DasikApiStatus.Internal`.
+- **API Status Test Suite (`DasikApiStatusTest`)**: Added automated JUnit 5 reflection tests verifying annotation metadata, class-level retention, and target element applicability.
+
 ## [1.8.38]
 
 ### Added

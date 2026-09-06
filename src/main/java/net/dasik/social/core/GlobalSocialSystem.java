@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import net.dasik.social.api.SocialEntity;
 import net.dasik.social.api.SocialEventRegistry;
 import net.dasik.social.api.SocialScheduler;
+import net.dasik.social.api.annotation.DasikApiStatus;
 import net.dasik.social.config.PerformanceConfig;
 import net.minecraft.server.level.ServerLevel;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The core engine of the social system. Manages the global ticking pulse and event registration lifecycle.
  */
+@DasikApiStatus.Internal
 public class GlobalSocialSystem {
     private static final Logger LOGGER = LoggerFactory.getLogger("DasikHiveMind");
     public static final int ENGINE_VERSION = 200;

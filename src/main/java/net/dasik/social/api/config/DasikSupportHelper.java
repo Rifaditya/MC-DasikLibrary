@@ -2,7 +2,9 @@
 // Verified against: Minecraft.java (26.2+), ConfirmLinkScreen.java (26.2+)
 package net.dasik.social.api.config;
 
+import net.dasik.social.api.annotation.DasikApiStatus;
 import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
@@ -24,6 +26,7 @@ import java.util.function.Consumer;
  * Universal helper for integrating creator support links (Ko-fi) across ModMenu,
  * in-game configuration screens (YACL / Cloth Config), and Brigadier commands.
  */
+@DasikApiStatus.Public
 public class DasikSupportHelper {
     private static final Logger LOGGER = LoggerFactory.getLogger("DasikLibrary|Support");
 
@@ -80,7 +83,9 @@ public class DasikSupportHelper {
     /**
      * Safely opens the creator's Ko-fi page in the player's default browser via ConfirmLinkScreen.
      * Gated by client environment check to prevent server classloader exceptions.
+     * Client-only operation.
      */
+    @Environment(EnvType.CLIENT)
     public static void openKofi(Screen parentScreen) {
         if (FabricLoader.getInstance().getEnvironmentType() != EnvType.CLIENT) {
             LOGGER.warn("Cannot open browser URL from dedicated server environment.");
@@ -91,7 +96,9 @@ public class DasikSupportHelper {
 
     /**
      * Safely opens any external URL via Minecraft's standard ConfirmLinkScreen.
+     * Client-only operation.
      */
+    @Environment(EnvType.CLIENT)
     public static void openUrl(Screen parentScreen, String url) {
         try {
             ConfirmLinkScreen.confirmLinkNow(parentScreen, url);
@@ -103,9 +110,11 @@ public class DasikSupportHelper {
     /**
      * Dynamically builds a YetAnotherConfigLib (YACL) ButtonOption for Ko-fi creator support.
      * Uses reflection so Dasik Library does not need a hard compile-time or runtime dependency on YACL.
+     * Client-only operation.
      *
      * @return the built YACL ButtonOption/Option instance, or null if YACL is absent or an error occurs.
      */
+    @Environment(EnvType.CLIENT)
     public static Object createYaclButton() {
         try {
             Class<?> buttonOptClass = Class.forName("dev.isxander.yacl3.api.ButtonOption");

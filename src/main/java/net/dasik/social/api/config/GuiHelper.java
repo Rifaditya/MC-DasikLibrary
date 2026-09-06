@@ -3,10 +3,15 @@
 package net.dasik.social.api.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+import net.dasik.social.api.annotation.DasikApiStatus;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@DasikApiStatus.Public
+@Environment(EnvType.CLIENT)
 public class GuiHelper {
     private static final Logger LOGGER = LoggerFactory.getLogger("DasikLibrary|GUI");
 

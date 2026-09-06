@@ -17,6 +17,7 @@ import net.minecraft.util.Util;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gamerules.GameRule;
+import net.dasik.social.api.annotation.DasikApiStatus;
 import net.minecraft.world.level.gamerules.GameRuleCategory;
 import net.minecraft.world.level.gamerules.GameRuleType;
 import net.minecraft.world.level.gamerules.GameRuleTypeVisitor;
@@ -26,6 +27,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Manager for dynamic Gamerule registration and state access.
  */
+@DasikApiStatus.Public
 public class DynamicGameRuleManager {
     private static final Logger LOGGER = LoggerFactory.getLogger(DynamicGameRuleManager.class);
     private static final Map<String, GameRule<?>> DYNAMIC_RULES = new ConcurrentHashMap<>();

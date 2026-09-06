@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import net.dasik.social.api.SocialEntity;
+import net.dasik.social.api.annotation.DasikApiStatus;
 import net.dasik.social.util.FastRandom;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,6 +19,7 @@ import org.jetbrains.annotations.Nullable;
  * Shard-based registry for O(1) concurrent entity management.
  * Uses WeakReferences to prevent memory leaks while maintaining a high-performance fast-access array.
  */
+@DasikApiStatus.Internal
 public class SocialRegistry {
     private static final int SHARD_COUNT = Math.max(8, Runtime.getRuntime().availableProcessors() * 2);
     private static final Set<WeakReference<SocialEntity>>[] SHARDS;

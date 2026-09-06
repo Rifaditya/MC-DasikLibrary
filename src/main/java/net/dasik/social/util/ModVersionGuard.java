@@ -1,6 +1,9 @@
 // Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 package net.dasik.social.util;
 
+import net.dasik.social.api.annotation.DasikApiStatus;
+
+@DasikApiStatus.Internal
 public final class ModVersionGuard {
     private ModVersionGuard() {}
 
