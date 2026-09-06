@@ -1,0 +1,201 @@
+/* Dasik Library - Premium Animated Minimalist Theme */
+
+:root {
+  --vp-c-brand-1: #2a2a2a;
+  --vp-c-brand-2: #141414;
+  --vp-c-brand-3: #000000;
+  --vp-c-brand-soft: rgba(0, 0, 0, 0.06);
+
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #111111 0%, #444444 50%, #111111 100%);
+  --vp-home-hero-name-background-size: 200% auto;
+}
+
+.dark {
+  --vp-c-brand-1: #ffffff;
+  --vp-c-brand-2: #e4e4e7;
+  --vp-c-brand-3: #d4d4d8;
+  --vp-c-brand-soft: rgba(255, 255, 255, 0.08);
+
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #ffffff 0%, #a1a1aa 50%, #ffffff 100%);
+  --vp-home-hero-name-background-size: 200% auto;
+}
+
+/* 1. Shimmering Gradient Title */
+.VPHero .name {
+  background-size: 200% auto !important;
+  animation: shimmerTitle 6s linear infinite !important;
+  letter-spacing: -0.02em;
+}
+
+@keyframes shimmerTitle {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* 2. Hero Mascot Top-Alignment (Aligned with Title) & Floating Animation */
+@media (min-width: 960px) {
+  .VPHero.has-image .container {
+    align-items: flex-start !important;
+  }
+  .VPHero .image {
+    display: flex !important;
+    align-self: flex-start !important;
+    justify-content: center !important;
+    padding-top: 10px !important;
+  }
+  .VPHero .image-container {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: center !important;
+    transform: none !important;
+    margin-top: 5px !important;
+  }
+}
+
+.VPHero .image-src,
+.VPHero .image-container img {
+  max-height: 300px !important;
+  width: auto !important;
+  will-change: transform, filter;
+  animation: heroFloat 5s ease-in-out infinite alternate !important;
+  filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.12));
+}
+
+.dark .VPHero .image-src,
+.dark .VPHero .image-container img {
+  filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.18)) drop-shadow(0 15px 35px rgba(0, 0, 0, 0.5)) !important;
+}
+
+@keyframes heroFloat {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(0.5deg);
+  }
+  100% {
+    transform: translateY(-18px) rotate(-0.5deg);
+  }
+}
+
+/* 3. Ambient Cosmic Glow Behind Hero */
+.VPHero {
+  position: relative;
+  overflow: hidden;
+}
+
+.dark .VPHero::before {
+  content: '';
+  position: absolute;
+  top: 15%;
+  right: 15%;
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+  animation: ambientPulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes ambientPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.15);
+    opacity: 0.9;
+  }
+}
+
+/* 4. Sleek Interactive Feature Cards */
+.VPFeature {
+  position: relative;
+  background: var(--vp-c-bg-soft) !important;
+  border: 1px solid var(--vp-c-default-soft) !important;
+  border-radius: 14px !important;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s, box-shadow 0.35s !important;
+  will-change: transform, box-shadow;
+}
+
+.VPFeature:hover {
+  transform: translateY(-6px) !important;
+  border-color: var(--vp-c-brand-1) !important;
+}
+
+.dark .VPFeature:hover {
+  box-shadow: 0 12px 30px -10px rgba(255, 255, 255, 0.08), 0 0 15px 0 rgba(255, 255, 255, 0.04) !important;
+}
+
+:root:not(.dark) .VPFeature:hover {
+  box-shadow: 0 14px 28px -10px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* 5. Buttons Polish & Tactile Feedback */
+.VPButton.brand {
+  border-color: var(--vp-c-brand-1) !important;
+  background-color: var(--vp-c-brand-1) !important;
+  color: var(--vp-c-bg) !important;
+  font-weight: 600;
+  border-radius: 10px !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.dark .VPButton.brand {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+}
+
+.VPButton.brand:hover {
+  transform: translateY(-2px) scale(1.02) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.dark .VPButton.brand:hover {
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3) !important;
+}
+
+.VPButton.brand:active {
+  transform: translateY(0px) scale(0.98) !important;
+}
+
+.VPButton.alt {
+  border-radius: 10px !important;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.VPButton.alt:hover {
+  transform: translateY(-2px) !important;
+  border-color: var(--vp-c-text-2) !important;
+}
+
+/* 6. Top-Left Wizard Brand Logo Micro-bounce */
+.VPNavBarTitle .logo {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s !important;
+}
+
+.VPNavBarTitle:hover .logo {
+  transform: rotate(6deg) scale(1.12);
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+}
+
+.dark .VPNavBarTitle:hover .logo {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.4));
+}
+
+/* 7. Accessibility - Honor Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .VPHero .name,
+  .VPHero .image-src,
+  .VPHero .image-container img,
+  .dark .VPHero::before {
+    animation: none !important;
+  }
+}
