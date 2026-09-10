@@ -69,6 +69,16 @@ Entity-agnostic genetics attachment, triangular mutation rules, inbreeding penal
 
 ---
 
+### 💬 Join the Community & Get Support
+Looking for help, want to test early beta builds, or vote on upcoming features? Join our official Discord community!
+<p align="center">
+  <a href="https://discord.gg/EV99bgAFqb">
+    <img src="https://img.shields.io/badge/💬_Discord-Join_Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Join Official Discord">
+  </a>
+</p>
+
+---
+
 ## ☕ Support
 
 If you enjoy the ecosystem, consider fueling the next update!
@@ -89,6 +99,7 @@ If you enjoy the ecosystem, consider fueling the next update!
 | Role | Author |
 | :--- | :--- |
 | **Creator** | **Dasik (Rifaditya)** |
+| **Community** | [Official Discord](https://discord.gg/EV99bgAFqb) |
 | **Collection** | Vanilla Outsider / Instant Gratification / Delayed Gratification |
 | **License** | LGPLv3 |
 
