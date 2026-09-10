@@ -210,7 +210,7 @@ Looking for help, want to test early beta builds, or vote on upcoming features? 
 
 ## ☕ Support
 
-If you appreciate this library and the mods it powers, consider fueling future updates!
+If you enjoy the ecosystem, consider fueling future updates!
 
 <p align="center">
   <a href="https://ko-fi.com/dasikigaijin/tip"><img src="https://img.shields.io/badge/Ko--fi-Support%20Me-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Ko-fi"></a>
@@ -221,20 +221,16 @@ If you appreciate this library and the mods it powers, consider fueling future u
 > [!NOTE]
 > **🇮🇩 Indonesian Users:** SocioBuzz and Saweria support local payment methods (Gopay, OVO, Dana, etc.) if you want to support me without using PayPal/Ko-fi!
 
-> [!TIP]
-> **Dedicated Server Hosting Partner:**
-> Looking for a high-performance server to host your community or play with friends? Check out **BisectHosting** for 1-click modpack installations, automated backups, and 24/7 dedicated customer support. Use promo code **`Dasik`** for 25% off your first month!
-
 ---
 
 ## 📜 Credits & Modpack Permissions
 
-| Property | Information |
+| Role / Property | Author / Link |
 | :--- | :--- |
 | **Creator / Author** | **Dasik** (Rifaditya) |
 | **Community** | [Official Discord](https://discord.gg/EV99bgAFqb) |
 | **Collection** | Universal Core Architecture |
-| **License** | [GNU General Public License v3.0 (GPLv3)](https://www.gnu.org/licenses/gpl-3.0.html) |
+| **License** | [GNU Lesser General Public License v3.0 (LGPLv3)](https://www.gnu.org/licenses/lgpl-3.0.html) |
 | **Source Code** | [GitHub - Rifaditya/MC-DasikLibrary](https://github.com/Rifaditya/MC-DasikLibrary) |
 | **Issue Tracker** | [GitHub Issues](https://github.com/Rifaditya/MC-DasikLibrary/issues) |
 | **Documentation / Wiki** | [GitHub Wiki](https://github.com/Rifaditya/MC-DasikLibrary/wiki) |
@@ -244,12 +240,15 @@ If you appreciate this library and the mods it powers, consider fueling future u
 > You are fully welcome to include this mod in any modpack on any platform! However, the mod file must be downloaded directly through official distribution channels (**Modrinth** or **CurseForge**). Re-uploading, mirroring, or redistributing the original mod JAR to third-party mirror sites, scraper portals, or unauthorized launchers is strictly prohibited.
 > <br><br>
 > **⚖️ License & Fork Guidelines (No Zero-Change Re-uploads):**<br>
-> This project is open-source under the **GNU GPLv3**. You are fully encouraged to inspect the code, learn from it, and fork the repository to create genuine modifications, substantial feature expansions, or community ports—provided your project remains open-source under GPLv3 with proper attribution.<br>
+> This project is open-source under the **GNU (LGPLv3)**. You are fully encouraged to inspect the code, learn from it, and fork the repository to create genuine modifications, substantial feature expansions, or community ports—provided your project remains open-source under LGPLv3 with proper attribution.<br>
 > **However, straight 1:1 re-uploads, clone forks with no meaningful functional changes, or re-publishing identical builds under different project names (e.g. to farm downloads or rewards) are strictly forbidden.**
 
 ---
 
-<p align="center">
-  <strong>Made with ❤️ for the Minecraft community</strong><br>
-  <em>Part of the Universal Core Architecture</em>
-</p>
+<div align="center">
+
+**Made with ❤️ for the Minecraft community**
+
+*Part of the Universal Core Architecture*
+
+</div>

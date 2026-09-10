@@ -82,36 +82,37 @@ Looking for help, want to test early beta builds, or vote on upcoming features? 
 
 ## ☕ Support
 
-If you enjoy the ecosystem, consider fueling the next update!
+If you enjoy the ecosystem, consider fueling future updates!
 
 <p align="center">
-    <a href="https://ko-fi.com/dasikigaijin/tip"><img src="https://img.shields.io/badge/Ko--fi-Support%20Me-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Ko-fi"></a>
-    <a href="https://sociabuzz.com/dasikigaijin/tribe"><img src="https://img.shields.io/badge/SocioBuzz-Local_Support-7BB32E?style=for-the-badge" alt="SocioBuzz"></a>
-    <a href="https://saweria.co/DasikIgaijinn"><img src="https://img.shields.io/badge/Saweria-Local_Support-FFA500?style=for-the-badge" alt="Saweria"></a>
+  <a href="https://ko-fi.com/dasikigaijin/tip"><img src="https://img.shields.io/badge/Ko--fi-Support%20Me-FF5E5B?style=for-the-badge&logo=ko-fi&logoColor=white" alt="Ko-fi"></a>
+  <a href="https://sociabuzz.com/dasikigaijin/tribe"><img src="https://img.shields.io/badge/SocioBuzz-Local_Support-7BB32E?style=for-the-badge" alt="SocioBuzz"></a>
+  <a href="https://saweria.co/DasikIgaijinn"><img src="https://img.shields.io/badge/Saweria-Local_Support-FFA500?style=for-the-badge" alt="Saweria"></a>
 </p>
 
 > [!NOTE]
-> **Indonesian Users:** SocioBuzz and Saweria support local payment methods (Gopay, OVO, Dana, etc.) if you want to support me without using PayPal/Ko-fi!
+> **🇮🇩 Indonesian Users:** SocioBuzz and Saweria support local payment methods (Gopay, OVO, Dana, etc.) if you want to support me without using PayPal/Ko-fi!
 
 ---
 
-## 📜 Credits
+## 📜 Credits & Modpack Permissions
 
-| Role | Author |
+| Role / Property | Author / Link |
 | :--- | :--- |
-| **Creator** | **Dasik (Rifaditya)** |
+| **Creator / Author** | **Dasik** (Rifaditya) |
 | **Community** | [Official Discord](https://discord.gg/EV99bgAFqb) |
-| **Collection** | Vanilla Outsider / Instant Gratification / Delayed Gratification |
-| **License** | LGPLv3 |
-
----
+| **Collection** | Universal Core Architecture |
+| **License** | [GNU Lesser General Public License v3.0 (LGPLv3)](https://www.gnu.org/licenses/lgpl-3.0.html) |
+| **Source Code** | [GitHub - Rifaditya/MC-DasikLibrary](https://github.com/Rifaditya/MC-DasikLibrary) |
+| **Issue Tracker** | [GitHub Issues](https://github.com/Rifaditya/MC-DasikLibrary/issues) |
+| **Documentation / Wiki** | [GitHub Wiki](https://github.com/Rifaditya/MC-DasikLibrary/wiki) |
 
 > [!IMPORTANT]
 > **📦 Modpack Permissions & Distribution:**<br>
 > You are fully welcome to include this mod in any modpack on any platform! However, the mod file must be downloaded directly through official distribution channels (**Modrinth** or **CurseForge**). Re-uploading, mirroring, or redistributing the original mod JAR to third-party mirror sites, scraper portals, or unauthorized launchers is strictly prohibited.
 > <br><br>
 > **⚖️ License & Fork Guidelines (No Zero-Change Re-uploads):**<br>
-> This project is open-source under the **GNU GPLv3**. You are fully encouraged to inspect the code, learn from it, and fork the repository to create genuine modifications, substantial feature expansions, or community ports—provided your project remains open-source under GPLv3 with proper attribution.<br>
+> This project is open-source under the **GNU (LGPLv3)**. You are fully encouraged to inspect the code, learn from it, and fork the repository to create genuine modifications, substantial feature expansions, or community ports—provided your project remains open-source under LGPLv3 with proper attribution.<br>
 > **However, straight 1:1 re-uploads, clone forks with no meaningful functional changes, or re-publishing identical builds under different project names (e.g. to farm downloads or rewards) are strictly forbidden.**
 
 ---
@@ -120,6 +121,6 @@ If you enjoy the ecosystem, consider fueling the next update!
 
 **Made with ❤️ for the Minecraft community**
 
-*Part of the Vanilla Outsider Collection*
+*Part of the Universal Core Architecture*
 
 </div>

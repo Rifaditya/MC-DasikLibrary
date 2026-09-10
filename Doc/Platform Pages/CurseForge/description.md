@@ -256,7 +256,7 @@ DynamicRegistryScanner.subscribe(BuiltInRegistries.ITEM, item -&gt; {
 
 <h2>☕ Support</h2>
 
-<p>If you appreciate this library and the mods it powers, consider fueling future updates!</p>
+<p>If you enjoy <strong>Dasik Library</strong>, consider fueling future updates!</p>
 
 <p align="center">
   <a href="https://ko-fi.com/dasikigaijin/tip"><img src="https://img.shields.io/badge/Ko--fi-Support%20Me-FF5E5B?style=for-the-badge&amp;logo=ko-fi&amp;logoColor=white" alt="Ko-fi"></a>
@@ -302,7 +302,7 @@ DynamicRegistryScanner.subscribe(BuiltInRegistries.ITEM, item -&gt; {
     </tr>
     <tr>
       <td><strong>License</strong></td>
-      <td><a href="https://www.gnu.org/licenses/gpl-3.0.html">GNU General Public License v3.0 (GPLv3)</a></td>
+      <td><a href="https://www.gnu.org/licenses/lgpl-3.0.html">GNU Lesser General Public License v3.0 (LGPLv3)</a></td>
     </tr>
     <tr>
       <td><strong>Source Code</strong></td>
@@ -323,7 +323,7 @@ DynamicRegistryScanner.subscribe(BuiltInRegistries.ITEM, item -&gt; {
   <p><strong>📦 Modpack Permissions &amp; Distribution:</strong><br>
   You are fully welcome to include this mod in any modpack on any platform! However, the mod file must be downloaded directly through official distribution channels (<strong>CurseForge</strong> or <strong>Modrinth</strong>). Re-uploading, mirroring, or redistributing the original mod JAR to third-party mirror sites, scraper portals, or unauthorized launchers is strictly prohibited.</p>
   <p><strong>⚖️ License &amp; Fork Guidelines (No Zero-Change Re-uploads):</strong><br>
-  This project is open-source under the <strong>GNU GPLv3</strong>. You are fully encouraged to inspect the code, learn from it, and fork the repository to create genuine modifications, substantial feature expansions, or community ports&mdash;provided your project remains open-source under GPLv3 with proper attribution.<br>
+  This project is open-source under the <strong>GNU (LGPLv3)</strong>. You are fully encouraged to inspect the code, learn from it, and fork the repository to create genuine modifications, substantial feature expansions, or community ports&mdash;provided your project remains open-source under LGPLv3 with proper attribution.<br>
   <strong>However, straight 1:1 re-uploads, clone forks with no meaningful functional changes, or re-publishing identical builds under different project names (e.g. to farm downloads or rewards) are strictly forbidden.</strong></p>
 </blockquote>
 
