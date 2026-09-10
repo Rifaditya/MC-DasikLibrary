@@ -267,6 +267,14 @@ DynamicRegistryScanner.subscribe(BuiltInRegistries.ITEM, item -&gt; {
 
 <blockquote><p><strong>Dedicated Server Hosting Partner:</strong><br>Looking for a high-performance server to host your community or play with friends? Check out <strong>BisectHosting</strong> for 1-click modpack installations, automated backups, and 24/7 dedicated customer support. Use promo code <strong><code>Dasik</code></strong> for 25% off your first month!</p></blockquote>
 
+<h3>💬 Join the Community &amp; Get Support</h3>
+<p>Looking for help, want to test early beta builds, or vote on upcoming features? Join our official Discord community!</p>
+<p align="center">
+  <a href="https://discord.gg/EV99bgAFqb" target="_blank" rel="noopener">
+    <img src="https://img.shields.io/badge/Discord-Join_Community-5865F2?style=for-the-badge&amp;logo=discord&amp;logoColor=white" alt="Join Official Discord">
+  </a>
+</p>
+
 <hr>
 
 <h2>📜 Credits &amp; Modpack Permissions</h2>
@@ -282,6 +290,10 @@ DynamicRegistryScanner.subscribe(BuiltInRegistries.ITEM, item -&gt; {
     <tr>
       <td><strong>Creator / Author</strong></td>
       <td><strong>Dasik</strong> (Rifaditya)</td>
+    </tr>
+    <tr>
+      <td><strong>Community</strong></td>
+      <td><a href="https://discord.gg/EV99bgAFqb" target="_blank" rel="noopener">Official Discord</a></td>
     </tr>
     <tr>
       <td><strong>Collection</strong></td>
