@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.9.2]
+
+### Fixed
+- **Official Permanent Discord Invite Link**: Corrected `SocialLinks.DISCORD_INVITE_URL` from the provisional invite to the permanent official invite (`https://discord.gg/EV99bgAFqb`). Updated `fabric.mod.json` contact and ModMenu `modmenu.discord` entries accordingly. All in-game Discord touchpoints (YACL button, command footer, browser opener) now resolve to the correct permanent community link.
+
 ## [1.9.1]
 
 ### Added
@@ -12,7 +17,7 @@
 ## [1.9.0]
 
 ### Added
-- **Centralized SocialLinks Java API (`net.dasik.social.api.SocialLinks`)**: Introduced official public API (`@DasikApiStatus.Public`) centralizing community links across the Dasik ecosystem, including the Discord community invite (`https://discord.gg/VSHP6mw4qY`), Ko-fi support (`https://ko-fi.com/dasikigaijin`), GitHub profile (`https://github.com/Rifaditya`), and Dasik MC Studio Mod Portal (`https://dasik-mc-studio.pages.dev`).
+- **Centralized SocialLinks Java API (`net.dasik.social.api.SocialLinks`)**: Introduced official public API (`@DasikApiStatus.Public`) centralizing community links across the Dasik ecosystem, including the Discord community invite (`https://discord.gg/EV99bgAFqb`), Ko-fi support (`https://ko-fi.com/dasikigaijin`), GitHub profile (`https://github.com/Rifaditya`), and Dasik MC Studio Mod Portal (`https://dasik-mc-studio.pages.dev`).
 - **Cached URI Accessors**: Added pre-parsed, cached `URI` getters (`getDiscordUri()`, `getKofiUri()`, `getGithubUri()`, `getModPortalUri()`) to eliminate redundant parsing across add-ons and UI components.
 - **Client-Safe Browser Launchers**: Added `@Environment(EnvType.CLIENT)` browser opener methods (`openDiscord(Screen)`, `openKofi(Screen)`, `openUrl(Screen, String)`) utilizing Minecraft's standard `ConfirmLinkScreen.confirmLinkNow` with null/blank validation, FabricLoader environment verification, and defensive try-catch safety.
 - **SocialLinks Reality Test Suite (`SocialLinksTest`)**: Added automated JUnit 5 test suite verifying URL parsing, URI cache consistency, and headless browser opening safety.
@@ -20,7 +25,7 @@
 ## [1.8.40]
 
 ### Added
-- **Official Discord Community & ModMenu Integration (`fabric.mod.json`)**: Added official Discord community invite link (`https://discord.gg/VSHP6mw4qY`) to metadata contact information and ModMenu direct links (`modmenu.discord`), enabling direct community access, discussions, and support directly from the in-game mods menu.
+- **Official Discord Community & ModMenu Integration (`fabric.mod.json`)**: Added official Discord community invite link (`https://discord.gg/EV99bgAFqb`) to metadata contact information and ModMenu direct links (`modmenu.discord`), enabling direct community access, discussions, and support directly from the in-game mods menu.
 
 ## [1.8.39]
 

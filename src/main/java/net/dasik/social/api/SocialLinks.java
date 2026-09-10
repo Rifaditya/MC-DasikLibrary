@@ -24,7 +24,7 @@ import java.net.URI;
 public final class SocialLinks {
     private static final Logger LOGGER = LoggerFactory.getLogger("DasikLibrary|SocialLinks");
 
-    public static final String DISCORD_INVITE_URL = "https://discord.gg/VSHP6mw4qY";
+    public static final String DISCORD_INVITE_URL = "https://discord.gg/EV99bgAFqb";
     public static final String KOFI_URL = "https://ko-fi.com/dasikigaijin";
     public static final String GITHUB_URL = "https://github.com/Rifaditya";
     public static final String MOD_PORTAL_URL = "https://dasik-mc-studio.pages.dev";

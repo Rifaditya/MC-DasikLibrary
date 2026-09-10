@@ -197,6 +197,16 @@ Dasik Library serves as the engine for numerous popular mods. Explore these proj
 
 ---
 
+### 💬 Join the Community & Get Support
+Looking for help, want to test early beta builds, or vote on upcoming features? Join our official Discord community!
+<p align="center">
+  <a href="https://discord.gg/EV99bgAFqb">
+    <img src="https://img.shields.io/badge/💬_Discord-Join_Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Join Official Discord">
+  </a>
+</p>
+
+---
+
 ## ☕ Support
 
 If you appreciate this library and the mods it powers, consider fueling future updates!
@@ -221,6 +231,7 @@ If you appreciate this library and the mods it powers, consider fueling future u
 | Property | Information |
 | :--- | :--- |
 | **Creator / Author** | **Dasik** (Rifaditya) |
+| **Community** | [Official Discord](https://discord.gg/EV99bgAFqb) |
 | **Collection** | Universal Core Architecture |
 | **License** | [GNU General Public License v3.0 (GPLv3)](https://www.gnu.org/licenses/gpl-3.0.html) |
 | **Source Code** | [GitHub - Rifaditya/MC-DasikLibrary](https://github.com/Rifaditya/MC-DasikLibrary) |

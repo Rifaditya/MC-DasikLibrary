@@ -29,7 +29,7 @@ public class SocialLinksTest {
             }, "URL must parse into a valid URI: " + url);
         }
 
-        assertEquals("https://discord.gg/VSHP6mw4qY", SocialLinks.DISCORD_INVITE_URL);
+        assertEquals("https://discord.gg/EV99bgAFqb", SocialLinks.DISCORD_INVITE_URL);
         assertEquals("https://ko-fi.com/dasikigaijin", SocialLinks.KOFI_URL);
         assertEquals("https://github.com/Rifaditya", SocialLinks.GITHUB_URL);
         assertEquals("https://dasik-mc-studio.pages.dev", SocialLinks.MOD_PORTAL_URL);

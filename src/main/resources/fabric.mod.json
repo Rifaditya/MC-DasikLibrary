@@ -11,7 +11,7 @@
     "homepage": "https://modrinth.com/mod/dasik-library",
     "sources": "https://github.com/Rifaditya/DasikLibrary-Rebuilt",
     "issues": "https://github.com/Rifaditya/DasikLibrary-Rebuilt/issues",
-    "discord": "https://discord.gg/VSHP6mw4qY"
+    "discord": "https://discord.gg/EV99bgAFqb"
   },
   "license": "GPL-3.0-or-later",
   "icon": "assets/dasik-library/icon.png",
@@ -37,7 +37,7 @@
     },
     "modmenu": {
       "links": {
-        "modmenu.discord": "https://discord.gg/VSHP6mw4qY",
+        "modmenu.discord": "https://discord.gg/EV99bgAFqb",
         "modmenu.donate": "https://ko-fi.com/dasikigaijin",
         "modmenu.kofi": "https://ko-fi.com/dasikigaijin"
       }
