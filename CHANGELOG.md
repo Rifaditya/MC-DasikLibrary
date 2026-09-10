@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.8.40]
+
+### Added
+- **Official Discord Community & ModMenu Integration (`fabric.mod.json`)**: Added official Discord community invite link (`https://discord.gg/VSHP6mw4qY`) to metadata contact information and ModMenu direct links (`modmenu.discord`), enabling direct community access, discussions, and support directly from the in-game mods menu.
+
 ## [1.8.39]
 
 ### Added
