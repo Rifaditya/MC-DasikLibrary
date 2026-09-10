@@ -4,5 +4,11 @@
   "dasiklibrary.support.kofi.tooltip": "Enjoying the mod? Leaving a tip or grabbing early access builds directly keeps updates rolling!",
   "dasiklibrary.support.kofi.chat_prompt": "☕ Enjoying the mod? ",
   "dasiklibrary.support.kofi.chat_link": "[Support on Ko-fi]",
-  "dasiklibrary.support.kofi.chat_hover": "Click to open Ko-fi in browser"
+  "dasiklibrary.support.kofi.chat_hover": "Click to open Ko-fi in browser",
+  "dasiklibrary.support.discord.label": "💬 Community & Support",
+  "dasiklibrary.support.discord.button": "💬 Join Discord",
+  "dasiklibrary.support.discord.tooltip": "Join our official Discord for support, early beta access, and feature voting!",
+  "dasiklibrary.support.discord.chat_prompt": "💬 Community: ",
+  "dasiklibrary.support.discord.chat_link": "[Join Discord]",
+  "dasiklibrary.support.discord.chat_hover": "Click to open official Discord server"
 }

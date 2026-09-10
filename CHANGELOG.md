@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.9.1]
+
+### Added
+- **Discord YACL Configuration Button (`DasikSupportHelper.createDiscordYaclButton`)**: Added dynamic reflection-based builder for YetAnotherConfigLib (YACL) `ButtonOption` integrating direct access to the official Discord community server with localized labels, descriptions, and client-safe click actions.
+- **Combined Community & Support Command Footer (`DasikSupportHelper.getCommandFooter`)**: Upgraded Brigadier command footers to a unified single-line format rendering both Discord community (`[Join Discord]`) and creator support (`[Support on Ko-fi]`) clickable links with dedicated color schemes, hover tooltips, and `ClickEvent.OpenUrl` handlers.
+- **Discord Command Footer Component (`DasikSupportHelper.getDiscordCommandFooter`)**: Introduced standalone Discord clickable chat component method.
+- **Discord Localization Strings (`en_us.json`)**: Added standardized translation keys under `dasiklibrary.support.discord.*` for config button labels, button text, tooltips, and chat prompt links.
+- **Support Engine Reality Tests Expansion (`DasikSupportHelperTest`)**: Expanded automated JUnit 5 test suite verifying Discord translatable components, combined command footer multi-sibling structure, link ClickEvent URIs, and headless button builder safety.
+
 ## [1.9.0]
 
 ### Added
