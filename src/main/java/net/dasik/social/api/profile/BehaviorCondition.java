@@ -11,6 +11,6 @@ public interface BehaviorCondition {
     public boolean test(Mob mob);
 
     public static BehaviorCondition inDimension(ResourceKey<Level> dimension) {
-        return mob -> mob.level().dimension() == dimension;
+        return mob -> mob != null && mob.level() != null && mob.level().dimension() == dimension;
     }
 }

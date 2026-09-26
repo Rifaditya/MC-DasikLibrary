@@ -92,16 +92,25 @@ public class DefaultProfileManager implements BehaviorProfileManager {
     private void switchToProfile(String newProfileId) {
         BehaviorProfile newProfile;
         BehaviorProfile old;
+        GoalSelector selector = this.getGoalSelector();
         if (this.activeProfileId != null && (old = this.profiles.get(this.activeProfileId)) != null) {
-            old.removeGoals(this.mob, this.getGoalSelector());
+            if (selector != null) {
+                old.removeGoals(this.mob, selector);
+            }
         }
         if ((newProfile = this.profiles.get(newProfileId)) != null) {
-            newProfile.applyGoals(this.mob, this.getGoalSelector());
+            if (selector != null) {
+                newProfile.applyGoals(this.mob, selector);
+            }
             this.activeProfileId = newProfileId;
         }
     }
 
+    @Nullable
     private GoalSelector getGoalSelector() {
-        return ((MobGoalAccessor)this.mob).dasik$getGoalSelector();
+        if (this.mob instanceof MobGoalAccessor accessor) {
+            return accessor.dasik$getGoalSelector();
+        }
+        return null;
     }
 }

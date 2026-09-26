@@ -1,5 +1,10 @@
 # Technical History: DasikLibrary
 
+## Multi-Era Parity Release [BL-DASIK-001, BL-DASIK-002, BL-DASIK-003] (2026-09-26)
+- **Multi-Era API Parity Port (`[BL-DASIK-002]`)**: Ported `SocialScheduler`, `EntitySocialScheduler`, `SocialEvent`, `SocialEventRegistry`, `SignalBus`, `Signal`, `SignalType`, `BehaviorProfileManager`, `EntityBehaviorProfile`, and `BehaviorProfileRegistry` across legacy anchors (`1.20.1`, `1.21.1`, `1.21.11`).
+- **Genetics & Dynamic Registry Parity (`[BL-DASIK-003]`)**: Ported `GeneticsLootModifier`, `GeneticsLootRegistry`, `ScaleLimitSupplier`, `DynamicRegistryScanner`, and `PerformanceConfig` across all legacy anchors with era-appropriate adaptations.
+- **Dynamic GameRule Unregistration (`[BL-DASIK-001]`)**: Added explicit unregistration and automated lifecycle pruning sweep (`ServerLifecycleEvents.SERVER_STARTING`) for uninstalled mod rules.
+
 ## Version 1.8.29 (2026-08-27)
 - **Mixin Member Naming Standard (`LanguageMixin`)**: Prefixed injected method with `dasik$` (`dasik$injectDynamicGameRuleTranslations`) to ensure 100% compliance with Mixin naming standards.
 - **Orphaned Mixin Removal (`PathfinderMobMixin`)**: Safely removed deprecated, unregistered experimental entity mixin file from source tree to guarantee 1:1 parity with `dasik-library.mixins.json`.
