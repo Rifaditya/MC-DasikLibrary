@@ -7,7 +7,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 - [ ] **`1.9.2`** - **Official Permanent Discord Invite Link & Final Social Alignment:** Corrected `SocialLinks.DISCORD_INVITE_URL` to permanent official invite and updated metadata.
 - [ ] **`1.9.1`** - **Discord YACL Configuration Button & Command Footers:** Added `DasikSupportHelper.createDiscordYaclButton` and upgraded Brigadier command footers to unified format.
-- [ ] **`1.9.0`** [HOTFIX] - **Centralized SocialLinks Java API (`net.dasik.social.api.SocialLinks`):** Public API centralizing community links and cached URI accessors with client-safe browser openers.
+- [x] **`1.9.0`** [HOTFIX] - **Centralized SocialLinks Java API (`net.dasik.social.api.SocialLinks`):** Public API centralizing community links and cached URI accessors with client-safe browser openers.
 - [x] **`1.8.38`** - **Centralized YACL Creator Support Button Helper (`DasikSupportHelper.createYaclButton`):** Added dynamic reflection-based builder that instantiates `dev.isxander.yacl3.api.ButtonOption` with Ko-fi title, description, and click action safely, plus headless unit testing.
 - [x] **`1.8.37`** - **In-Game Creator Support Engine (`DasikSupportHelper`):** Added centralized `DasikSupportHelper` providing safe `ConfirmLinkScreen` link launching, clickable Brigadier command footers, and localization keys.
 - [x] **`1.8.36`** - **DynamicGameRuleManager Unregistration Logging & Test Suite Expansion:** Added class-level SLF4J logger with debug tracing and expanded JUnit 5 test assertions for dynamic rule unregistration.
