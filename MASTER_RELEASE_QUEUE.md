@@ -10,7 +10,10 @@
 
 | Target MC | Generational Era | Live on Platforms | Next Queued Version | Status & Cadence Action | Feature Highlights / Notes |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **MC 26.2** | Modern Standard | `1.8.35` | `1.8.36` | 🔒 **Updated (2026-09-04)** | Latest update live (`1.8.35`). Daily limit active until next reset. |
+| **MC 26.2+** | Modern Sovereign Lead | `1.9.1` | `1.10.0` | ⏳ **Queued** | Universal Brigadier Command Framework |
+| **MC 1.21.11** | Transitional Anchor | `1.1.0+1.21.11` | `1.2.0+1.21.11` | ⏳ **Queued** | Universal Brigadier Command Framework Parity Update |
+| **MC 1.21.1** | Transitional Anchor | `1.1.0+1.21.1` | `1.2.0+1.21.1` | ⏳ **Queued** | Universal Brigadier Command Framework Parity Update |
+| **MC 1.20.1** | Legacy Anchor | `1.1.0+1.20.1` | `1.2.0+1.20.1` | ⏳ **Queued** | Universal Brigadier Command Framework Parity Update (Java 17) |
 
 ---
 
