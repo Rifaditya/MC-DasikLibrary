@@ -2,6 +2,7 @@
 // Verified against: ModInitializer.java (Snapshot 10)
 package net.dasik.social;
 
+import net.dasik.social.api.command.ModCommandDispatcher;
 import net.dasik.social.api.gamerule.DynamicGameRuleManager;
 import net.dasik.social.api.vision.PlayerVisionTracker;
 import net.fabricmc.api.ModInitializer;
@@ -15,9 +16,9 @@ public class DasikLibraryMod implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        net.dasik.social.util.ModVersionGuard.checkClass("Dasik Library", "net.minecraft.world.entity.EntityType");
         LOGGER.info("Initializing Dasik Library (Engine v{})", 200);
         PlayerVisionTracker.init();
+        ModCommandDispatcher.init();
         var ignored = net.dasik.social.api.genetics.GeneticsEngine.GENETICS;
 
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {

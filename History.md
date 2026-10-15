@@ -1,5 +1,11 @@
 # Technical History: DasikLibrary
 
+## Universal Brigadier Command Framework [BL-DASIK-005, BL-WS-003] (2026-10-15)
+- **Universal Brigadier Command Framework (`[BL-DASIK-005]`)**: Implemented `net.dasik.social.api.command` suite providing `DasikCommandTreeBuilder`, `GameRuleCommandSync`, and `CommandFeedbackFormatter`.
+- **Bidirectional GameRule Sync**: Automated 2-way sync between Brigadier nodes and dynamic or vanilla GameRules with real-time feedback.
+- **Fluent Tree Builder API**: Provided standard subcommands (`help`, `status`, `get`, `set`, `reset`, `reload`) with permission level verification, tab completion, and translatable hover tooltips.
+- **5-Pillar Headless Verification**: Added comprehensive test coverage for command builders, argument dispatching, and feedback formatting.
+
 ## Multi-Era Parity Release [BL-DASIK-001, BL-DASIK-002, BL-DASIK-003] (2026-09-26)
 - **Multi-Era API Parity Port (`[BL-DASIK-002]`)**: Ported `SocialScheduler`, `EntitySocialScheduler`, `SocialEvent`, `SocialEventRegistry`, `SignalBus`, `Signal`, `SignalType`, `BehaviorProfileManager`, `EntityBehaviorProfile`, and `BehaviorProfileRegistry` across legacy anchors (`1.20.1`, `1.21.1`, `1.21.11`).
 - **Genetics & Dynamic Registry Parity (`[BL-DASIK-003]`)**: Ported `GeneticsLootModifier`, `GeneticsLootRegistry`, `ScaleLimitSupplier`, `DynamicRegistryScanner`, and `PerformanceConfig` across all legacy anchors with era-appropriate adaptations.

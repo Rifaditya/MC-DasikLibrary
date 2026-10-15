@@ -1,3 +1,4 @@
+// Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
 /*
  * Zenith Sovereign Engineering - Dasik Library
  * Verified against: PathfinderMob.java (Snapshot 10)

@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.10.0`** - **Universal Brigadier Command Framework:** Exposes `net.dasik.social.api.command` with fluent command tree builder, 2-way GameRule synchronization, feedback formatters, and full tab completion.
 - [ ] **`1.9.2`** - **Official Permanent Discord Invite Link & Final Social Alignment:** Corrected `SocialLinks.DISCORD_INVITE_URL` to permanent official invite and updated metadata.
 - [x] **`1.9.1`** - **Discord YACL Configuration Button & Command Footers:** Added `DasikSupportHelper.createDiscordYaclButton` and upgraded Brigadier command footers to unified format.
 - [x] **`1.9.0`** [HOTFIX] - **Centralized SocialLinks Java API (`net.dasik.social.api.SocialLinks`):** Public API centralizing community links and cached URI accessors with client-safe browser openers.

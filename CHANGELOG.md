@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.10.0]
+
+### Added
+- **Universal Brigadier Command Framework (`net.dasik.social.api.command`)**: Introduced a standardized, fluent command framework for Minecraft Fabric mods, simplifying the creation of in-game administration, debugging, and configuration commands.
+- **Fluent Command Tree Builder (`DasikCommandTreeBuilder`)**: Added an expressive builder facilitating root command creation, permission handling, subcommands (`help`, `status`, `get`, `set`, `reset`, `reload`), tab completion, and automated error feedback.
+- **Dynamic 2-Way GameRule Synchronization (`GameRuleCommandSync`)**: Integrated bidirectional synchronization between Brigadier command nodes and vanilla/dynamic GameRules with instant feedback and runtime notification callbacks.
+- **Centralized Feedback Formatter (`CommandFeedbackFormatter`)**: Unified formatting for success notices, warning alerts, value displays, and clickable community footers across commands.
+- **Headless Unit Verification**: Added comprehensive unit test coverage verifying command tree construction, argument dispatching, and feedback formatting.
+
 ## [1.9.2]
 
 ### Fixed
