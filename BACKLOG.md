@@ -12,7 +12,7 @@ This file tracks planned features, technical refinements, performance optimizati
 | ID | Category | Title | Priority | Target Version | Status | Specification |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | [`BL-DASIK-004`](tickets/BL-DASIK-004.md) | `[TECH_DEBT]` | Adopt 5-Pillar Testing & Sidedness Verification Harness | `[MEDIUM]` | All Anchors | `📌 DEFERRED` | [View Ticket](tickets/BL-DASIK-004.md) |
-| [`BL-DASIK-005`](tickets/BL-DASIK-005.md) | `[FEATURE]` | Universal Brigadier Command Framework Implementation | `[HIGH]` | `1.10.0` | `🚧 IN_PROGRESS` | [View Ticket](tickets/BL-DASIK-005.md) |
+| [`BL-DASIK-005`](tickets/BL-DASIK-005.md) | `[FEATURE]` | Universal Brigadier Command Framework Implementation | `[HIGH]` | `1.10.0` | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-005.md) |
 
 ---
 
