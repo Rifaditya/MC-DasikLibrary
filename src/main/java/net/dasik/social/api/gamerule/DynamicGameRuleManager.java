@@ -259,6 +259,7 @@ public class DynamicGameRuleManager {
                 injectTranslations(id);
                 return rule;
             } catch (Exception e) {
+                LOGGER.error("DynamicGameRuleManager: Failed to register boolean GameRule '{}'", ruleName, e);
                 return null;
             }
         }
@@ -353,6 +354,7 @@ public class DynamicGameRuleManager {
                 injectTranslations(id);
                 return rule;
             } catch (Exception e) {
+                LOGGER.error("DynamicGameRuleManager: Failed to register integer GameRule '{}'", ruleName, e);
                 return null;
             }
         }
@@ -368,16 +370,37 @@ public class DynamicGameRuleManager {
 
     private static <T> GameRule<T> registerWithUnfreeze(String ruleName, GameRule<T> ruleObject) {
         if (BuiltInRegistries.GAME_RULE instanceof net.minecraft.core.MappedRegistry<?> mappedGameRule) {
-            net.dasik.social.mixin.MappedRegistryAccessor accessor = (net.dasik.social.mixin.MappedRegistryAccessor) mappedGameRule;
-            boolean wasFrozen = accessor.isFrozen();
-            if (wasFrozen) {
-                accessor.setFrozen(false);
-            }
-            try {
-                return Registry.register(BuiltInRegistries.GAME_RULE, ruleName, ruleObject);
-            } finally {
+            if (mappedGameRule instanceof net.dasik.social.mixin.MappedRegistryAccessor accessor) {
+                boolean wasFrozen = accessor.isFrozen();
                 if (wasFrozen) {
-                    accessor.setFrozen(true);
+                    accessor.setFrozen(false);
+                }
+                try {
+                    return Registry.register(BuiltInRegistries.GAME_RULE, ruleName, ruleObject);
+                } finally {
+                    if (wasFrozen) {
+                        accessor.setFrozen(true);
+                    }
+                }
+            } else {
+                // Non-mixin environment / headless unit test fallback via reflection
+                try {
+                    java.lang.reflect.Field frozenField = net.minecraft.core.MappedRegistry.class.getDeclaredField("frozen");
+                    frozenField.setAccessible(true);
+                    boolean wasFrozen = frozenField.getBoolean(mappedGameRule);
+                    if (wasFrozen) {
+                        frozenField.setBoolean(mappedGameRule, false);
+                    }
+                    try {
+                        return Registry.register(BuiltInRegistries.GAME_RULE, ruleName, ruleObject);
+                    } finally {
+                        if (wasFrozen) {
+                            frozenField.setBoolean(mappedGameRule, true);
+                        }
+                    }
+                } catch (Exception e) {
+                    LOGGER.warn("DynamicGameRuleManager: Unable to unfreeze MappedRegistry via reflection, attempting direct register", e);
+                    return Registry.register(BuiltInRegistries.GAME_RULE, ruleName, ruleObject);
                 }
             }
         } else {
