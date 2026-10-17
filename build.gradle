@@ -138,7 +138,8 @@ afterEvaluate {
                         file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 26.1.2/mods"),
                         file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 26.2 (1)/mods"),
                         file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 26.x test the latest/mods"),
-                        file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 26.3ish/mods")
+                        file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/Fabric 26.3ish/mods"),
+                        file("C:/Users/fmrif/AppData/Roaming/ModrinthApp/profiles/26.3/mods")
                     ]
                     targetProfiles.each { modrinthProfileMods ->
                         if (modrinthProfileMods.exists()) {

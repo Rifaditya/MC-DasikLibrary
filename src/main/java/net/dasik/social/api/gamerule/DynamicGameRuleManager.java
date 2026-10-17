@@ -92,17 +92,27 @@ public class DynamicGameRuleManager {
         if (ruleName == null || ruleName.isEmpty()) {
             return false;
         }
-        Identifier id = Identifier.tryParse(ruleName);
+        String normalizedRuleName = ruleName.toLowerCase(java.util.Locale.ROOT);
+        boolean removed = false;
+        Identifier id = Identifier.tryParse(normalizedRuleName);
         if (id != null) {
-            return unregister(id);
+            removed = unregister(id);
         }
-        GameRule<?> removed = DYNAMIC_RULES.remove(ruleName);
+        GameRule<?> directRemoved = DYNAMIC_RULES.remove(ruleName);
+        DYNAMIC_RULES.remove(normalizedRuleName);
         GENERATED_TRANSLATIONS.remove("gamerule." + ruleName);
         GENERATED_TRANSLATIONS.remove("gamerule." + ruleName + ".description");
-        if (removed != null && LOGGER.isDebugEnabled()) {
+        GENERATED_TRANSLATIONS.remove("gamerule." + normalizedRuleName);
+        GENERATED_TRANSLATIONS.remove("gamerule." + normalizedRuleName + ".description");
+        if (id != null) {
+            String translationKey = Util.makeDescriptionId("gamerule", id);
+            GENERATED_TRANSLATIONS.remove(translationKey);
+            GENERATED_TRANSLATIONS.remove(translationKey + ".description");
+        }
+        if ((removed || directRemoved != null) && LOGGER.isDebugEnabled()) {
             LOGGER.debug("DynamicGameRuleManager: Unregistered dynamic GameRule '{}'", ruleName);
         }
-        return removed != null;
+        return removed || directRemoved != null;
     }
 
     /**
@@ -221,21 +231,31 @@ public class DynamicGameRuleManager {
 
         @SuppressWarnings("unchecked")
         public GameRule<Boolean> register() {
+            String normalizedRuleName = ruleName.toLowerCase(java.util.Locale.ROOT);
+            if (DYNAMIC_RULES.containsKey(normalizedRuleName)) {
+                return (GameRule<Boolean>) DYNAMIC_RULES.get(normalizedRuleName);
+            }
             if (DYNAMIC_RULES.containsKey(ruleName)) {
                 return (GameRule<Boolean>) DYNAMIC_RULES.get(ruleName);
             }
-            Identifier id = Identifier.parse(ruleName);
+            Identifier id = Identifier.tryParse(normalizedRuleName);
+            if (id == null) {
+                LOGGER.error("DynamicGameRuleManager: Invalid GameRule identifier '{}', skipping registration to prevent startup crash.", ruleName);
+                return null;
+            }
             GameRule<?> existing = BuiltInRegistries.GAME_RULE.getValue(id);
             if (existing != null) {
                 DYNAMIC_RULES.put(ruleName, existing);
+                DYNAMIC_RULES.put(normalizedRuleName, existing);
                 injectTranslations(id);
                 return (GameRule<Boolean>) existing;
             }
             try {
                 GameRule<Boolean> ruleObject = new GameRule<>(category, GameRuleType.BOOL, BoolArgumentType.bool(), 
                     GameRuleTypeVisitor::visitBoolean, Codec.BOOL, b -> b ? 1 : 0, defaultValue, FeatureFlagSet.of());
-                GameRule<Boolean> rule = registerWithUnfreeze(ruleName, ruleObject);
+                GameRule<Boolean> rule = registerWithUnfreeze(normalizedRuleName, ruleObject);
                 DYNAMIC_RULES.put(ruleName, rule);
+                DYNAMIC_RULES.put(normalizedRuleName, rule);
                 injectTranslations(id);
                 return rule;
             } catch (Exception e) {
@@ -296,13 +316,22 @@ public class DynamicGameRuleManager {
 
         @SuppressWarnings("unchecked")
         public GameRule<Integer> register() {
+            String normalizedRuleName = ruleName.toLowerCase(java.util.Locale.ROOT);
+            if (DYNAMIC_RULES.containsKey(normalizedRuleName)) {
+                return (GameRule<Integer>) DYNAMIC_RULES.get(normalizedRuleName);
+            }
             if (DYNAMIC_RULES.containsKey(ruleName)) {
                 return (GameRule<Integer>) DYNAMIC_RULES.get(ruleName);
             }
-            Identifier id = Identifier.parse(ruleName);
+            Identifier id = Identifier.tryParse(normalizedRuleName);
+            if (id == null) {
+                LOGGER.error("DynamicGameRuleManager: Invalid GameRule identifier '{}', skipping registration to prevent startup crash.", ruleName);
+                return null;
+            }
             GameRule<?> existing = BuiltInRegistries.GAME_RULE.getValue(id);
             if (existing != null) {
                 DYNAMIC_RULES.put(ruleName, existing);
+                DYNAMIC_RULES.put(normalizedRuleName, existing);
                 injectTranslations(id);
                 return (GameRule<Integer>) existing;
             }
@@ -318,8 +347,9 @@ public class DynamicGameRuleManager {
 
                 GameRule<Integer> ruleObject = new GameRule<>(category, GameRuleType.INT, argType, 
                     GameRuleTypeVisitor::visitInteger, codec, i -> i, defaultValue, FeatureFlagSet.of());
-                GameRule<Integer> rule = registerWithUnfreeze(ruleName, ruleObject);
+                GameRule<Integer> rule = registerWithUnfreeze(normalizedRuleName, ruleObject);
                 DYNAMIC_RULES.put(ruleName, rule);
+                DYNAMIC_RULES.put(normalizedRuleName, rule);
                 injectTranslations(id);
                 return rule;
             } catch (Exception e) {

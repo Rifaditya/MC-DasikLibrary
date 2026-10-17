@@ -114,4 +114,34 @@ public class DynamicGameRuleManagerTest {
         // Cleanup
         DynamicGameRuleManager.unregister("othermod:rule_c");
     }
+
+    @Test
+    @DisplayName("Verify case-insensitive GameRule identifier normalization and unregistration safety")
+    public void testCaseInsensitiveIdentifierSafety() {
+        String camelCaseKey = "testmod:dogPlayFighting";
+        String lowerKey = "testmod:dogplayfighting";
+
+        // Simulate registered state with camelCase
+        DynamicGameRuleManager.getDynamicRules().put(camelCaseKey, DUMMY_RULE);
+        DynamicGameRuleManager.getDynamicRules().put(lowerKey, DUMMY_RULE);
+        DynamicGameRuleManager.getGeneratedTranslations().put("gamerule." + camelCaseKey, "Dog Play Fighting");
+        DynamicGameRuleManager.getGeneratedTranslations().put("gamerule." + lowerKey, "Dog Play Fighting");
+
+        assertTrue(DynamicGameRuleManager.getDynamicRules().containsKey(camelCaseKey));
+        assertTrue(DynamicGameRuleManager.getDynamicRules().containsKey(lowerKey));
+
+        // Unregister via camelCase should cleanly purge both lowercase and camelCase references
+        boolean unregistered = DynamicGameRuleManager.unregister(camelCaseKey);
+        assertTrue(unregistered, "Unregistering camelCase key must succeed via normalized identifier");
+        assertFalse(DynamicGameRuleManager.getDynamicRules().containsKey(camelCaseKey));
+        assertFalse(DynamicGameRuleManager.getDynamicRules().containsKey(lowerKey));
+        assertFalse(DynamicGameRuleManager.getGeneratedTranslations().containsKey("gamerule." + camelCaseKey));
+        assertFalse(DynamicGameRuleManager.getGeneratedTranslations().containsKey("gamerule." + lowerKey));
+
+        // Malformed identifier strings (invalid characters) must not crash
+        assertDoesNotThrow(() -> {
+            DynamicGameRuleManager.booleanRule("invalid identifier with spaces!", DUMMY_CATEGORY, true).register();
+            DynamicGameRuleManager.integerRule("invalid:spaces and $ymbols!", DUMMY_CATEGORY, 10).register();
+        }, "Malformed identifiers must be handled defensively without throwing IdentifierException");
+    }
 }
