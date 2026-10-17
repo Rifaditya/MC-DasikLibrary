@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.11.0]
+
+### Added
+- **Zero-Boilerplate Universal YACL Config Screen Generator (`UniversalConfigScreen`)**: Introduced a 1-line client configuration GUI generator for YetAnotherConfigLib (YACL) v3 with full ModMenu integration (`createUniversalFactory`), eliminating 80–120 lines of repetitive category and group boilerplate per mod.
+- **Side-Safe Configuration Field Annotation (`@ConfigOption`)**: Added `@ConfigOption` annotation in `net.dasik.social.api.config` for declaring config option fields (category, group, name, description, slider, min, max) in common code with 0 client imports, guaranteeing complete dedicated server classloader safety.
+- **Knot ClassLoader Reflection Safety Bridge (`YaclSafetyBridge`)**: Dynamic reflection wrapper for YACL v3 allowing mods to offer rich client configuration screens when YACL is present while gracefully falling back without errors when YACL is absent.
+- **Dynamic 2-Way GameRule Configuration Synchronization (`DynamicGameRuleConfigSync`)**: Bidirectional real-time synchronization between in-game GameRules, client GUI option changes, and custom JSON configuration files.
+- **Automated Creator Support Integration**: Automatically injects centralized Discord community and Ko-fi creator support buttons into every generated configuration category.
+- **5-Pillar Autonomous Test Verification**: Added extensive chaos fuzzing (10k property iterations), multi-threaded concurrency stress testing (50 threads), and Knot ClassLoader isolation tests.
+
 ## [1.10.0]
 
 ### Added

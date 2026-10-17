@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **`1.11.0`** - **Zero-Boilerplate Universal YACL Config Screen Generator:** Exposes `net.dasik.social.api.client.gui.UniversalConfigScreen` and `@ConfigOption` for 1-line client GUI generation with 0 server dependencies, Knot ClassLoader reflection safety, live GameRule sync, and automated Discord & Ko-fi creator buttons.
 - [ ] **`1.10.0`** - **Universal Brigadier Command Framework:** Exposes `net.dasik.social.api.command` with fluent command tree builder, 2-way GameRule synchronization, feedback formatters, and full tab completion.
 - [ ] **`1.9.2`** - **Official Permanent Discord Invite Link & Final Social Alignment:** Corrected `SocialLinks.DISCORD_INVITE_URL` to permanent official invite and updated metadata.
 - [x] **`1.9.1`** - **Discord YACL Configuration Button & Command Footers:** Added `DasikSupportHelper.createDiscordYaclButton` and upgraded Brigadier command footers to unified format.

@@ -4,6 +4,7 @@ package net.dasik.social.api.config;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import net.dasik.social.api.annotation.DasikApiStatus;
+import net.dasik.social.api.client.gui.UniversalConfigScreen;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
@@ -73,5 +74,52 @@ public class GuiHelper {
             }
         }
         return parent -> null;
+    }
+
+    /**
+     * Creates a universal ModMenu {@link ConfigScreenFactory} for a static configuration class
+     * using {@link UniversalConfigScreen}.
+     *
+     * @param configClass the static configuration class.
+     * @return the ConfigScreenFactory if YACL is available; otherwise a fallback dummy factory.
+     */
+    public static ConfigScreenFactory<?> createUniversalFactory(Class<?> configClass) {
+        return UniversalConfigScreen.createFactory(configClass);
+    }
+
+    /**
+     * Creates a universal ModMenu {@link ConfigScreenFactory} for a configuration object instance
+     * using {@link UniversalConfigScreen}.
+     *
+     * @param configInstance the configuration object instance.
+     * @return the ConfigScreenFactory if YACL is available; otherwise a fallback dummy factory.
+     */
+    public static ConfigScreenFactory<?> createUniversalFactory(Object configInstance) {
+        return UniversalConfigScreen.createFactory(configInstance);
+    }
+
+    /**
+     * Creates a universal ModMenu {@link ConfigScreenFactory} with explicit mod ID and configuration instance
+     * using {@link UniversalConfigScreen}.
+     *
+     * @param modId the mod identifier for translation keys.
+     * @param configInstance the configuration object instance or static class.
+     * @return the ConfigScreenFactory if YACL is available; otherwise a fallback dummy factory.
+     */
+    public static ConfigScreenFactory<?> createUniversalFactory(String modId, Object configInstance) {
+        return UniversalConfigScreen.createFactory(modId, configInstance);
+    }
+
+    /**
+     * Creates a universal ModMenu {@link ConfigScreenFactory} with explicit mod ID, configuration instance,
+     * and custom save action using {@link UniversalConfigScreen}.
+     *
+     * @param modId the mod identifier for translation keys.
+     * @param configInstance the configuration object instance or static class.
+     * @param saveAction explicit action to execute on save.
+     * @return the ConfigScreenFactory if YACL is available; otherwise a fallback dummy factory.
+     */
+    public static ConfigScreenFactory<?> createUniversalFactory(String modId, Object configInstance, Runnable saveAction) {
+        return UniversalConfigScreen.createFactory(modId, configInstance, saveAction);
     }
 }
