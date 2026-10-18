@@ -1,3 +1,41 @@
+## [1.11.2]
+
+### Fixed
+- **[BL-DASIK-008] Client Sidedness Isolation (`ClientSupportScreenHelper`)**:
+  - Extracted client-only `ConfirmLinkScreen.confirmLinkNow` browser opening to `net.dasik.social.api.client.gui.ClientSupportScreenHelper`.
+  - Sanitized `DasikSupportHelper` and `SocialLinks` common bytecode; verified zero client class imports via `javap -c -v`.
+  - Authored `ClientSupportScreenHelperTest` validating client environment gating and safety.
+- **[BL-DASIK-009] SignalBus Spatial Indexing & Cast Safety (`SignalBus`)**:
+  - Implemented large range spatial index bypass (`maxRange >= 256.0`), dimension check, and safe `source instanceof SocialEntity` casting.
+  - Added synchronized `clear()` method for spatial index cleanup on world unloading.
+  - Authored `SignalBusTest` validating high-range bypass, world isolation, and concurrency safety.
+- **[BL-DASIK-010] & [BL-DASIK-011] Classloader Integrity & Genetics Bounds**:
+  - Purged obsolete `PathfinderMobMixin` from mixin configurations and source tree.
+  - Added defensive `instanceof GroupMember` guards across `FollowLeaderGoal`, `GroupManager`, and `AerialFlockingStrategy`.
+  - Promoted `SizeStatsBuilder.SIZE_TRAIT_ID = "size"` to public static final constant.
+  - Aligned `DasikAnimalGeneticsAPI` scale resolution to prioritize `"size"` with fallback to `"scale"` and saturated bounds `Math.max(0.0001f, scale)`.
+- **[BL-DASIK-012] Memory-Safe Registry Cleanup & Engine Hardening**:
+  - Purged redundant `SPECIES_INDEX` concurrent map from `SocialRegistry`; guarded `unregister()` against negative count underflows; added `clear()`.
+  - Optimized `GroupManager.computeFlockState()` and `findAndSetLeader()` to eliminate heap allocations on hot paths.
+  - Added zero-division guards to `GeneticsEngine` inbreeding math and dual health bounds checks.
+  - Fixed concurrent key set iteration in `DynamicEnchantmentManager`.
+  - Fixed inverted tick continuation boolean in `EntitySocialScheduler`.
+- **[BL-DASIK-013] Multi-Era Anchor Parity (`1.21.11`, `1.21.1`, `1.20.1`)**:
+  - Purged obsolete `ModVersionGuard.java` across all 3 legacy anchors.
+  - Deleted duplicate stray folder `Dasik Library v1.21.11\Dasik Library 1.21.1`.
+  - Aligned `SocialRegistry`, `DasikAnimalGeneticsAPI`, and `GeneticsEngine` across all anchors to match sovereign lead.
+- **[BL-DASIK-014] Architecture Map & Release Toolchain Calibration**:
+  - Authored standardized `ARCHITECTURE.md` map.
+  - Added 4th deployment point (External Vault `D:\Minecraft Project Vault`) in `build.gradle` `archiveReleaseJar`.
+  - Aligned `fabric.mod.json` sources and issues repository URLs.
+  - Added `@DasikApiStatus.Public` annotations to `GroupMember` and `FlockState`.
+
+## [1.11.1]
+
+### Fixed
+- **Headless Test Classpath Resolution (`build.gradle`)**: Declared `testImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"` to resolve `NoClassDefFoundError: ConfigScreenFactory` in headless reflection tests.
+- **Command Sidedness & Test Suite (`CommandSidednessAndHygieneTest`)**: Added test assertions verifying side-agnostic Brigadier command execution and zero client leaks.
+
 ## [1.11.0]
 
 ### Added

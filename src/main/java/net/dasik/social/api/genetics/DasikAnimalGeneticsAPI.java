@@ -81,21 +81,24 @@ public class DasikAnimalGeneticsAPI {
         if (entity == null) {
             return 1.0f;
         }
-        float scale = getTrait(entity, "scale", 1.0f);
+        float scale = getTrait(entity, SizeStatsBuilder.SIZE_TRAIT_ID, Float.NaN);
+        if (Float.isNaN(scale)) {
+            scale = getTrait(entity, "scale", 1.0f);
+        }
         if (Float.isNaN(scale) || Float.isInfinite(scale)) {
             return 1.0f;
         }
-        return Math.clamp(scale, 0.5f, 2.0f);
+        return Math.max(0.0001f, scale);
     }
 
     public static void setScale(LivingEntity entity, float scale) {
         if (entity == null) {
             return;
         }
-        float clampedScale = Float.isNaN(scale) || Float.isInfinite(scale) ? 1.0f : Math.clamp(scale, 0.5f, 2.0f);
+        float sanitizedScale = Float.isNaN(scale) || Float.isInfinite(scale) ? 1.0f : Math.max(0.0001f, scale);
         EntityGenetics old = GeneticsEngine.getGenetics(entity);
         java.util.Map<String, Float> newTraits = new java.util.HashMap<>(old.traits());
-        newTraits.put("scale", clampedScale);
+        newTraits.put(SizeStatsBuilder.SIZE_TRAIT_ID, sanitizedScale);
         GeneticsEngine.setGenetics(entity, new EntityGenetics(
                 old.parent1Uuid(),
                 old.parent2Uuid(),

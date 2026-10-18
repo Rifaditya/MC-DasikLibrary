@@ -71,4 +71,26 @@ public class CommandSidednessAndHygieneTest {
             });
         }
     }
+
+    @Test
+    @DisplayName("Pillar 5 Sidedness: Verify DasikSupportHelper.class and SocialLinks.class contain ZERO references to Screen or ConfirmLinkScreen in bytecode")
+    void testZeroScreenReferencesInCommonBytecode() throws IOException {
+        Class<?>[] commonClasses = {
+                net.dasik.social.api.config.DasikSupportHelper.class,
+                net.dasik.social.api.SocialLinks.class
+        };
+        for (Class<?> clazz : commonClasses) {
+            String resourcePath = "/" + clazz.getName().replace('.', '/') + ".class";
+            try (java.io.InputStream is = clazz.getResourceAsStream(resourcePath)) {
+                assertNotNull(is, "Classfile resource must be readable: " + resourcePath);
+                byte[] bytes = is.readAllBytes();
+                String bytecodeAscii = new String(bytes, java.nio.charset.StandardCharsets.ISO_8859_1);
+
+                assertFalse(bytecodeAscii.contains("net/minecraft/client/gui/screens/Screen"),
+                        "Bytecode violation: " + clazz.getSimpleName() + " contains reference to net/minecraft/client/gui/screens/Screen");
+                assertFalse(bytecodeAscii.contains("net/minecraft/client/gui/screens/ConfirmLinkScreen"),
+                        "Bytecode violation: " + clazz.getSimpleName() + " contains reference to net/minecraft/client/gui/screens/ConfirmLinkScreen");
+            }
+        }
+    }
 }

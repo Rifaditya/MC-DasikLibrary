@@ -2,6 +2,7 @@
 // Verified against: GroupMember.java (Snapshot 10)
 package net.dasik.social.api.group;
 
+import net.dasik.social.api.annotation.DasikApiStatus;
 import net.minecraft.world.entity.LivingEntity;
 import org.jetbrains.annotations.Nullable;
 import net.dasik.social.core.group.FlockState;
@@ -9,6 +10,7 @@ import net.dasik.social.core.group.FlockState;
 /**
  * Interface for entities that can participate in flocking or group behaviors.
  */
+@DasikApiStatus.Public
 public interface GroupMember {
     @Nullable
     public LivingEntity getLeader();

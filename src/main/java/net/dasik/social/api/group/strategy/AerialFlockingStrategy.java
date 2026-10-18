@@ -27,7 +27,14 @@ public class AerialFlockingStrategy implements FlockingStrategy {
             return;
         }
 
-        GroupMember leaderGM = (GroupMember) leader;
+        if (!(leader instanceof GroupMember leaderGM)) {
+            Vec3 fallbackDir = leader.position().subtract(bat.position());
+            if (fallbackDir.lengthSqr() > params.cohesionRadius() * params.cohesionRadius()) {
+                bat.setDeltaMovement(bat.getDeltaMovement().add(fallbackDir.normalize().scale(0.05)));
+            }
+            return;
+        }
+
         FlockState state = leaderGM.getFlockState();
         if (state == null) {
             // Fallback while waiting for GroupManager compute

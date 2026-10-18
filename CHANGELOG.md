@@ -1,5 +1,20 @@
 # Changelog
 
+## [1.11.2]
+
+### Fixed
+- **Client Sidedness Isolation (`ClientSupportScreenHelper`)**: Extracted all `ConfirmLinkScreen` browser opening logic to client-only helper class, purifying `DasikSupportHelper` and `SocialLinks` common bytecode of any `net.minecraft.client.*` imports.
+- **SignalBus Spatial Indexing & Cast Safety (`SignalBus`)**: Added fast bypass for large signal ranges (`maxRange >= 256.0`), dimension check, and defensive `source instanceof SocialEntity` casting.
+- **Vanilla Classloader Integrity**: Purged obsolete `PathfinderMobMixin` from mixin configurations and source tree; added defensive `instanceof GroupMember` guards across `FollowLeaderGoal`, `GroupManager`, and `AerialFlockingStrategy`.
+- **Saturated Genetics Bounds & Scale Alignment (`DasikAnimalGeneticsAPI`)**: Replaced restrictive 0.5x–2.0x clamping with saturated bounds (`Math.max(0.0001f, scale)`), and standardized trait ID resolution to prioritize `"size"` with fallback to `"scale"`.
+- **Memory-Safe Registry Cleanup (`SocialRegistry`)**: Purged redundant `SPECIES_INDEX` concurrent map; guarded `unregister()` to prevent counter underflows; added synchronized `clear()` method for world teardowns.
+
+## [1.11.1]
+
+### Fixed
+- **Headless Test Classpath Resolution (`build.gradle`)**: Declared `testImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"` to ensure reflection tests for `UniversalConfigScreen` and `ModMenuIntegration` pass cleanly in headless environments.
+- **Command Sidedness & Test Suite Expansion (`CommandSidednessAndHygieneTest`)**: Added test assertions verifying command tree safety, zero client leaks in command dispatchers, and side-agnostic execution.
+
 ## [1.11.0]
 
 ### Added

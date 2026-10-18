@@ -30,7 +30,7 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
         this.mob = mob;
         this.parameters = parameters;
         this.searchRadius = searchRadius;
-        this.defaultStrategy = mob != null && ((GroupMember) mob).getFlockType() == FlockType.AERIAL 
+        this.defaultStrategy = (mob instanceof GroupMember gm && gm.getFlockType() == FlockType.AERIAL) 
             ? Strategies.AERIAL : Strategies.TERRESTRIAL;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE));
     }
@@ -46,16 +46,15 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
 
     @Override
     public boolean canUse() {
-        if (this.mob == null) {
+        if (!(this.mob instanceof GroupMember member)) {
             return false;
         }
         if (this.ticksSinceManagerCheck++ > 30 + this.mob.getRandom().nextInt(20)) {
             this.ticksSinceManagerCheck = 0;
             GroupManager.findAndSetLeader(this.mob, this.getReceiveRange(this.mob));
         }
-        @SuppressWarnings("unchecked")
-        T leader = (T) ((GroupMember) this.mob).getLeader();
-        if (!this.isValidLeader(leader)) {
+        LivingEntity rawLeader = member.getLeader();
+        if (!(rawLeader instanceof Mob leader) || !this.isValidLeader((T) leader)) {
             return false;
         }
         return this.mob.distanceToSqr(leader) > (double)(this.parameters.startDistance() * this.parameters.startDistance());
@@ -63,12 +62,11 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
 
     @Override
     public boolean canContinueToUse() {
-        if (this.mob == null) {
+        if (!(this.mob instanceof GroupMember member)) {
             return false;
         }
-        @SuppressWarnings("unchecked")
-        T leader = (T) ((GroupMember) this.mob).getLeader();
-        if (!this.isValidLeader(leader)) {
+        LivingEntity rawLeader = member.getLeader();
+        if (!(rawLeader instanceof Mob leader) || !this.isValidLeader((T) leader)) {
             return false;
         }
         return this.mob.distanceToSqr(leader) > (double)(this.parameters.stopDistance() * this.parameters.stopDistance());
@@ -80,7 +78,9 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
         }
         double range = Math.max(this.getTransmitRange(leader), this.getReceiveRange(this.mob));
         if (this.mob != null && this.mob.distanceToSqr(leader) > range * range) {
-            ((GroupMember) this.mob).setLeader(null);
+            if (this.mob instanceof GroupMember gm) {
+                gm.setLeader(null);
+            }
             return false;
         }
         return true;
@@ -102,6 +102,9 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
 
     @Override
     public void start() {
+        if (this.mob == null) {
+            return;
+        }
         // Tick Staggering: Offset the path recalc so flock members don't lag spike the server on the same tick
         this.timeToRecalcPath = this.mob.getId() % 10;
         this.oldWaterCost = this.mob.getPathfindingMalus(PathType.WATER);
@@ -110,33 +113,32 @@ public class FollowLeaderGoal<T extends Mob> extends Goal {
 
     @Override
     public void stop() {
-        if (this.mob != null && ((GroupMember) this.mob).getFlockType() == FlockType.TERRESTRIAL) {
+        if (this.mob instanceof GroupMember gm && gm.getFlockType() == FlockType.TERRESTRIAL) {
             this.mob.getNavigation().stop();
         }
-        this.mob.setPathfindingMalus(PathType.WATER, this.oldWaterCost);
+        if (this.mob != null) {
+            this.mob.setPathfindingMalus(PathType.WATER, this.oldWaterCost);
+        }
         this.timeToRecalcPath = 0;
     }
 
     @Override
     public void tick() {
-        if (this.mob == null) {
+        if (!(this.mob instanceof GroupMember member)) {
             return;
         }
-        Mob leader = (Mob) ((GroupMember) this.mob).getLeader();
-        if (leader == null) {
+        LivingEntity rawLeader = member.getLeader();
+        if (!(rawLeader instanceof Mob leader)) {
             return;
         }
         if (--this.timeToRecalcPath <= 0) {
             this.timeToRecalcPath = this.adjustedTickDelay(10);
-            
-            GroupMember leaderGM = (GroupMember) leader;
-            net.dasik.social.core.group.FlockState state = leaderGM.getFlockState();
-            
-            // Periodically compute flock state on behalf of the leader if it's outdated
-            if (state == null || this.mob.level().getGameTime() - state.getLastUpdateTime() > 20) {
-                GroupManager.computeFlockState(leader, this.getTransmitRange(leader));
+            if (leader instanceof GroupMember leaderGM) {
+                net.dasik.social.core.group.FlockState state = leaderGM.getFlockState();
+                if (state == null || this.mob.level().getGameTime() - state.getLastUpdateTime() > 20) {
+                    GroupManager.computeFlockState(leader, this.getTransmitRange(leader));
+                }
             }
-            
             this.defaultStrategy.execute(this.mob, leader, this.parameters);
         }
     }

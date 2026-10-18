@@ -2,12 +2,14 @@
 // Verified against: LivingEntity.java (Snapshot 10)
 package net.dasik.social.core.group;
 
+import net.dasik.social.api.annotation.DasikApiStatus;
 import net.minecraft.world.phys.Vec3;
 
 /**
  * Data class representing the aggregated state of a flock/group.
  * Stored on the leader to prevent O(N²) calculations.
  */
+@DasikApiStatus.Public
 public class FlockState {
     private Vec3 centerOfMass = Vec3.ZERO;
     private Vec3 averageVelocity = Vec3.ZERO;

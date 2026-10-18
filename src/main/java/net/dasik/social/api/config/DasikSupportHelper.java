@@ -1,25 +1,22 @@
 // Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
-// Verified against: Minecraft.java (26.2+), ConfirmLinkScreen.java (26.2+)
+// Verified against: Minecraft.java (26.2+)
 package net.dasik.social.api.config;
 
 import net.dasik.social.api.annotation.DasikApiStatus;
+import net.dasik.social.api.client.gui.ClientSupportScreenHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.screens.ConfirmLinkScreen;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
+import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Method;
 import java.net.URI;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**
@@ -136,22 +133,17 @@ public class DasikSupportHelper {
      * Client-only operation.
      */
     @Environment(EnvType.CLIENT)
-    public static void openDiscord(Screen parentScreen) {
-        net.dasik.social.api.SocialLinks.openDiscord(parentScreen);
+    public static void openDiscord(@Nullable Object parentScreen) {
+        ClientSupportScreenHelper.openDiscord(parentScreen);
     }
 
     /**
      * Safely opens the creator's Ko-fi page in the player's default browser via ConfirmLinkScreen.
-     * Gated by client environment check to prevent server classloader exceptions.
      * Client-only operation.
      */
     @Environment(EnvType.CLIENT)
-    public static void openKofi(Screen parentScreen) {
-        if (FabricLoader.getInstance().getEnvironmentType() != EnvType.CLIENT) {
-            LOGGER.warn("Cannot open browser URL from dedicated server environment.");
-            return;
-        }
-        openUrl(parentScreen, KOFI_URL);
+    public static void openKofi(@Nullable Object parentScreen) {
+        ClientSupportScreenHelper.openKofi(parentScreen);
     }
 
     /**
@@ -159,152 +151,31 @@ public class DasikSupportHelper {
      * Client-only operation.
      */
     @Environment(EnvType.CLIENT)
-    public static void openUrl(Screen parentScreen, String url) {
-        try {
-            ConfirmLinkScreen.confirmLinkNow(parentScreen, url);
-        } catch (Throwable t) {
-            LOGGER.error("Failed to open confirmation screen for URL: {}", url, t);
-        }
+    public static void openUrl(@Nullable Object parentScreen, String url) {
+        ClientSupportScreenHelper.openUrl(parentScreen, url);
     }
 
     /**
      * Dynamically builds a YetAnotherConfigLib (YACL) ButtonOption for Ko-fi creator support.
-     * Uses reflection so Dasik Library does not need a hard compile-time or runtime dependency on YACL.
+     * Delegates to {@link ClientSupportScreenHelper#createYaclButton()} to preserve dedicated server sidedness.
      * Client-only operation.
      *
      * @return the built YACL ButtonOption/Option instance, or null if YACL is absent or an error occurs.
      */
     @Environment(EnvType.CLIENT)
     public static Object createYaclButton() {
-        try {
-            Class<?> buttonOptClass = Class.forName("dev.isxander.yacl3.api.ButtonOption");
-            Method createBuilderMethod = buttonOptClass.getMethod("createBuilder");
-            Object builder = createBuilderMethod.invoke(null);
-            Class<?> builderClass = builder.getClass();
-
-            // 1. Row label name
-            for (Method m : builderClass.getMethods()) {
-                if (m.getName().equals("name") && m.getParameterCount() == 1) {
-                    m.invoke(builder, getLabelText());
-                    break;
-                }
-            }
-
-            // 2. Text displayed inside the button plate widget
-            for (Method m : builderClass.getMethods()) {
-                if (m.getName().equals("text") && m.getParameterCount() == 1) {
-                    m.invoke(builder, getButtonText());
-                    break;
-                }
-            }
-
-            // 3. Tooltip description via OptionDescription (using Collection overload for clean reflection)
-            Class<?> descClass = Class.forName("dev.isxander.yacl3.api.OptionDescription");
-            Method descCreateBuilderMethod = descClass.getMethod("createBuilder");
-            Object descBuilder = descCreateBuilderMethod.invoke(null);
-            for (Method m : descBuilder.getClass().getMethods()) {
-                if (m.getName().equals("text") && m.getParameterCount() == 1 && java.util.Collection.class.isAssignableFrom(m.getParameterTypes()[0])) {
-                    m.invoke(descBuilder, java.util.List.of(getTooltipText()));
-                    break;
-                }
-            }
-            Object desc = descBuilder.getClass().getMethod("build").invoke(descBuilder);
-            for (Method m : builderClass.getMethods()) {
-                if (m.getName().equals("description") && m.getParameterCount() == 1) {
-                    m.invoke(builder, desc);
-                    break;
-                }
-            }
-
-            // 4. Click Action
-            BiConsumer<Object, Object> biAction = (screen, opt) -> openKofi((Screen) screen);
-            for (Method m : builderClass.getMethods()) {
-                if (m.getName().equals("action") && m.getParameterCount() == 1 && BiConsumer.class.isAssignableFrom(m.getParameterTypes()[0])) {
-                    m.invoke(builder, biAction);
-                    break;
-                }
-            }
-
-            Method buildMethod = builderClass.getMethod("build");
-            return buildMethod.invoke(builder);
-        } catch (Throwable t) {
-            LOGGER.warn("Failed to build YACL button option via reflection: {}", t.getMessage());
-            return null;
-        }
+        return ClientSupportScreenHelper.createYaclButton();
     }
 
     /**
      * Dynamically builds a YetAnotherConfigLib (YACL) ButtonOption for official Discord community server.
-     * Uses reflection so Dasik Library does not need a hard compile-time or runtime dependency on YACL.
+     * Delegates to {@link ClientSupportScreenHelper#createDiscordYaclButton()} to preserve dedicated server sidedness.
      * Client-only operation.
      *
      * @return the built YACL ButtonOption/Option instance, or null if YACL is absent or an error occurs.
      */
     @Environment(EnvType.CLIENT)
     public static Object createDiscordYaclButton() {
-        try {
-            Class<?> buttonOptClass = Class.forName("dev.isxander.yacl3.api.ButtonOption");
-            Method createBuilderMethod = buttonOptClass.getMethod("createBuilder");
-            Object builder = createBuilderMethod.invoke(null);
-            Class<?> builderClass = builder.getClass();
-
-            // 1. Row label name
-            for (Method m : builderClass.getMethods()) {
-                if (m.getName().equals("name") && m.getParameterCount() == 1) {
-                    m.invoke(builder, getDiscordLabelText());
-                    break;
-                }
-            }
-
-            // 2. Text displayed inside the button plate widget
-            for (Method m : builderClass.getMethods()) {
-                if (m.getName().equals("text") && m.getParameterCount() == 1) {
-                    m.invoke(builder, getDiscordButtonText());
-                    break;
-                }
-            }
-
-            // 3. Tooltip description via OptionDescription (using Collection overload for clean reflection)
-            Class<?> descClass = Class.forName("dev.isxander.yacl3.api.OptionDescription");
-            Method descCreateBuilderMethod = descClass.getMethod("createBuilder");
-            Object descBuilder = descCreateBuilderMethod.invoke(null);
-            for (Method m : descBuilder.getClass().getMethods()) {
-                if (m.getName().equals("text") && m.getParameterCount() == 1 && java.util.Collection.class.isAssignableFrom(m.getParameterTypes()[0])) {
-                    m.invoke(descBuilder, java.util.List.of(getDiscordTooltipText()));
-                    break;
-                }
-            }
-            Object desc = descBuilder.getClass().getMethod("build").invoke(descBuilder);
-            for (Method m : builderClass.getMethods()) {
-                if (m.getName().equals("description") && m.getParameterCount() == 1) {
-                    m.invoke(builder, desc);
-                    break;
-                }
-            }
-
-            // 4. Click Action
-            BiConsumer<Object, Object> biAction = (screen, opt) -> openDiscord((Screen) screen);
-            for (Method m : builderClass.getMethods()) {
-                if (m.getName().equals("action") && m.getParameterCount() == 1 && BiConsumer.class.isAssignableFrom(m.getParameterTypes()[0])) {
-                    m.invoke(builder, biAction);
-                    break;
-                }
-            }
-
-            Method buildMethod = builderClass.getMethod("build");
-            return buildMethod.invoke(builder);
-        } catch (Throwable t) {
-            LOGGER.warn("Failed to build Discord YACL button option via reflection: {}", t.getMessage());
-            return null;
-        }
-    }
-
-    private static Method findMethod(Class<?> clazz, String name) {
-        for (Method m : clazz.getMethods()) {
-            if (m.getName().equals(name)) {
-                return m;
-            }
-        }
-        throw new RuntimeException("Method " + name + " not found on " + clazz.getName());
+        return ClientSupportScreenHelper.createDiscordYaclButton();
     }
 }

@@ -91,8 +91,8 @@ public class EntitySocialScheduler implements SocialScheduler {
         if (this.activeTracks.isEmpty()) return;
         TickContext ctx = this.createTickContext();
         this.activeTracks.values().removeIf(event -> {
-            boolean finished = event.tick(ctx);
-            if (finished) {
+            boolean shouldContinue = event.tick(ctx);
+            if (!shouldContinue) {
                 event.onEnd(this.socialEntity, SocialEvent.EndReason.EXPIRED);
                 return true;
             }

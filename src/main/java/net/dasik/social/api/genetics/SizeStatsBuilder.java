@@ -31,7 +31,7 @@ import net.minecraft.world.entity.EntityType;
  * The builder merges the new {@code "size"} trait alongside any pre-existing traits.</p>
  */
 public class SizeStatsBuilder {
-    private static final String SIZE_TRAIT_ID = "size";
+    public static final String SIZE_TRAIT_ID = "size";
     private static final String SCALE_ATTRIBUTE = "minecraft:scale";
 
     private final EntityType<?> entityType;

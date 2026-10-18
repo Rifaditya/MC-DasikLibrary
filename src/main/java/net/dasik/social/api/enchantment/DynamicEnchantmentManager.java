@@ -25,7 +25,7 @@ public class DynamicEnchantmentManager {
         
         int maxLevel = DynamicGameRuleManager.getInt(level, maxLevelRule);
 
-        for (var entry : mutable.keySet()) {
+        for (var entry : new java.util.ArrayList<>(mutable.keySet())) {
             if (entry.is(enchantmentId)) {
                 if (mutable.getLevel(entry) > maxLevel) {
                     mutable.set(entry, maxLevel);

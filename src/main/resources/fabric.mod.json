@@ -9,8 +9,8 @@
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/dasik-library",
-    "sources": "https://github.com/Rifaditya/DasikLibrary-Rebuilt",
-    "issues": "https://github.com/Rifaditya/DasikLibrary-Rebuilt/issues",
+    "sources": "https://github.com/Rifaditya/MC-DasikLibrary",
+    "issues": "https://github.com/Rifaditya/MC-DasikLibrary/issues",
     "discord": "https://discord.gg/EV99bgAFqb"
   },
   "license": "GPL-3.0-or-later",

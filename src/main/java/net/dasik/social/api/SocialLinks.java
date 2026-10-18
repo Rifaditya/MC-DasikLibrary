@@ -2,14 +2,10 @@
 package net.dasik.social.api;
 
 import net.dasik.social.api.annotation.DasikApiStatus;
+import net.dasik.social.api.client.gui.ClientSupportScreenHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.gui.screens.ConfirmLinkScreen;
-import net.minecraft.client.gui.screens.Screen;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 
@@ -18,11 +14,10 @@ import java.net.URI;
  * for the Dasik modding ecosystem.
  * <p>
  * Provides constant URLs, cached {@link URI} instances, and client-safe helpers
- * for opening external web links in the player's default browser via {@link ConfirmLinkScreen}.
+ * for opening external web links in the player's default browser via {@link ClientSupportScreenHelper}.
  */
 @DasikApiStatus.Public
 public final class SocialLinks {
-    private static final Logger LOGGER = LoggerFactory.getLogger("DasikLibrary|SocialLinks");
 
     public static final String DISCORD_INVITE_URL = "https://discord.gg/EV99bgAFqb";
     public static final String KOFI_URL = "https://ko-fi.com/dasikigaijin";
@@ -73,57 +68,36 @@ public final class SocialLinks {
     }
 
     /**
-     * Safely opens the official Discord community invite in the player's default browser via {@link ConfirmLinkScreen}.
+     * Safely opens the official Discord community invite in the player's default browser via {@link ClientSupportScreenHelper}.
      * Client-only operation.
      *
      * @param parentScreen the current screen to return to after confirmation, or null
      */
     @Environment(EnvType.CLIENT)
-    public static void openDiscord(@Nullable Screen parentScreen) {
-        openUrl(parentScreen, DISCORD_INVITE_URL);
+    public static void openDiscord(@Nullable Object parentScreen) {
+        ClientSupportScreenHelper.openDiscord(parentScreen);
     }
 
     /**
-     * Safely opens the creator's Ko-fi page in the player's default browser via {@link ConfirmLinkScreen}.
+     * Safely opens the creator's Ko-fi page in the player's default browser via {@link ClientSupportScreenHelper}.
      * Client-only operation.
      *
      * @param parentScreen the current screen to return to after confirmation, or null
      */
     @Environment(EnvType.CLIENT)
-    public static void openKofi(@Nullable Screen parentScreen) {
-        openUrl(parentScreen, KOFI_URL);
+    public static void openKofi(@Nullable Object parentScreen) {
+        ClientSupportScreenHelper.openKofi(parentScreen);
     }
 
     /**
-     * Safely opens any external URL via Minecraft's standard {@link ConfirmLinkScreen}.
-     * Performs null and blank validation, verifies client environment via FabricLoader,
-     * and wraps calls in a try-catch block to prevent crashes.
+     * Safely opens any external URL via {@link ClientSupportScreenHelper}.
      * Client-only operation.
      *
      * @param parentScreen the current screen to return to after confirmation, or null
      * @param url the external URL to open
      */
     @Environment(EnvType.CLIENT)
-    public static void openUrl(@Nullable Screen parentScreen, String url) {
-        if (url == null || url.isBlank()) {
-            LOGGER.warn("Cannot open empty or null URL.");
-            return;
-        }
-
-        try {
-            if (FabricLoader.getInstance().getEnvironmentType() != EnvType.CLIENT) {
-                LOGGER.warn("Cannot open browser URL from dedicated server environment.");
-                return;
-            }
-        } catch (Throwable t) {
-            // FabricLoader may not be initialized in non-Fabric test runners or headless tests
-            LOGGER.debug("FabricLoader environment check skipped: {}", t.getMessage());
-        }
-
-        try {
-            ConfirmLinkScreen.confirmLinkNow(parentScreen, url);
-        } catch (Throwable t) {
-            LOGGER.error("Failed to open confirmation screen for URL: {}", url, t);
-        }
+    public static void openUrl(@Nullable Object parentScreen, String url) {
+        ClientSupportScreenHelper.openUrl(parentScreen, url);
     }
 }

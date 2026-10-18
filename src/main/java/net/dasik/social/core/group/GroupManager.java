@@ -2,12 +2,13 @@
 // Verified against: LivingEntity.java (Snapshot 10)
 package net.dasik.social.core.group;
 
-import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import net.dasik.social.api.annotation.DasikApiStatus;
 import net.dasik.social.api.group.GroupMember;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 
 /**
  * Manages group logic including leader election and member maintenance.
@@ -19,7 +20,9 @@ public class GroupManager {
      * Uses a deterministic election process based on entity UUIDs.
      */
     public static <T extends LivingEntity> void findAndSetLeader(T member, double searchRadius) {
-        GroupMember memberInterface = (GroupMember) member;
+        if (!(member instanceof GroupMember memberInterface)) {
+            return;
+        }
         
         if (memberInterface.hasLeader()) {
             LivingEntity leader = memberInterface.getLeader();
@@ -45,16 +48,25 @@ public class GroupManager {
         potentialLeaders.add(member);
         
         // Deterministic election: entity with the lowest UUID becomes the leader
-        LivingEntity electedLeader = potentialLeaders.stream()
-            .filter(e -> e != null && e.getUUID() != null)
-            .min(Comparator.comparing(LivingEntity::getUUID))
-            .orElse(member);
+        LivingEntity electedLeader = member;
+        UUID lowestUuid = member.getUUID();
+        for (LivingEntity e : potentialLeaders) {
+            if (e != null && e.getUUID() != null) {
+                if (lowestUuid == null || e.getUUID().compareTo(lowestUuid) < 0) {
+                    lowestUuid = e.getUUID();
+                    electedLeader = e;
+                }
+            }
+        }
 
         if (electedLeader != member) {
-            GroupMember leaderInterface = (GroupMember) electedLeader;
-            // If the elected entity itself follows someone, follow that person instead (cluster merging)
-            if (leaderInterface.hasLeader() && leaderInterface.getLeader() != null) {
-                memberInterface.setLeader(leaderInterface.getLeader());
+            if (electedLeader instanceof GroupMember leaderInterface) {
+                // If the elected entity itself follows someone, follow that person instead (cluster merging)
+                if (leaderInterface.hasLeader() && leaderInterface.getLeader() != null) {
+                    memberInterface.setLeader(leaderInterface.getLeader());
+                } else {
+                    memberInterface.setLeader(electedLeader);
+                }
             } else {
                 memberInterface.setLeader(electedLeader);
             }
@@ -64,8 +76,8 @@ public class GroupManager {
     }
     public static void computeFlockState(LivingEntity leader, double searchRadius) {
         if (leader == null || !leader.isAlive()) return;
+        if (!(leader instanceof GroupMember leaderMember)) return;
         
-        GroupMember leaderMember = (GroupMember) leader;
         net.dasik.social.core.group.FlockState state = leaderMember.getFlockState();
         if (state == null) {
             state = new net.dasik.social.core.group.FlockState();
@@ -81,19 +93,21 @@ public class GroupManager {
         
         flock.add(leader);
 
-        net.minecraft.world.phys.Vec3 com = net.minecraft.world.phys.Vec3.ZERO;
-        net.minecraft.world.phys.Vec3 avgVel = net.minecraft.world.phys.Vec3.ZERO;
-
+        double sumX = 0, sumY = 0, sumZ = 0;
+        double sumVelX = 0, sumVelY = 0, sumVelZ = 0;
         for (LivingEntity entity : flock) {
-            com = com.add(entity.position());
-            avgVel = avgVel.add(entity.getDeltaMovement());
+            Vec3 pos = entity.position();
+            Vec3 vel = entity.getDeltaMovement();
+            sumX += pos.x;
+            sumY += pos.y;
+            sumZ += pos.z;
+            sumVelX += vel.x;
+            sumVelY += vel.y;
+            sumVelZ += vel.z;
         }
-
-        com = com.scale(1.0 / flock.size());
-        avgVel = avgVel.scale(1.0 / flock.size());
-
-        state.setCenterOfMass(com);
-        state.setAverageVelocity(avgVel);
+        double count = flock.size();
+        state.setCenterOfMass(new Vec3(sumX / count, sumY / count, sumZ / count));
+        state.setAverageVelocity(new Vec3(sumVelX / count, sumVelY / count, sumVelZ / count));
         state.setMemberCount(flock.size());
         state.setLastUpdateTime(leader.level().getGameTime());
     }

@@ -198,6 +198,25 @@ afterEvaluate {
                             }
                         }
                     }
+
+                    // 4. External Vault D: (Universal 4-Point Distribution Law)
+                    try {
+                        File externalVaultDir = new File("D:/Minecraft Project Vault/MC " + project.minecraft_version)
+                        if (externalVaultDir.getParentFile() != null && externalVaultDir.getParentFile().exists()) {
+                            if (!externalVaultDir.exists()) {
+                                externalVaultDir.mkdirs()
+                            }
+                            copy {
+                                from jarFile
+                                into externalVaultDir
+                            }
+                            println "[VAULT-DEPLOY] Successfully copied ${jarFile.name} to external vault: ${externalVaultDir.canonicalPath}"
+                        } else {
+                            println "[VAULT-DEPLOY] Note: External vault drive (D:/) not detected; skipping vault copy."
+                        }
+                    } catch (Exception e) {
+                        println "[VAULT-DEPLOY] Note: Could not copy to external vault: ${e.message}"
+                    }
                 }
             }
         }

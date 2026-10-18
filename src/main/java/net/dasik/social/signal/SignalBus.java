@@ -28,14 +28,44 @@ public class SignalBus {
         dispatch(signal);
     }
 
+    /**
+     * Clears all entities from the spatial index.
+     */
+    public static void clear() {
+        SPATIAL_INDEX.clear();
+    }
+
     private static void dispatch(Signal signal) {
         double maxRange = signal.type().getMaxRange();
+
+        if (maxRange >= 256.0 || Double.isInfinite(maxRange) || Double.isNaN(maxRange)) {
+            for (Set<WeakReference<SocialEntity>> chunkEntities : SPATIAL_INDEX.values()) {
+                processChunk(chunkEntities, signal);
+            }
+            return;
+        }
+
+        if (maxRange <= 0.0) {
+            return;
+        }
+
         Vec3 origin = signal.origin();
-        
-        int minX = (int)Math.floor((origin.x - maxRange) / 16.0);
-        int maxX = (int)Math.floor((origin.x + maxRange) / 16.0);
-        int minZ = (int)Math.floor((origin.z - maxRange) / 16.0);
-        int maxZ = (int)Math.floor((origin.z + maxRange) / 16.0);
+        if (origin == null || Double.isNaN(origin.x) || Double.isNaN(origin.z) || Double.isInfinite(origin.x) || Double.isInfinite(origin.z)) {
+            return;
+        }
+
+        int minX = (int) Math.max(-1_000_000, Math.min(1_000_000, Math.floor((origin.x - maxRange) / 16.0)));
+        int maxX = (int) Math.max(-1_000_000, Math.min(1_000_000, Math.floor((origin.x + maxRange) / 16.0)));
+        int minZ = (int) Math.max(-1_000_000, Math.min(1_000_000, Math.floor((origin.z - maxRange) / 16.0)));
+        int maxZ = (int) Math.max(-1_000_000, Math.min(1_000_000, Math.floor((origin.z + maxRange) / 16.0)));
+
+        long chunkCount = (long) (maxX - minX + 1) * (long) (maxZ - minZ + 1);
+        if (chunkCount > SPATIAL_INDEX.size()) {
+            for (Set<WeakReference<SocialEntity>> chunkEntities : SPATIAL_INDEX.values()) {
+                processChunk(chunkEntities, signal);
+            }
+            return;
+        }
 
         for (int x = minX; x <= maxX; ++x) {
             for (int z = minZ; z <= maxZ; ++z) {
@@ -52,14 +82,20 @@ public class SignalBus {
         while (it.hasNext()) {
             WeakReference<SocialEntity> ref = it.next();
             SocialEntity entity = ref.get();
-            
-            if (entity == null || entity.dasik$asEntity().isRemoved()) {
+
+            if (entity == null) {
                 it.remove();
                 continue;
             }
-            
+
+            LivingEntity target = entity.dasik$asEntity();
+            if (target != null && target.isRemoved()) {
+                it.remove();
+                continue;
+            }
+
             if (!shouldReceive(entity, signal)) continue;
-            
+
             var scheduler = entity.dasik$getScheduler();
             if (scheduler != null) {
                 scheduler.onSignalReceived(signal);
@@ -68,21 +104,31 @@ public class SignalBus {
     }
 
     private static boolean shouldReceive(SocialEntity entity, Signal signal) {
-        double range = entity.dasik$getSignalRange(signal.type());
-        if (signal.origin().distanceToSqr(entity.dasik$asEntity().position()) > range * range) {
-            return false;
+        LivingEntity target = entity.dasik$asEntity();
+        LivingEntity source = signal.source();
+
+        if (source != null && target != null) {
+            if (source.level() != target.level()) {
+                return false;
+            }
+            if (source == target) {
+                return false;
+            }
         }
 
-        LivingEntity source = signal.source();
-        LivingEntity target = entity.dasik$asEntity();
-        
-        if (source == target) {
+        double range = entity.dasik$getSignalRange(signal.type());
+        if (Double.isNaN(range) || range <= 0.0) {
             return false;
+        }
+        if (target != null && !Double.isInfinite(range) && signal.origin() != null && target.position() != null) {
+            if (signal.origin().distanceToSqr(target.position()) > range * range) {
+                return false;
+            }
         }
 
         return switch (signal.scope()) {
             case PUBLIC -> true;
-            case SAME_SPECIES -> source != null && entity.dasik$getSpeciesId().equals(((SocialEntity)source).dasik$getSpeciesId());
+            case SAME_SPECIES -> source instanceof SocialEntity socialSource && entity.dasik$getSpeciesId() != null && entity.dasik$getSpeciesId().equals(socialSource.dasik$getSpeciesId());
             case DIRECTED, PRIVATE -> false;
         };
     }

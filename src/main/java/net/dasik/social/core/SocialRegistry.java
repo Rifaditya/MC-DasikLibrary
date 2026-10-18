@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import net.dasik.social.api.SocialEntity;
@@ -23,7 +22,6 @@ import org.jetbrains.annotations.Nullable;
 public class SocialRegistry {
     private static final int SHARD_COUNT = Math.max(8, Runtime.getRuntime().availableProcessors() * 2);
     private static final Set<WeakReference<SocialEntity>>[] SHARDS;
-    private static final ConcurrentHashMap<String, ConcurrentLinkedQueue<WeakReference<SocialEntity>>> SPECIES_INDEX;
     private static final AtomicInteger ENTITY_COUNT;
     private static volatile SocialEntity[] FAST_ACCESS_ARRAY;
     private static final AtomicLong INDEX_VERSION;
@@ -38,7 +36,6 @@ public class SocialRegistry {
         }
         int shardIdx = SocialRegistry.getShardIndex(entity);
         SHARDS[shardIdx].add(new WeakReference<>(entity));
-        SPECIES_INDEX.computeIfAbsent(entity.dasik$getSpeciesId(), k -> new ConcurrentLinkedQueue<>()).add(new WeakReference<>(entity));
         ENTITY_COUNT.incrementAndGet();
         INDEX_VERSION.incrementAndGet();
     }
@@ -47,8 +44,31 @@ public class SocialRegistry {
         if (entity == null) {
             return;
         }
+        int shardIdx = SocialRegistry.getShardIndex(entity);
+        Set<WeakReference<SocialEntity>> shard = SHARDS[shardIdx];
+        boolean removed = false;
+        Iterator<WeakReference<SocialEntity>> it = shard.iterator();
+        while (it.hasNext()) {
+            WeakReference<SocialEntity> ref = it.next();
+            if (ref.get() == entity) {
+                it.remove();
+                removed = true;
+                break;
+            }
+        }
+        if (removed) {
+            ENTITY_COUNT.updateAndGet(c -> Math.max(0, c - 1));
+            INDEX_VERSION.incrementAndGet();
+        }
+    }
+
+    public static synchronized void clear() {
+        for (Set<WeakReference<SocialEntity>> shard : SHARDS) {
+            shard.clear();
+        }
+        FAST_ACCESS_ARRAY = new SocialEntity[0];
+        ENTITY_COUNT.set(0);
         INDEX_VERSION.incrementAndGet();
-        ENTITY_COUNT.decrementAndGet();
     }
 
     @Nullable
@@ -68,7 +88,7 @@ public class SocialRegistry {
         if (INDEX_VERSION.get() == ARRAY_VERSION) {
             return;
         }
-        ArrayList<SocialEntity> liveEntities = new ArrayList<>(ENTITY_COUNT.get() + 100);
+        ArrayList<SocialEntity> liveEntities = new ArrayList<>(Math.max(0, ENTITY_COUNT.get()) + 100);
         for (Set<WeakReference<SocialEntity>> shard : SHARDS) {
             Iterator<WeakReference<SocialEntity>> it = shard.iterator();
             while (it.hasNext()) {
@@ -108,7 +128,6 @@ public class SocialRegistry {
     }
 
     static {
-        SPECIES_INDEX = new ConcurrentHashMap<>(512);
         ENTITY_COUNT = new AtomicInteger(0);
         FAST_ACCESS_ARRAY = new SocialEntity[0];
         INDEX_VERSION = new AtomicLong(0L);
