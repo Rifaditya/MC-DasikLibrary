@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.12.0]
+
+### Added
+- **Public Headless Testing & Verification Framework (`net.dasik.social.api.test`)**: Added high-performance, studio-wide verification APIs for downstream mods, enabling headless integration tests without spawning heavy client windows.
+- **Universal Bytecode & Manifest Contract Verifier (`DasikContractVerifier`)**: Headless-safe JVM bytecode analyzer inspecting compiled class files and `fabric.mod.json` manifests. Detects illegal client-side imports in common classes, verifies entrypoint class resolution, checks GameRule namespace conventions, and ensures total purging of deprecated legacy guards.
+- **Headless Virtual Player Bot (`VirtualPlayerBot`)**: Lightweight server-side player bot wrapper connected via embedded Netty channels. Allows simulating player interactions, item usage (`useItem`, `useItemOnBlock`), entity interactions (`interactWithEntity`, `attack`), and lifecycle hooks safely during headless integration and GameTest execution.
+- **Pillar 5 Mixin Linkage Auditor (`VirtualPlayerBot.auditAllMixins()`)**: Autonomous audit hook validating SpongePowered Mixin method descriptors and bytecode injection targets across active ClassLoaders.
+- **Architectural Violation Reporting (`ContractViolationException`)**: Standardized exception providing clear, actionable error summaries detailing rule breaches and offending class files.
+
 ## [1.11.2]
 
 ### Fixed

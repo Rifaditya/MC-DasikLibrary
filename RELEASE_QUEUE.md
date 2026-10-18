@@ -5,7 +5,8 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
-- [ ] **`1.11.2`** - **Client Sidedness Isolation & Core Engine Hardening:** Sanitized common bytecode by isolating `ConfirmLinkScreen` to `ClientSupportScreenHelper`, optimized `SignalBus` spatial dispatch with large range bypass, eliminated `PathfinderMobMixin`, uncapped genetics size scaling bounds, and hardened `SocialRegistry` against memory leaks.
+- [ ] **1.12.0** - **Public Headless Testing & VirtualPlayerBot API:** Introduced `net.dasik.social.api.test` exposing `DasikContractVerifier`, `ContractViolationException`, and `VirtualPlayerBot` with headless Netty simulation, SpongePowered Mixin linkage audit (`auditAllMixins`), manifest validation, sidedness checking, and legacy guard detection.
+- [ ] **1.11.2** - **Client Sidedness Isolation & Core Engine Hardening:** Sanitized common bytecode by isolating `ConfirmLinkScreen` to `ClientSupportScreenHelper`, optimized `SignalBus` spatial dispatch with large range bypass, eliminated `PathfinderMobMixin`, uncapped genetics size scaling bounds, and hardened `SocialRegistry` against memory leaks.
 - [ ] **`1.11.1`** - **Headless Test Classpath & Command Sidedness:** Resolved ModMenu test runtime classpath dependencies and validated side-safe Brigadier command suite execution.
 - [ ] **`1.11.0`** - **Zero-Boilerplate Universal YACL Config Screen Generator:** Exposes `net.dasik.social.api.client.gui.UniversalConfigScreen` and `@ConfigOption` for 1-line client GUI generation with 0 server dependencies, Knot ClassLoader reflection safety, live GameRule sync, and automated Discord & Ko-fi creator buttons.
 - [ ] **`1.10.0`** - **Universal Brigadier Command Framework:** Exposes `net.dasik.social.api.command` with fluent command tree builder, 2-way GameRule synchronization, feedback formatters, and full tab completion.

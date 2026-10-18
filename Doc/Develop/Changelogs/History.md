@@ -1,3 +1,15 @@
+## [1.12.0]
+
+### Added
+- **[BL-DASIK-015] Public Headless Testing & VirtualPlayerBot API (`net.dasik.social.api.test`)**:
+  - Authored `net.dasik.social.api.test.DasikContractVerifier`: Headless-safe JVM bytecode analyzer inspecting compiled class files and `fabric.mod.json` manifests. Detects illegal client-side imports in common classes, verifies entrypoint class resolution, checks GameRule namespace conventions, and ensures total purging of deprecated legacy guards without external ASM dependencies.
+  - Authored `net.dasik.social.api.test.VirtualPlayerBot`: Lightweight server-side player bot wrapper connected via embedded Netty channels. Allows simulating player interactions, item usage (`useItem`, `useItemOnBlock`), entity interactions (`interactWithEntity`, `attack`), and lifecycle hooks safely during headless integration tests.
+  - Implemented `VirtualPlayerBot.auditAllMixins()` hook validating SpongePowered Mixin method descriptors and bytecode injection targets across active ClassLoaders.
+  - Authored `ContractViolationException` providing clear, actionable error summaries detailing rule breaches and offending class files.
+  - Delivered 100% feature and mechanical parity across all active version anchors (`1.21.11`, `1.21.1`, and `1.20.1` as `1.4.0+<MC>`).
+  - Added Maven publishing blocks (`artifactId = 'dasik-library'`) across all subprojects and published all variants to `mavenLocal()`.
+  - Authored comprehensive test suites: `DasikContractVerifierTest` (Pillar 1 Chaos Fuzzing with 10k random byte streams, Pillar 5 Sidedness, manifest validation) and `VirtualPlayerBotTest` (Pillar 2 Concurrency Load with 50 threads, mixin audit, sidedness verification).
+
 ## [1.11.2]
 
 ### Fixed
