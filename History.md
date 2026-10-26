@@ -1,5 +1,12 @@
 # Technical History: DasikLibrary
 
+## Universal Dual-Context Configuration Engine [BL-DASIK-016, BL-WS-033] (2026-10-26)
+- **Dual-Context Client Engine (`[BL-DASIK-016]`)**: Implemented world-aware configuration screen generation in `UniversalConfigScreen` and `DynamicGameRuleConfigSync`.
+- **Runtime Context Adaptation**: Dynamically alters GUI window title (`[Mod Name] — Active World: <Name>` vs `Global Defaults (New Worlds)`) and injects pinned context notice banners.
+- **Live In-World GameRule Sync**: Mid-game Mod Menu edits dynamically read from and write to active `level.dat` GameRules via `worldAwareGetter()` and `worldAwareSetter()`, leaving global JSON templates unmutated.
+- **Multiplayer Remote Safety**: Automatically detects remote dedicated servers (`isRemoteMultiplayerActive()`) and safely locks GUI controls into read-only informational display to eliminate client-server desync.
+- **Multi-Era Lockstep Port**: Released `1.13.0` on modern sovereign anchors (`26.2+`) and ported `1.4.0` across legacy anchors (`1.21.11`, `1.21.1`, `1.20.1`).
+
 ## Universal Brigadier Command Framework [BL-DASIK-005, BL-WS-003] (2026-10-15)
 - **Universal Brigadier Command Framework (`[BL-DASIK-005]`)**: Implemented `net.dasik.social.api.command` suite providing `DasikCommandTreeBuilder`, `GameRuleCommandSync`, and `CommandFeedbackFormatter`.
 - **Bidirectional GameRule Sync**: Automated 2-way sync between Brigadier nodes and dynamic or vanilla GameRules with real-time feedback.
