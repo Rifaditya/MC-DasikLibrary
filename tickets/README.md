@@ -19,7 +19,8 @@ This directory contains dedicated atomic ticket files for **Dasik Library** unde
 | `[BL-DASIK-012]` | `[PERF]` | SocialRegistry Heap Leak Purge, Level Retention Guard & Hot-Path Zero-Allocation Polish | `[HIGH]` | All Anchors | `✅ RESOLVED` | [`BL-DASIK-012.md`](BL-DASIK-012.md) |
 | `[BL-DASIK-013]` | `[TECH_DEBT]` | Multi-Era Anchor Parity & Legacy ModVersionGuard Purge Across Older Anchors (`1.21.11`, `1.21.1`, `1.20.1`) | `[HIGH]` | `1.21.11, 1.21.1, 1.20.1` | `✅ RESOLVED` | [`BL-DASIK-013.md`](BL-DASIK-013.md) |
 | `[BL-DASIK-014]` | `[TECH_DEBT]` | Manifest, Architecture Map & Release Queue Calibration (`ARCHITECTURE.md`, 4-Point Vault, `@DasikApiStatus`) | `[MEDIUM]` | All Anchors | `✅ RESOLVED` | [`BL-DASIK-014.md`](BL-DASIK-014.md) |
-| `[BL-DASIK-015]` | `[FEATURE]` | Public Headless Testing & VirtualPlayerBot API (`net.dasik.social.api.test`) | `[HIGH]` | All Anchors | `📌 DEFERRED` | [`BL-DASIK-015.md`](BL-DASIK-015.md) |
+| `[BL-DASIK-015]` | `[FEATURE]` | Public Headless Testing & VirtualPlayerBot API (`net.dasik.social.api.test`) | `[HIGH]` | All Anchors | `✅ RESOLVED` | [`BL-DASIK-015.md`](BL-DASIK-015.md) |
+| `[BL-DASIK-016]` | `[FEATURE]` | Universal Dual-Context (World-Aware) Configuration Engine (`UniversalConfigScreen` & `DynamicGameRuleConfigSync`) | `[HIGH]` | All Anchors | `🚧 IN_PROGRESS` | [`BL-DASIK-016.md`](BL-DASIK-016.md) |
 
 ---
 

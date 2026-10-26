@@ -1,7 +1,7 @@
 # 📌 Dasik Library Backlog
 
-<!-- Highest Historical ID: BL-DASIK-015 (Next Ticket Must Start at BL-DASIK-016) -->
-> **Next Available Ticket ID**: `[BL-DASIK-016]`
+<!-- Highest Historical ID: BL-DASIK-016 (Next Ticket Must Start at BL-DASIK-017) -->
+> **Next Available Ticket ID**: `[BL-DASIK-017]`
 
 This file tracks planned features, technical refinements, performance optimizations, and deferred bug fixes for **Dasik Library**.
 
@@ -18,6 +18,7 @@ This file tracks planned features, technical refinements, performance optimizati
 | [`BL-DASIK-012`](tickets/BL-DASIK-012.md) | `[PERF]` | SocialRegistry Heap Leak Purge, Level Retention Guard & Hot-Path Zero-Allocation Polish | `[HIGH]` | All Anchors | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-012.md) |
 | [`BL-DASIK-013`](tickets/BL-DASIK-013.md) | `[TECH_DEBT]` | Multi-Era Anchor Parity & Legacy ModVersionGuard Purge Across Older Anchors (`1.21.11`, `1.21.1`, `1.20.1`) | `[HIGH]` | `1.21.11, 1.21.1, 1.20.1` | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-013.md) |
 | [`BL-DASIK-015`](tickets/BL-DASIK-015.md) | `[FEATURE]` | Public Headless Testing & VirtualPlayerBot API (`net.dasik.social.api.test`) | `[HIGH]` | All Anchors | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-015.md) |
+| [`BL-DASIK-016`](tickets/BL-DASIK-016.md) | `[FEATURE]` | Universal Dual-Context (World-Aware) Configuration Engine (`UniversalConfigScreen` & `DynamicGameRuleConfigSync`) | `[HIGH]` | All Anchors | `🚧 IN_PROGRESS` | [View Ticket](tickets/BL-DASIK-016.md) |
 | [`BL-DASIK-004`](tickets/BL-DASIK-004.md) | `[TECH_DEBT]` | Adopt 5-Pillar Testing & Sidedness Verification Harness | `[MEDIUM]` | All Anchors | `📌 DEFERRED` | [View Ticket](tickets/BL-DASIK-004.md) |
 | [`BL-DASIK-014`](tickets/BL-DASIK-014.md) | `[TECH_DEBT]` | Manifest, Architecture Map & Release Queue Calibration (`ARCHITECTURE.md`, 4-Point Vault, `@DasikApiStatus`) | `[MEDIUM]` | All Anchors | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-014.md) |
 | [`BL-DASIK-005`](tickets/BL-DASIK-005.md) | `[FEATURE]` | Universal Brigadier Command Framework Implementation | `[HIGH]` | `1.10.0` | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-005.md) |
