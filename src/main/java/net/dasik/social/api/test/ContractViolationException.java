@@ -5,7 +5,7 @@ import net.dasik.social.api.annotation.DasikApiStatus;
 
 /**
  * Thrown when a mod fails any pillar of the studio architectural contract verification
- * (sidedness isolation, ModVersionGuard absence, naming standards, or entrypoint resolution).
+ * (sidedness isolation, legacy version guard absence, naming standards, or entrypoint resolution).
  */
 @DasikApiStatus.Public
 public class ContractViolationException extends IllegalStateException {

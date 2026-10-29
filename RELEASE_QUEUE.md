@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **1.13.0** - **5-Pillar Autonomous Testing & Sidedness Verification Harness:** Full 5-pillar test suite with chaos property fuzzing, virtual concurrency load, Brigadier AST verification, headless in-engine simulation, and raw bytecode sidedness contract scanning.
 - [x] **1.12.0** - **Public Headless Testing & VirtualPlayerBot API:** Introduced `net.dasik.social.api.test` exposing `DasikContractVerifier`, `ContractViolationException`, and `VirtualPlayerBot` with headless Netty simulation, SpongePowered Mixin linkage audit (`auditAllMixins`), manifest validation, sidedness checking, and legacy guard detection.
 - [x] **1.11.2** - **Client Sidedness Isolation & Core Engine Hardening:** Sanitized common bytecode by isolating `ConfirmLinkScreen` to `ClientSupportScreenHelper`, optimized `SignalBus` spatial dispatch with large range bypass, eliminated `PathfinderMobMixin`, uncapped genetics size scaling bounds, and hardened `SocialRegistry` against memory leaks.
 - [x] **`1.11.1`** - **Headless Test Classpath & Command Sidedness:** Resolved ModMenu test runtime classpath dependencies and validated side-safe Brigadier command suite execution.

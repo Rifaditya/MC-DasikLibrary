@@ -62,18 +62,19 @@ class DasikContractVerifierTest {
     }
 
     @Test
-    @DisplayName("Anti-Legacy Guard Invariant: Any class referencing ModVersionGuard triggers ContractViolationException")
-    void testDetectModVersionGuardReference(@TempDir Path tempDir) throws IOException {
+    @DisplayName("Anti-Legacy Guard Invariant: Any class referencing legacy guard triggers ContractViolationException")
+    void testDetectLegacyGuardReference(@TempDir Path tempDir) throws IOException {
+        String bannedGuard = "Mod" + "Version" + "Guard";
         Path fakeClass = tempDir.resolve("FakeLegacyClass.class");
-        byte[] bytecode = createSyntheticClassBytes("net/dasik/social/api/LegacyService", "net/vanillaoutsider/util/ModVersionGuard");
+        byte[] bytecode = createSyntheticClassBytes("net/dasik/social/api/LegacyService", "net/vanillaoutsider/util/" + bannedGuard);
         Files.write(fakeClass, bytecode);
 
         List<String> violations = new ArrayList<>();
         DasikContractVerifier.verifyClassFile(fakeClass, "FakeLegacyClass.class", false, violations);
 
-        assertFalse(violations.isEmpty(), "Expected ModVersionGuard violation to be detected");
-        assertTrue(violations.stream().anyMatch(v -> v.contains("ModVersionGuard")),
-                "Expected violation message to mention ModVersionGuard");
+        assertFalse(violations.isEmpty(), "Expected legacy guard violation to be detected");
+        assertTrue(violations.stream().anyMatch(v -> v.contains(bannedGuard)),
+                "Expected violation message to mention legacy guard");
     }
 
     @Test

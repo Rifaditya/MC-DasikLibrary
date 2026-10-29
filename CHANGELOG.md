@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.13.0]
+
+### Added
+- **5-Pillar Autonomous Verification Harness (`net.dasik.social.test`)**: Added comprehensive test suites: `DasikLibraryStressFuzzTest` (60k chaos iterations), `DasikLibraryConcurrencyLoadTest` (50 concurrent worker threads), `DasikLibraryCommandTest` (Brigadier AST & permission validation), `DasikLibraryGameTest` (headless server simulation), and `DasikLibrarySidednessContractTest` (raw bytecode constant-pool scanner and 100% single-line GPLv3 license hygiene).
+- **Multi-Era Lockstep Parity**: Full parity across 1.20.1, 1.21.1, 1.21.11, and 26.2+.
+
 ## [1.12.0]
 
 ### Added

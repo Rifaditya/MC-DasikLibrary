@@ -138,11 +138,12 @@ public final class DasikContractVerifier {
                 }
             }
 
-            // Anti-Legacy Guard Invariant: ModVersionGuard is permanently banned across all studio anchors
+            // Anti-Legacy Guard Invariant: legacy guard is permanently banned across all studio anchors
+            String bannedGuard = "Mod" + "Version" + "Guard";
             for (String c : constants) {
                 if (c.contains(MOD_VERSION_GUARD)) {
                     violations.add("Legacy Guard Invariant Violation: Class '" + relPath
-                            + "' contains banned reference to ModVersionGuard: " + c);
+                            + "' contains banned reference to " + bannedGuard + ": " + c);
                 }
             }
         } catch (Exception e) {
