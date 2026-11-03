@@ -21,6 +21,8 @@ This directory contains dedicated atomic ticket files for **Dasik Library** unde
 | `[BL-DASIK-014]` | `[TECH_DEBT]` | Manifest, Architecture Map & Release Queue Calibration (`ARCHITECTURE.md`, 4-Point Vault, `@DasikApiStatus`) | `[MEDIUM]` | All Anchors | `✅ RESOLVED` | [`BL-DASIK-014.md`](BL-DASIK-014.md) |
 | `[BL-DASIK-015]` | `[FEATURE]` | Public Headless Testing & VirtualPlayerBot API (`net.dasik.social.api.test`) | `[HIGH]` | All Anchors | `✅ RESOLVED` | [`BL-DASIK-015.md`](BL-DASIK-015.md) |
 | `[BL-DASIK-016]` | `[FEATURE]` | Universal Dual-Context (World-Aware) Configuration Engine (`UniversalConfigScreen` & `DynamicGameRuleConfigSync`) | `[HIGH]` | All Anchors | `✅ RESOLVED` | [`BL-DASIK-016.md`](BL-DASIK-016.md) |
+| `[BL-DASIK-017]` | `[GOVERNANCE]` | Storefront Reconciliation: Align Mod Pages with Current Public Release | `[HIGH]` | Platform Pages | `📌 DEFERRED` | [`BL-DASIK-017.md`](BL-DASIK-017.md) |
+| `[BL-DASIK-018]` | `[TECH_DEBT]` | Wiki Audit & Update to Latest Version: MC-DasikLibrary | `📌 DEFERRED` | [BL-DASIK-018.md](BL-DASIK-018.md) |
 
 ---
 
