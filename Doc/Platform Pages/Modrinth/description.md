@@ -26,7 +26,7 @@ Developing modern Minecraft Fabric mods often means facing recurring architectur
 
 > [!IMPORTANT]
 > **This is a Standalone Universal Core Library / API.**
-> * **Universal Single-JAR Standard:** Dasik Library builds a single universal cross-version JAR (`>=26.1.2-`, currently **`v1.8.35`**) using pure SemVer. It seamlessly loads across **Minecraft 26.1.2, 26.2, 26.3**, and future snapshots.
+> * **Universal Single-JAR Standard:** Dasik Library ships a single universal cross-version JAR (`>=26.1.2-`) using pure SemVer. It seamlessly loads across **Minecraft 26.1.2, 26.2, 26.3**, and future snapshots.
 > * **Both Client & Dedicated Server Ready:** Fully compatible with singleplayer clients and multiplayer dedicated servers.
 > * **Zero Standalone Gameplay Bloat:** Does not add arbitrary gameplay items or world generation on its own. It runs quietly in the background, providing shared AI, genetics, and registry infrastructure for dependent mods.
 
@@ -48,7 +48,7 @@ Developing modern Minecraft Fabric mods often means facing recurring architectur
 - **Math Conversion Helpers:** Built-in calculation utilities for percentages, permilles, and deciles (`getPct`, `getChance`, `getProb`, `getDecileFloat`).
 
 ### 🦅 High-Performance Swarm & Flocking AI (Cached Boids)
-- **$O(N)$ Leader-Follower Pattern:** Eliminates expensive $O(N^2)$ pairwise distance checks by computing and caching group metrics (`FlockState`) exclusively on the pack Leader, enabling smooth swarms of 100+ entities at a solid 20 TPS.
+- **O(N) Leader-Follower Pattern:** Eliminates expensive O(N²) pairwise distance checks by computing and caching group metrics (`FlockState`) exclusively on the pack Leader, enabling smooth swarms of 100+ entities at a solid 20 TPS.
 - **Biomechanical Steering:** Full Alignment, Cohesion, and Separation vector steering calculations for realistic aerial murmurations (`AerialFlockingStrategy`) and terrestrial pack movement (`TerrestrialFlockingStrategy`).
 - **Resilient Following:** Integrated water navigation penalty bypass and catch-up teleportation thresholds to ensure pack members never get lost across chunk boundaries.
 
@@ -63,7 +63,6 @@ Developing modern Minecraft Fabric mods often means facing recurring architectur
 - **Standardized Creator Support:** Provides `DasikSupportHelper` to embed standardized creator support buttons at index 0 across config screen category pages.
 
 ### 🛡️ Enterprise Stability & Zero-Allocation Hot Paths
-- **Zero-Dependency Version Guard:** `ModVersionGuard` verifies runtime Minecraft environment compatibility on startup and displays human-readable diagnostic advice if an incompatible API drop is detected.
 - **Atomic File Persistence:** `ConfigHelper` manages JSON read/write operations using temporary file atomic swaps and automatic backup generation.
 - **Zero-Allocation Rendering:** Zero-byte heap allocation architecture across high-frequency tick and render paths.
 
@@ -71,16 +70,15 @@ Developing modern Minecraft Fabric mods often means facing recurring architectur
 
 ## 📊 Quick Reference & Mechanics Matrix
 
-| Feature Dimension | Vanilla / Standard Mod Implementation | Dasik Library (`v1.8.35`) |
+| Feature Dimension | Vanilla / Standard Mod Implementation | Dasik Library |
 | :--- | :---: | :---: |
 | **GameRule Registration** | Static build-time registration only | **Dynamic runtime unfreeze + auto-translation injection** |
 | **Save File Persistence** | Only static vanilla rules saved | **Dynamic `SavedData` storage in `game_rules.dat`** |
 | **Orphaned Rule Handling** | Corrupts saves or persists forever | **Automated startup pruning (`pruneOrphanedRules`)** |
-| **Flocking AI Complexity** | $O(N^2)$ pairwise entity distance loops | **$O(N)$ Leader-Cached `FlockState` computation** |
+| **Flocking AI Complexity** | O(N²) pairwise entity distance loops | **O(N) Leader-Cached `FlockState` computation** |
 | **Animal Genetics Engine** | Flat vanilla breed inheritance | **Lineage tracking, mutations, scale linking & loot scaling** |
 | **Scale Attribute Range** | Rigid vanilla scaling | **Custom scaling clamp `[0.1f, 3.0f]` with linked stats** |
 | **Optional Config GUI** | Prone to server `NoClassDefFoundError` | **Reflection & Knot isolation (`GuiHelper`) with 0 server risk** |
-| **Version Safeguards** | Obscure Mixin crash traces | **`ModVersionGuard` Knot ClassLoader validation** |
 
 ---
 
@@ -100,7 +98,7 @@ repositories {
 }
 
 dependencies {
-    modImplementation "maven.modrinth:dasik-library:1.8.35"
+    modImplementation "maven.modrinth:dasik-library:<latest-version>"
 }
 ```
 
@@ -137,7 +135,7 @@ SizeStatsBuilder.create("my_mod:beast_genetics")
 Safely observe and handle new registry entries added by other mods:
 
 ```java
-import net.dasik.social.api.registry.DynamicRegistryScanner;
+import net.dasik.social.api.DynamicRegistryScanner;
 import net.minecraft.core.registries.BuiltInRegistries;
 
 DynamicRegistryScanner.subscribe(BuiltInRegistries.ITEM, item -> {
@@ -161,13 +159,13 @@ Dasik Library manages dynamic GameRule states natively within your world save fi
 ## 📖 In-Depth How-To & Integration Playbook
 
 ### 1. For Survival Players & Server Administrators
-1. Download `dasik-library-1.8.35.jar` (or latest release).
+1. Download the latest `dasik-library-*.jar` release.
 2. Place the JAR directly into your `.minecraft/mods` folder along with **Fabric API**.
 3. Launch Minecraft. Dasik Library operates silently and efficiently in the background, providing foundational services for your installed mods.
 4. When configuring GameRules in-game via the **Edit Game Rules** screen or `/gamerule`, all rules registered by Dasik-powered mods are automatically translated, organized into categories, and saved directly to the world file.
 
 ### 2. For Modpack Creators
-1. **Universal Multi-Version Support:** You do not need separate builds of Dasik Library for minor Minecraft patches—one build handles MC 26.1.2, 26.2, and 26.3+.
+1. **Universal Multi-Version Support:** You do not need separate builds of Dasik Library for minor Minecraft patches — one build handles MC 26.1.2, 26.2, and 26.3+.
 2. **Server-Safe:** Include Dasik Library in both client and server modpacks without fear of client GUI crashes.
 3. **Clean World Upgrades:** When updating modpacks and removing deprecated mods, the library automatically purges orphaned GameRules on the next server launch.
 
@@ -178,7 +176,7 @@ Dasik Library manages dynamic GameRule states natively within your world save fi
      "fabricloader": ">=0.16.10",
      "minecraft": ">=26.1.2-",
      "fabric-api": "*",
-     "dasik-library": ">=1.8.15"
+     "dasik-library": ">=1.9.0"
    }
    ```
 2. Leverage `DynamicGameRuleManager` to avoid writing repetitive GameRule boilerplate and translation files.
@@ -199,7 +197,7 @@ Dasik Library serves as the engine for numerous popular mods. Explore these proj
 ---
 
 ### 💬 Join the Community & Get Support
-Looking for help, want to test early beta builds, or vote on upcoming features? Join our official Discord community!
+Looking for help, want to test early beta builds, or vote on upcoming features? Join my official Discord!
 <p align="center">
   <a href="https://discord.gg/EV99bgAFqb">
     <img src="https://img.shields.io/badge/💬_Discord-Join_Community-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Join Official Discord">
@@ -230,7 +228,7 @@ If you enjoy the ecosystem, consider fueling future updates!
 | **Creator / Author** | **Dasik** (Rifaditya) |
 | **Community** | [Official Discord](https://discord.gg/EV99bgAFqb) |
 | **Collection** | Universal Core Architecture |
-| **License** | [GNU Lesser General Public License v3.0 (LGPLv3)](https://www.gnu.org/licenses/lgpl-3.0.html) |
+| **License** | [GNU General Public License v3.0 (GPLv3)](https://www.gnu.org/licenses/gpl-3.0.html) |
 | **Source Code** | [GitHub - Rifaditya/MC-DasikLibrary](https://github.com/Rifaditya/MC-DasikLibrary) |
 | **Issue Tracker** | [GitHub Issues](https://github.com/Rifaditya/MC-DasikLibrary/issues) |
 | **Documentation / Wiki** | [GitHub Wiki](https://github.com/Rifaditya/MC-DasikLibrary/wiki) |
@@ -240,8 +238,9 @@ If you enjoy the ecosystem, consider fueling future updates!
 > You are fully welcome to include this mod in any modpack on any platform! However, the mod file must be downloaded directly through official distribution channels (**Modrinth** or **CurseForge**). Re-uploading, mirroring, or redistributing the original mod JAR to third-party mirror sites, scraper portals, or unauthorized launchers is strictly prohibited.
 > <br><br>
 > **⚖️ License & Fork Guidelines (No Zero-Change Re-uploads):**<br>
-> This project is open-source under the **GNU GPLv3**. You are fully encouraged to inspect the code, learn from it, and fork the repository to create genuine modifications, substantial feature expansions, or community ports—provided your project remains open-source under GPLv3 with proper attribution.<br>
+> This project is open-source under the **GNU GPLv3**. You are fully encouraged to inspect the code, learn from it, and fork the repository to create genuine modifications, substantial feature expansions, or community ports — provided your project remains open-source under GPLv3 with proper attribution.<br>
 > **However, straight 1:1 re-uploads, clone forks with no meaningful functional changes, or re-publishing identical builds under different project names (e.g. to farm downloads or rewards) are strictly forbidden.**
+
 ---
 
 <div align="center">

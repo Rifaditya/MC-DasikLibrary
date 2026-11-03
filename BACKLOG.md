@@ -1,7 +1,7 @@
-# 📌 Dasik Library Backlog
+﻿# 📌 Dasik Library Backlog
 
-<!-- Highest Historical ID: BL-DASIK-016 (Next Ticket Must Start at BL-DASIK-017) -->
-> **Next Available Ticket ID**: `[BL-DASIK-017]`
+<!-- Highest Historical ID: BL-DASIK-019 (Next Ticket Must Start at BL-DASIK-020) -->
+> **Next Available Ticket ID**: `[BL-DASIK-020]`
 
 This file tracks planned features, technical refinements, performance optimizations, and deferred bug fixes for **Dasik Library**.
 
@@ -11,7 +11,9 @@ This file tracks planned features, technical refinements, performance optimizati
 
 | ID | Category | Title | Priority | Target Version | Status | Specification |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| *No active backlog items* | - | - | - | - | - | - |
+| [`BL-DASIK-019`](tickets/BL-DASIK-019.md) | `[FEATURE]` | Native Multi-Loader Port (Fabric + NeoForge) for Minecraft 1.21.11 | `[HIGH]` | `1.4.1+1.21.11` | `🚧 IN_PROGRESS` | [View Ticket](tickets/BL-DASIK-019.md) |
+| [`BL-DASIK-017`](tickets/BL-DASIK-017.md) | `[GOVERNANCE]` | Storefront Reconciliation: Align Mod Pages with Current Public Release | `[HIGH]` | `Platform Pages` | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-017.md) |
+| [`BL-DASIK-018`](tickets/BL-DASIK-018.md) | `[TECH_DEBT]` | Wiki Audit & Update to Latest Version: MC-DasikLibrary | `[MEDIUM]` | `All Anchors` | `📌 DEFERRED` | [View Ticket](tickets/BL-DASIK-018.md) |
 
 ---
 
