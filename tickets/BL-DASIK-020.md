@@ -42,7 +42,9 @@ To eliminate this blocker and fulfill studio anchor parity under the Multi-Era A
 - Access through `Services.PLATFORM`.
 
 ### 3. Genetics & Duck Interface Universal Persistence
-- Maintained `GeneticsHolder` duck interface injected into `LivingEntity` via `LivingEntityGeneticsMixin` using `ValueInput`/`ValueOutput` for loader-agnostic NBT persistence across world saves.
+### 4. Dynamic Registry Unfreezing & Config API Preservation
+- Introduced [`DynamicRegistryHelper`](file:///e:/Minecraft%20Project/Dasik%20Library%20v26.1.2/Dasik%20Library%2026.1.2/common/src/main/java/net/dasik/social/api/registry/DynamicRegistryHelper.java) to safely unfreeze `MappedRegistry` instances, bind dynamic holder values (`Holder.Reference.bindValue`), and refreeze across NeoForge/Forge environments where vanilla registries are frozen before mod initialization.
+- Restored `ConfigHelper` full public API contract (`load(...)` with versioning, logger-enabled `save(...)`, and `loadOrCreate(...)`), ensuring zero compilation or runtime regressions for satellite mods.
 
 ---
 
@@ -50,7 +52,11 @@ To eliminate this blocker and fulfill studio anchor parity under the Multi-Era A
 
 | Dimension | Risk / Failure Mode | Active Safeguard |
 | :--- | :--- | :--- |
-| **NeoForge Dependency** | `better_dogs` requires `dasik_library >= 1.11.2` | `META-INF/neoforge.mods.toml` declares `modId="dasik_library"` with version `1.13.0+26.1.2`, satisfying requirement. |
+| **NeoForge Dependency** | `better_dogs` requires `dasik_library >= 1.11.2` | `META-INF/neoforge.mods.toml` and `META-INF/mods.toml` declare `modId="dasik_library"` with version `1.13.0+26.1.2`, satisfying requirement. |
+| **Dual Manifest Standard** | Missing Forge manifest in `:neoforge` | Bundled both `mods.toml` and `neoforge.mods.toml` under `META-INF/` satisfying Multi-Loader Policy §5.3. |
+| **Frozen Registry Crash** | Dynamic registration after `MappedRegistry.freeze()` | `DynamicRegistryHelper.registerWithUnfreeze` safely unfreezes, binds holder value, and refreezes without throwing `IllegalStateException`. |
+| **Downstream Resolution** | Gradle `mavenLocal()` resolution failure | Executed `./gradlew publishToMavenLocal` deploying `:common`, `:fabric`, and `:neoforge` artifacts to `~/.m2/repository/net/dasik/social/`. |
+| **Triple-JAR Parity** | Missing canonical unadorned JAR | Synchronized all 3 variants (`dasik-library-1.13.0+26.1.2.jar`, `-fabric.jar`, `-neoforge.jar`) across local archives, workspace archives, and release hub. |
 | **Classloading Hazard** | Client classloading on dedicated servers | Separated entrypoints (`DasikLibraryClientNeoForge` with `Dist.CLIENT`), `@Environment(EnvType.CLIENT)` annotations, and `Services.PLATFORM.isClient()` guards. |
 | **26.1.2 Bytecode Shifts** | `ChunkPos.pack()` and 3-arg `interactOn` | Adapted `SignalBus` spatial index to use `ChunkPos.pack()` and updated `VirtualPlayerBot` test helper to pass target position. |
 | **Chat Component API** | 26.x chat signature mismatch | Injected `addClientSystemMessage` in `DasikUpdateGreetingHandler` replacing legacy 1.21 `addMessage`. |
@@ -67,9 +73,10 @@ To eliminate this blocker and fulfill studio anchor parity under the Multi-Era A
 ---
 
 ## 🏁 5. Verification Checklist
-- [x] Root `./gradlew :common:test` passes 100% green (88 tests).
-- [x] `./gradlew build` builds both distribution JARs (`dasik-library-1.13.0+26.1.2-fabric.jar`, `dasik-library-1.13.0+26.1.2-neoforge.jar`).
-- [x] `neoforge.mods.toml` bundled declaring `modId="dasik_library"`, `version="1.13.0+26.1.2"`, `neoforge >= 26.1`, `minecraft [26.1.2, 26.2)`.
+- [x] Root `./gradlew :common:test` passes 100% green (89 tests).
+- [x] `./gradlew build publishToMavenLocal` builds all distribution JARs and publishes to `~/.m2/repository/net/dasik/social/`.
+- [x] Dual manifests (`neoforge.mods.toml` and `mods.toml`) bundled declaring `modId="dasik_library"`, `version="1.13.0+26.1.2"`, `neoforge >= 26.1`, `minecraft [26.1.2, 26.2)`.
 - [x] `pack.mcmeta` bundled with canonical `pack_format: 48`.
 - [x] NeoForge JAR deployed to `C:\Users\fmrif\AppData\Roaming\ModrinthApp\profiles\NeoForge 26.1.2\mods\`.
-- [x] Dual JARs archived to release hub (`minecraft-mod-release-hub/archives/Dasik Library/`) and workspace archive directories.
+- [x] Triple-JAR sync completed: canonical `<mod>-<ver>.jar`, `<mod>-<ver>-fabric.jar`, and `<mod>-<ver>-neoforge.jar` archived to release hub (`minecraft-mod-release-hub/archives/Dasik Library/`), local project archives, and workspace archives.
+- [x] Downstream consumer (Better Dogs 26.1) successfully compiled, tested, and deployed with `DynamicRegistryHelper.registerWithUnfreeze` resolving NeoForge registry freeze crash.
