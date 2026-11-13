@@ -199,23 +199,18 @@ afterEvaluate {
                         }
                     }
 
-                    // 4. External Vault D: (Universal 4-Point Distribution Law)
-                    try {
-                        File externalVaultDir = new File("D:/Minecraft Project Vault/MC " + project.minecraft_version)
-                        if (externalVaultDir.getParentFile() != null && externalVaultDir.getParentFile().exists()) {
-                            if (!externalVaultDir.exists()) {
-                                externalVaultDir.mkdirs()
-                            }
+                    // External Vault Archive (OS-guarded for headless CI)
+                    if (file("D:/Minecraft Mod Archive Jars").exists()) {
+                        def fnLower = jarFile.name.toLowerCase()
+                        if (!fnLower.endsWith("-dev.jar") && !fnLower.endsWith("-sources.jar") && !fnLower.endsWith("-common.jar") && !fnLower.endsWith("-all.jar") && !fnLower.endsWith("-javadoc.jar")) {
+                            def vaultDir = file("D:/Minecraft Mod Archive Jars/Dasik Library")
+                            vaultDir.mkdirs()
                             copy {
                                 from jarFile
-                                into externalVaultDir
+                                into vaultDir
                             }
-                            println "[VAULT-DEPLOY] Successfully copied ${jarFile.name} to external vault: ${externalVaultDir.canonicalPath}"
-                        } else {
-                            println "[VAULT-DEPLOY] Note: External vault drive (D:/) not detected; skipping vault copy."
+                            println "[DEPLOY-POINT-3] Copied ${jarFile.name} to external vault: ${vaultDir.canonicalPath}"
                         }
-                    } catch (Exception e) {
-                        println "[VAULT-DEPLOY] Note: Could not copy to external vault: ${e.message}"
                     }
                 }
             }
