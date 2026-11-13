@@ -15,7 +15,7 @@ Several documentation, manifest, and release toolchain inconsistencies exist in 
 2. **Version Queue & Changelog Desync**: `gradle.properties` is set to `mod_version=1.11.2`, but `CHANGELOG.md` and `RELEASE_QUEUE.md` stop at `1.11.0`, missing entries for `1.11.1` and `1.11.2`.
 3. **Missing External Vault in `build.gradle`**: `archiveReleaseJar` task copies to Local Archive, Modrinth profiles, and Release Hub, but omits the mandatory External Vault destination (`D:\Minecraft Project Vault`) required by the Universal 4-Point Distribution Law.
 4. **Git Remote & Manifest URL Mismatch**: `.git/config` points to `Rifaditya/MC-DasikLibrary.git` while `fabric.mod.json` points to `Rifaditya/DasikLibrary-Rebuilt`.
-5. **Missing `@DasikApiStatus` Coverage**: Legacy classes in `api.genetics.*`, `api.group.*`, `api.profile.*`, and `core.*` omit branded API status annotations, and [`GroupMember.java`](src/main/java/net/dasik/social/api/group/GroupMember.java) exposes internal class `net.dasik.social.core.group.FlockState` in its public contract.
+5. **Missing `@DasikApiStatus` Coverage**: Legacy classes in `api.genetics.*`, `api.group.*`, `api.profile.*`, and `core.*` omit branded API status annotations, and [`GroupMember.java`](../src/main/java/net/dasik/social/api/group/GroupMember.java) exposes internal class `net.dasik.social.core.group.FlockState` in its public contract.
 
 ## 🔬 2. Architectural Blueprint & Target Classes
 - **Author `ARCHITECTURE.md`**:
