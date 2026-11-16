@@ -72,16 +72,16 @@ public class DasikSupportHelper {
      * Renders: "💬 Community: [Join Discord]"
      */
     public static Component getDiscordCommandFooter() {
-        MutableComponent prompt = Component.translatable(KEY_DISCORD_CHAT_PROMPT)
+        MutableComponent prompt = Component.translatableWithFallback(KEY_DISCORD_CHAT_PROMPT, "💬 Community: ")
                 .withStyle(ChatFormatting.BLUE);
 
-        MutableComponent link = Component.translatable(KEY_DISCORD_CHAT_LINK)
+        MutableComponent link = Component.translatableWithFallback(KEY_DISCORD_CHAT_LINK, "[Join Discord]")
                 .withStyle(Style.EMPTY
                         .withColor(ChatFormatting.AQUA)
                         .withBold(true)
                         .withUnderlined(true)
                         .withClickEvent(new ClickEvent.OpenUrl(net.dasik.social.api.SocialLinks.getDiscordUri()))
-                        .withHoverEvent(new HoverEvent.ShowText(Component.translatable(KEY_DISCORD_CHAT_HOVER)))
+                        .withHoverEvent(new HoverEvent.ShowText(Component.translatableWithFallback(KEY_DISCORD_CHAT_HOVER, "Click to join the official Dasik Modding Discord community.")))
                 );
 
         return prompt.append(link);
@@ -92,16 +92,16 @@ public class DasikSupportHelper {
      * Renders: "☕ Enjoying the mod? [Support on Ko-fi]"
      */
     public static Component getKofiCommandFooter() {
-        MutableComponent prompt = Component.translatable(KEY_CHAT_PROMPT)
+        MutableComponent prompt = Component.translatableWithFallback(KEY_CHAT_PROMPT, "☕ Enjoying the mod? ")
                 .withStyle(ChatFormatting.GRAY);
 
-        MutableComponent link = Component.translatable(KEY_CHAT_LINK)
+        MutableComponent link = Component.translatableWithFallback(KEY_CHAT_LINK, "[Support on Ko-fi]")
                 .withStyle(Style.EMPTY
                         .withColor(ChatFormatting.GOLD)
                         .withBold(true)
                         .withUnderlined(true)
                         .withClickEvent(new ClickEvent.OpenUrl(URI.create(KOFI_URL)))
-                        .withHoverEvent(new HoverEvent.ShowText(Component.translatable(KEY_CHAT_HOVER)))
+                        .withHoverEvent(new HoverEvent.ShowText(Component.translatableWithFallback(KEY_CHAT_HOVER, "Click to open the creator's Ko-fi page in your default browser.")))
                 );
 
         return prompt.append(link);

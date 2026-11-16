@@ -1,7 +1,7 @@
 # 📌 Dasik Library Backlog
 
-<!-- Highest Historical ID: BL-DASIK-020 (Next Ticket Must Start at BL-DASIK-021) -->
-> **Next Available Ticket ID**: `[BL-DASIK-021]`
+<!-- Highest Historical ID: BL-DASIK-021 (Next Ticket Must Start at BL-DASIK-022) -->
+> **Next Available Ticket ID**: `[BL-DASIK-022]`
 
 This file tracks planned features, technical refinements, performance optimizations, and deferred bug fixes for **Dasik Library**.
 
@@ -11,6 +11,7 @@ This file tracks planned features, technical refinements, performance optimizati
 
 | ID | Category | Title | Priority | Target Version | Status | Specification |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| [`BL-DASIK-021`](tickets/BL-DASIK-021.md) | `[BUGFIX]` | Transitive Vanilla-Client Server Compatibility: Forge 1.20.1 DisplayTest & DasikSupportHelper Fallback Text | `[CRITICAL]` | `1.20.1` Forge & All Anchors | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-021.md) |
 | [`BL-DASIK-020`](tickets/BL-DASIK-020.md) | `[FEATURE]` | Native Multi-Loader Port (Fabric + NeoForge) for Minecraft 26.1.2 | `[HIGH]` | `1.13.0+26.1.2` | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-020.md) |
 | [`BL-DASIK-019`](tickets/BL-DASIK-019.md) | `[FEATURE]` | Native Multi-Loader Port (Fabric + NeoForge) for Minecraft 1.21.11 | `[HIGH]` | `1.4.1+1.21.11` | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-019.md) |
 | [`BL-DASIK-017`](tickets/BL-DASIK-017.md) | `[GOVERNANCE]` | Storefront Reconciliation: Align Mod Pages with Current Public Release | `[HIGH]` | `Platform Pages` | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-017.md) |

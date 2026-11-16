@@ -4,6 +4,7 @@ package net.dasik.social.api.config;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.ComponentContents;
+import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -73,6 +74,7 @@ public class DasikSupportHelperTest {
         ComponentContents promptContents = discordFooter.getContents();
         assertInstanceOf(TranslatableContents.class, promptContents);
         assertEquals(DasikSupportHelper.KEY_DISCORD_CHAT_PROMPT, ((TranslatableContents) promptContents).getKey());
+        assertEquals("💬 Community: ", ((TranslatableContents) promptContents).getFallback());
 
         // Verify sibling link
         assertFalse(discordFooter.getSiblings().isEmpty(), "Discord footer must contain sibling link component");
@@ -80,12 +82,22 @@ public class DasikSupportHelperTest {
         ComponentContents linkContents = linkComponent.getContents();
         assertInstanceOf(TranslatableContents.class, linkContents);
         assertEquals(DasikSupportHelper.KEY_DISCORD_CHAT_LINK, ((TranslatableContents) linkContents).getKey());
+        assertEquals("[Join Discord]", ((TranslatableContents) linkContents).getFallback());
 
         // Verify ClickEvent
         ClickEvent clickEvent = linkComponent.getStyle().getClickEvent();
         assertNotNull(clickEvent, "Link component must have a ClickEvent attached");
         assertInstanceOf(ClickEvent.OpenUrl.class, clickEvent);
         assertEquals(net.dasik.social.api.SocialLinks.getDiscordUri(), ((ClickEvent.OpenUrl) clickEvent).uri());
+
+        // Verify HoverEvent
+        HoverEvent hoverEvent = linkComponent.getStyle().getHoverEvent();
+        assertNotNull(hoverEvent, "Link component must have a HoverEvent attached");
+        assertInstanceOf(HoverEvent.ShowText.class, hoverEvent);
+        Component hoverText = ((HoverEvent.ShowText) hoverEvent).value();
+        assertInstanceOf(TranslatableContents.class, hoverText.getContents());
+        assertEquals(DasikSupportHelper.KEY_DISCORD_CHAT_HOVER, ((TranslatableContents) hoverText.getContents()).getKey());
+        assertEquals("Click to join the official Dasik Modding Discord community.", ((TranslatableContents) hoverText.getContents()).getFallback());
     }
 
     @Test
@@ -98,6 +110,7 @@ public class DasikSupportHelperTest {
         ComponentContents promptContents = kofiFooter.getContents();
         assertInstanceOf(TranslatableContents.class, promptContents);
         assertEquals(DasikSupportHelper.KEY_CHAT_PROMPT, ((TranslatableContents) promptContents).getKey());
+        assertEquals("☕ Enjoying the mod? ", ((TranslatableContents) promptContents).getFallback());
 
         // Verify sibling link
         assertFalse(kofiFooter.getSiblings().isEmpty(), "Ko-fi footer must contain sibling link component");
@@ -105,12 +118,22 @@ public class DasikSupportHelperTest {
         ComponentContents linkContents = linkComponent.getContents();
         assertInstanceOf(TranslatableContents.class, linkContents);
         assertEquals(DasikSupportHelper.KEY_CHAT_LINK, ((TranslatableContents) linkContents).getKey());
+        assertEquals("[Support on Ko-fi]", ((TranslatableContents) linkContents).getFallback());
 
         // Verify ClickEvent
         ClickEvent clickEvent = linkComponent.getStyle().getClickEvent();
         assertNotNull(clickEvent, "Link component must have a ClickEvent attached");
         assertInstanceOf(ClickEvent.OpenUrl.class, clickEvent);
         assertEquals(URI.create(DasikSupportHelper.KOFI_URL), ((ClickEvent.OpenUrl) clickEvent).uri());
+
+        // Verify HoverEvent
+        HoverEvent hoverEvent = linkComponent.getStyle().getHoverEvent();
+        assertNotNull(hoverEvent, "Link component must have a HoverEvent attached");
+        assertInstanceOf(HoverEvent.ShowText.class, hoverEvent);
+        Component hoverText = ((HoverEvent.ShowText) hoverEvent).value();
+        assertInstanceOf(TranslatableContents.class, hoverText.getContents());
+        assertEquals(DasikSupportHelper.KEY_CHAT_HOVER, ((TranslatableContents) hoverText.getContents()).getKey());
+        assertEquals("Click to open the creator's Ko-fi page in your default browser.", ((TranslatableContents) hoverText.getContents()).getFallback());
     }
 
     @Test

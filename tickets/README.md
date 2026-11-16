@@ -22,7 +22,8 @@ This directory contains dedicated atomic ticket files for **Dasik Library** unde
 | `[BL-DASIK-015]` | `[FEATURE]` | Public Headless Testing & VirtualPlayerBot API (`net.dasik.social.api.test`) | `[HIGH]` | All Anchors | `✅ RESOLVED` | [`BL-DASIK-015.md`](BL-DASIK-015.md) |
 | `[BL-DASIK-016]` | `[FEATURE]` | Universal Dual-Context (World-Aware) Configuration Engine (`UniversalConfigScreen` & `DynamicGameRuleConfigSync`) | `[HIGH]` | All Anchors | `✅ RESOLVED` | [`BL-DASIK-016.md`](BL-DASIK-016.md) |
 | `[BL-DASIK-017]` | `[GOVERNANCE]` | Storefront Reconciliation: Align Mod Pages with Current Public Release | `[HIGH]` | Platform Pages | `📌 DEFERRED` | [`BL-DASIK-017.md`](BL-DASIK-017.md) |
-| `[BL-DASIK-018]` | `[TECH_DEBT]` | Wiki Audit & Update to Latest Version: MC-DasikLibrary | `📌 DEFERRED` | [BL-DASIK-018.md](BL-DASIK-018.md) |
+| `[BL-DASIK-018]` | `[TECH_DEBT]` | Wiki Audit & Update to Latest Version: MC-DasikLibrary | `[MEDIUM]` | All Anchors | `📌 DEFERRED` | [`BL-DASIK-018.md`](BL-DASIK-018.md) |
+| `[BL-DASIK-021]` | `[BUGFIX]` | Transitive Vanilla-Client Server Compatibility: Forge 1.20.1 DisplayTest & DasikSupportHelper Fallback Text | `[CRITICAL]` | `1.20.1` Forge & All Anchors | `📌 DEFERRED` | [`BL-DASIK-021.md`](BL-DASIK-021.md) |
 
 ---
 
