@@ -1,7 +1,7 @@
 # 📌 Dasik Library Backlog
 
-<!-- Highest Historical ID: BL-DASIK-021 (Next Ticket Must Start at BL-DASIK-022) -->
-> **Next Available Ticket ID**: `[BL-DASIK-022]`
+<!-- Highest Historical ID: BL-DASIK-024 (Next Ticket Must Start at BL-DASIK-025) -->
+> **Next Available Ticket ID**: `[BL-DASIK-025]`
 
 This file tracks planned features, technical refinements, performance optimizations, and deferred bug fixes for **Dasik Library**.
 
@@ -11,6 +11,9 @@ This file tracks planned features, technical refinements, performance optimizati
 
 | ID | Category | Title | Priority | Target Version | Status | Specification |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| [`BL-DASIK-024`](tickets/BL-DASIK-024.md) | `[BUGFIX]` | Fix PlayerVisionTracker ClipContext Null Entity NPE in Anchor 1.20.1 | `[HIGH]` | `1.4.4+1.20.1` | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-024.md) |
+| [`BL-DASIK-023`](tickets/BL-DASIK-023.md) | `[BUGFIX]` | Fix Ko-fi & Discord YACL Button No-Op on MC 26.3+ (Migrate ConfirmLinkScreen to URI Overload Across All & Future Anchors) | `[CRITICAL]` | `All & Future Anchors` | `📌 DEFERRED` | [View Ticket](tickets/BL-DASIK-023.md) |
+| [`BL-DASIK-022`](tickets/BL-DASIK-022.md) | `[FEATURE]` | Per-Mod Advancement-Triggered Early Access Prompt Engine (Replacing World-Join Greeting) | `[HIGH]` | `All Anchors` | `📌 DEFERRED` | [View Ticket](tickets/BL-DASIK-022.md) |
 | [`BL-DASIK-021`](tickets/BL-DASIK-021.md) | `[BUGFIX]` | Transitive Vanilla-Client Server Compatibility: Forge 1.20.1 DisplayTest & DasikSupportHelper Fallback Text | `[CRITICAL]` | `1.20.1` Forge & All Anchors | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-021.md) |
 | [`BL-DASIK-020`](tickets/BL-DASIK-020.md) | `[FEATURE]` | Native Multi-Loader Port (Fabric + NeoForge) for Minecraft 26.1.2 | `[HIGH]` | `1.13.0+26.1.2` | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-020.md) |
 | [`BL-DASIK-019`](tickets/BL-DASIK-019.md) | `[FEATURE]` | Native Multi-Loader Port (Fabric + NeoForge) for Minecraft 1.21.11 | `[HIGH]` | `1.4.1+1.21.11` | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-019.md) |
