@@ -21,9 +21,13 @@ This directory contains dedicated atomic ticket files for **Dasik Library** unde
 | `[BL-DASIK-014]` | `[TECH_DEBT]` | Manifest, Architecture Map & Release Queue Calibration (`ARCHITECTURE.md`, 4-Point Vault, `@DasikApiStatus`) | `[MEDIUM]` | All Anchors | `✅ RESOLVED` | [`BL-DASIK-014.md`](BL-DASIK-014.md) |
 | `[BL-DASIK-015]` | `[FEATURE]` | Public Headless Testing & VirtualPlayerBot API (`net.dasik.social.api.test`) | `[HIGH]` | All Anchors | `✅ RESOLVED` | [`BL-DASIK-015.md`](BL-DASIK-015.md) |
 | `[BL-DASIK-016]` | `[FEATURE]` | Universal Dual-Context (World-Aware) Configuration Engine (`UniversalConfigScreen` & `DynamicGameRuleConfigSync`) | `[HIGH]` | All Anchors | `✅ RESOLVED` | [`BL-DASIK-016.md`](BL-DASIK-016.md) |
-| `[BL-DASIK-017]` | `[GOVERNANCE]` | Storefront Reconciliation: Align Mod Pages with Current Public Release | `[HIGH]` | Platform Pages | `📌 DEFERRED` | [`BL-DASIK-017.md`](BL-DASIK-017.md) |
+| `[BL-DASIK-017]` | `[GOVERNANCE]` | Storefront Reconciliation: Align Mod Pages with Current Public Release | `[HIGH]` | Platform Pages | `✅ RESOLVED` | [`BL-DASIK-017.md`](BL-DASIK-017.md) |
 | `[BL-DASIK-018]` | `[TECH_DEBT]` | Wiki Audit & Update to Latest Version: MC-DasikLibrary | `[MEDIUM]` | All Anchors | `📌 DEFERRED` | [`BL-DASIK-018.md`](BL-DASIK-018.md) |
-| `[BL-DASIK-021]` | `[BUGFIX]` | Transitive Vanilla-Client Server Compatibility: Forge 1.20.1 DisplayTest & DasikSupportHelper Fallback Text | `[CRITICAL]` | `1.20.1` Forge & All Anchors | `📌 DEFERRED` | [`BL-DASIK-021.md`](BL-DASIK-021.md) |
+| `[BL-DASIK-019]` | `[FEATURE]` | Native Multi-Loader Port (Fabric + NeoForge) for Minecraft 1.21.11 | `[HIGH]` | `1.4.1+1.21.11` | `✅ RESOLVED` | [`BL-DASIK-019.md`](BL-DASIK-019.md) |
+| `[BL-DASIK-020]` | `[FEATURE]` | Native Multi-Loader Port (Fabric + NeoForge) for Minecraft 26.1.2 | `[HIGH]` | `1.13.0+26.1.2` | `✅ RESOLVED` | [`BL-DASIK-020.md`](BL-DASIK-020.md) |
+| `[BL-DASIK-021]` | `[BUGFIX]` | Transitive Vanilla-Client Server Compatibility: Forge 1.20.1 DisplayTest & DasikSupportHelper Fallback Text | `[CRITICAL]` | `1.20.1` Forge & All Anchors | `✅ RESOLVED` | [`BL-DASIK-021.md`](BL-DASIK-021.md) |
+| `[BL-DASIK-022]` | `[FEATURE]` | Per-Mod Advancement-Triggered Early Access Prompt Engine (Replacing World-Join Greeting) | `[HIGH]` | All Anchors | `📌 DEFERRED` | [`BL-DASIK-022.md`](BL-DASIK-022.md) |
+| `[BL-DASIK-023]` | `[BUGFIX]` | Fix Ko-fi & Discord YACL Button No-Op on MC 26.3+ (Migrate ConfirmLinkScreen to URI Overload Across All & Future Anchors) | `[CRITICAL]` | `All & Future Anchors` | `📌 DEFERRED` | [`BL-DASIK-023.md`](BL-DASIK-023.md) |
 
 ---
 
