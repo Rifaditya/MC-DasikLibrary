@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.1] - 2026-11-21
+
+### Fixed
+- **ConfirmLinkScreen URI Migration for MC 26.3+ (`ClientSupportScreenHelper`)**: Migrated `ClientSupportScreenHelper.openUrl` from the deleted `ConfirmLinkScreen.confirmLinkNow(Screen, String)` overload to `ConfirmLinkScreen.confirmLinkNow(Screen, URI)` to eliminate runtime `NoSuchMethodError` when clicking Ko-fi or Discord support buttons in YACL configuration screens on Minecraft 26.3+ and future releases.
+- **URI Syntax & Malformed URL Safety**: Added safe `URI.create(url.trim())` parsing guarded against `IllegalArgumentException` and `NullPointerException`, preventing client crashes on invalid or malformed URL strings.
+- **Pillar 5 Bytecode Descriptor Contract**: Enforced automated bytecode verification in `ClientSupportScreenHelperTest` asserting `(Lnet/minecraft/client/gui/screens/Screen;Ljava/net/URI;)V` presence and total elimination of `(Lnet/minecraft/client/gui/screens/Screen;Ljava/lang/String;)V`.
+
 ## [1.13.0]
 
 ### Added

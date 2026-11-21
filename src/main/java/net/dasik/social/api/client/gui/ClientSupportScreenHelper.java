@@ -1,5 +1,5 @@
 // Copyright (C) 2026 Dasik (Rifaditya) | GNU GPLv3
-// Verified against: Minecraft.java (26.2+), ConfirmLinkScreen.java (26.2+)
+// Verified against: Minecraft.java (26.2+), ConfirmLinkScreen.java (26.2+, 26.3+)
 package net.dasik.social.api.client.gui;
 
 import net.dasik.social.api.SocialLinks;
@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
+import java.net.URI;
 import java.util.function.BiConsumer;
 
 /**
@@ -54,8 +55,16 @@ public final class ClientSupportScreenHelper {
             LOGGER.debug("FabricLoader environment check skipped: {}", t.getMessage());
         }
 
+        URI uri;
         try {
-            ConfirmLinkScreen.confirmLinkNow(parentScreen, url);
+            uri = URI.create(url.trim());
+        } catch (IllegalArgumentException | NullPointerException e) {
+            LOGGER.warn("Cannot open malformed URL: {}", url, e);
+            return;
+        }
+
+        try {
+            ConfirmLinkScreen.confirmLinkNow(parentScreen, uri);
         } catch (Throwable t) {
             LOGGER.error("Failed to open confirmation screen for URL: {}", url, t);
         }
