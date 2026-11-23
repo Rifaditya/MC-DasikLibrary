@@ -27,12 +27,12 @@
    - ❌ **Zero Dedicated Server Enforcement / No Server GameRules**: Prompt settings and tracking are strictly client-side preferences. Dedicated servers running DasikLibrary must never broadcast to vanilla clients or execute client GUI code.
    - ❌ **Zero Modal Popups / Title Banners**: All prompts remain strictly in chat with standard chat fade; zero screen takeovers, screen overlays, or intrusive sound alerts.
 4. **✅ Definition of Done (Binary Verification Checklist)**:
-   - [ ] Client config persistence (`config/dasik_library_client.json`) with `showSupportPrompts = true` and `showWorldStartGreeting = true`.
-   - [ ] ModMenu / YACL category integration with an explicit toggle switch and verified Ko-fi / Discord button actions.
-   - [ ] World-start greeting scheduler executing once per world connection at tick $t = 160$ (~8s post-join delay).
-   - [ ] `DasikPromptRegistry.register(...)` API allowing downstream mods to register milestone advancement triggers without duplicating code.
-   - [ ] Pacing queue enforcing a 5-minute (6000 ticks) delay between subsequent advancement prompts.
-   - [ ] Headless unit tests validating config serialization, toggle toggling, pacing delay, and dedicated server classloading safety.
+   - [x] Client config persistence (`config/dasik_library_client.json`) with `showSupportPrompts = true` and `showWorldStartGreeting = true`.
+   - [x] ModMenu / YACL category integration with an explicit toggle switch and verified Ko-fi / Discord button actions.
+   - [x] World-start greeting scheduler executing once per world connection at tick $t = 160$ (~8s post-join delay).
+   - [x] `DasikPromptRegistry.register(...)` API allowing downstream mods to register milestone advancement triggers without duplicating code.
+   - [x] Pacing queue enforcing a 5-minute (6000 ticks) delay between subsequent advancement prompts.
+   - [x] Headless unit tests validating config serialization, toggle toggling, pacing delay, and dedicated server classloading safety.
 
 ---
 
