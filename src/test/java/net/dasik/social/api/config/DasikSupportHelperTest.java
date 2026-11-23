@@ -188,9 +188,29 @@ public class DasikSupportHelperTest {
     }
 
     @Test
-    @DisplayName("Verify createYaclButton and createDiscordYaclButton do not throw when called headlessly")
+    @DisplayName("Verify createYaclButton, createDiscordYaclButton, and createSupportPromptsOption do not throw headlessly")
     public void testCreateYaclButtonSafeHeadless() {
         assertDoesNotThrow(DasikSupportHelper::createYaclButton);
         assertDoesNotThrow(DasikSupportHelper::createDiscordYaclButton);
+        assertDoesNotThrow(DasikSupportHelper::createSupportPromptsOption);
+    }
+
+    @Test
+    @DisplayName("Pillar 5: Verify ASM/reflection method descriptors for Screen and Object overloads")
+    public void testMethodDescriptorsExist() throws NoSuchMethodException {
+        // ClientSupportScreenHelper Screen and Object overloads
+        assertNotNull(net.dasik.social.api.client.gui.ClientSupportScreenHelper.class.getMethod("openKofi", net.minecraft.client.gui.screens.Screen.class));
+        assertNotNull(net.dasik.social.api.client.gui.ClientSupportScreenHelper.class.getMethod("openKofi", Object.class));
+
+        assertNotNull(net.dasik.social.api.client.gui.ClientSupportScreenHelper.class.getMethod("openDiscord", net.minecraft.client.gui.screens.Screen.class));
+        assertNotNull(net.dasik.social.api.client.gui.ClientSupportScreenHelper.class.getMethod("openDiscord", Object.class));
+
+        assertNotNull(net.dasik.social.api.client.gui.ClientSupportScreenHelper.class.getMethod("openUrl", net.minecraft.client.gui.screens.Screen.class, String.class));
+        assertNotNull(net.dasik.social.api.client.gui.ClientSupportScreenHelper.class.getMethod("openUrl", Object.class, String.class));
+
+        // DasikSupportHelper Object overloads (Sidedness-safe for common/dedicated server)
+        assertNotNull(DasikSupportHelper.class.getMethod("openKofi", Object.class));
+        assertNotNull(DasikSupportHelper.class.getMethod("openDiscord", Object.class));
+        assertNotNull(DasikSupportHelper.class.getMethod("openUrl", Object.class, String.class));
     }
 }

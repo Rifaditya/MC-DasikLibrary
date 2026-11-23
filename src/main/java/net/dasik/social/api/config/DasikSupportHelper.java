@@ -44,27 +44,27 @@ public class DasikSupportHelper {
     public static final String KEY_DISCORD_CHAT_HOVER = "dasiklibrary.support.discord.chat_hover";
 
     public static Component getLabelText() {
-        return Component.translatable(KEY_LABEL);
+        return Component.translatableWithFallback(KEY_LABEL, "Support Creator (Ko-fi)");
     }
 
     public static Component getButtonText() {
-        return Component.translatable(KEY_BUTTON);
+        return Component.translatableWithFallback(KEY_BUTTON, "Open Ko-fi");
     }
 
     public static Component getTooltipText() {
-        return Component.translatable(KEY_TOOLTIP);
+        return Component.translatableWithFallback(KEY_TOOLTIP, "Support development and get Early Access builds on Ko-fi!");
     }
 
     public static Component getDiscordLabelText() {
-        return Component.translatable(KEY_DISCORD_LABEL);
+        return Component.translatableWithFallback(KEY_DISCORD_LABEL, "Discord Community");
     }
 
     public static Component getDiscordButtonText() {
-        return Component.translatable(KEY_DISCORD_BUTTON);
+        return Component.translatableWithFallback(KEY_DISCORD_BUTTON, "Join Discord");
     }
 
     public static Component getDiscordTooltipText() {
-        return Component.translatable(KEY_DISCORD_TOOLTIP);
+        return Component.translatableWithFallback(KEY_DISCORD_TOOLTIP, "Join the official Dasik Modding Discord community for support and updates.");
     }
 
     /**
@@ -130,7 +130,7 @@ public class DasikSupportHelper {
 
     /**
      * Safely opens the official Discord community server in the player's default browser via ConfirmLinkScreen.
-     * Client-only operation.
+     * Client-only operation with untyped screen.
      */
     @Environment(EnvType.CLIENT)
     public static void openDiscord(@Nullable Object parentScreen) {
@@ -139,7 +139,7 @@ public class DasikSupportHelper {
 
     /**
      * Safely opens the creator's Ko-fi page in the player's default browser via ConfirmLinkScreen.
-     * Client-only operation.
+     * Client-only operation with untyped screen.
      */
     @Environment(EnvType.CLIENT)
     public static void openKofi(@Nullable Object parentScreen) {
@@ -148,11 +148,23 @@ public class DasikSupportHelper {
 
     /**
      * Safely opens any external URL via Minecraft's standard ConfirmLinkScreen.
-     * Client-only operation.
+     * Client-only operation with untyped screen.
      */
     @Environment(EnvType.CLIENT)
     public static void openUrl(@Nullable Object parentScreen, String url) {
         ClientSupportScreenHelper.openUrl(parentScreen, url);
+    }
+
+    /**
+     * Dynamically builds a YetAnotherConfigLib (YACL) Option for toggling creator support prompts.
+     * Delegates to {@link ClientSupportScreenHelper#createSupportPromptsOption()} to preserve dedicated server sidedness.
+     * Client-only operation.
+     *
+     * @return the built YACL Option instance, or null if YACL is absent or an error occurs.
+     */
+    @Environment(EnvType.CLIENT)
+    public static Object createSupportPromptsOption() {
+        return ClientSupportScreenHelper.createSupportPromptsOption();
     }
 
     /**

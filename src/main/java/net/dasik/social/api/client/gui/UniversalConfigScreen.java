@@ -224,6 +224,11 @@ public class UniversalConfigScreen {
                 YaclSafetyBridge.addOptionToCategory(categoryBuilder, discordButton);
             }
 
+            Object promptOption = ClientSupportScreenHelper.createSupportPromptsOption();
+            if (promptOption != null) {
+                YaclSafetyBridge.addOptionToCategory(categoryBuilder, promptOption);
+            }
+
             // Sort root options by order ascending
             catData.rootOptions.sort(Comparator.comparingInt(item -> item.annotation.order()));
             for (OptionItem item : catData.rootOptions) {

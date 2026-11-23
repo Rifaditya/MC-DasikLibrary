@@ -19,6 +19,9 @@
   "entrypoints": {
     "main": [
       "net.dasik.social.DasikLibraryMod"
+    ],
+    "client": [
+      "net.dasik.social.client.DasikLibraryClientMod"
     ]
   },
   "mixins": [

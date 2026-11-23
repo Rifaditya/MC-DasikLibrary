@@ -4,19 +4,24 @@ package net.dasik.social.api.client.gui;
 
 import net.dasik.social.api.SocialLinks;
 import net.dasik.social.api.annotation.DasikApiStatus;
+import net.dasik.social.api.config.DasikClientConfig;
 import net.dasik.social.api.config.DasikSupportHelper;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screens.ConfirmLinkScreen;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Method;
 import java.net.URI;
+import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * Dedicated client-side helper for opening external links via Minecraft confirmation screens
@@ -240,6 +245,57 @@ public final class ClientSupportScreenHelper {
             return buildMethod.invoke(builder);
         } catch (Throwable t) {
             LOGGER.warn("Failed to build Discord YACL button option via reflection: {}", t.getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Dynamically builds a YetAnotherConfigLib (YACL) Option for toggling creator support prompts.
+     * Uses reflection via {@link YaclSafetyBridge} so Dasik Library does not require a hard dependency on YACL.
+     * Bound to {@link DasikClientConfig#showSupportPrompts}.
+     *
+     * @return the built YACL Option instance, or null if YACL is absent or an error occurs.
+     */
+    public static Object createSupportPromptsOption() {
+        try {
+            if (!YaclSafetyBridge.isYaclAvailable()) {
+                return null;
+            }
+
+            Object builder = YaclSafetyBridge.createOptionBuilder(Boolean.class);
+            if (builder == null) {
+                return null;
+            }
+
+            Component name = Component.translatableWithFallback(
+                    "dasiklibrary.config.show_support_prompts",
+                    "Show Support Prompts in Chat"
+            );
+            Component descText = Component.translatableWithFallback(
+                    "dasiklibrary.config.show_support_prompts.desc",
+                    "Enable or disable creator support greetings and milestone reminders in chat."
+            );
+
+            YaclSafetyBridge.setOptionName(builder, name);
+
+            // [ERR-20261031-001]: Pass typed Collection to YACL OptionDescription
+            Object desc = YaclSafetyBridge.createOptionDescription(List.of(descText));
+            if (desc != null) {
+                YaclSafetyBridge.setOptionDescription(builder, desc);
+            }
+
+            Supplier<Boolean> getter = () -> DasikClientConfig.get().showSupportPrompts;
+            Consumer<Boolean> setter = val -> {
+                DasikClientConfig.get().showSupportPrompts = Boolean.TRUE.equals(val);
+                DasikClientConfig.get().save();
+            };
+
+            YaclSafetyBridge.setOptionBinding(builder, Boolean.TRUE, getter, setter);
+            YaclSafetyBridge.setOptionController(builder, YaclSafetyBridge.booleanControllerFactory(true));
+
+            return YaclSafetyBridge.buildOption(builder);
+        } catch (Throwable t) {
+            LOGGER.warn("Failed to build support prompts YACL option via reflection: {}", t.getMessage());
             return null;
         }
     }
