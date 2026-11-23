@@ -1,5 +1,11 @@
 # Technical History: DasikLibrary
 
+## Unified Creator Support Prompt & Client Config Engine [BL-DASIK-022] (2026-11-23)
+- **Server-Safe Prompt Registration API (`DasikPromptRegistry`)**: Added `net.dasik.social.api.prompt.DasikPromptRegistry` allowing downstream mods to register `(modId, displayName, advancementId, enabledSupplier)` milestone triggers in common initialization with zero client-side dependencies.
+- **Client Session & Pacing Lifecycle (`ClientPromptManager`, `DasikLibraryClientMod`)**: Implemented `ClientPlayConnectionEvents` / `ClientTickEvents` lifecycle hooks managing single-session world-start greetings at $t = 160$ ticks (~8s), dimension portal suppression, periodic advancement progress polling, and a 5-minute (6000-tick) global FIFO pacing queue.
+- **Client Config & YACL Integration (`DasikClientConfig`, `ClientSupportScreenHelper`, `UniversalConfigScreen`)**: Implemented atomic client JSON config (`config/dasik_library_client.json`), `createSupportPromptsOption()` YACL toggle (`Show Support Prompts in Chat`), and `Component.translatableWithFallback` defaults in `DasikSupportHelper`.
+- **Headless Verification**: Added unit test coverage across `DasikClientConfigTest`, `DasikPromptRegistryTest`, `ClientPromptManagerTest`, and `DasikSupportHelperTest` verifying serialization, pacing cooldowns, portal suppression, and dedicated-server sidedness safety.
+
 ## 5-Pillar Autonomous Testing & Sidedness Verification Harness [BL-DASIK-004] (2026-10-29)
 - **Studio 5-Pillar Testing Standard Adoption (`[BL-DASIK-004]`)**: Fully adopted the studio's mandatory 5-Pillar autonomous verification harness across `net.dasik.social.test` in lockstep across all 4 anchors (`26.2+`, `1.21.11`, `1.21.1`, `1.20.1`).
 - **Pillar 1 (Chaos Property Fuzzing - `DasikLibraryStressFuzzTest`)**: Implemented 60,000 randomized chaos iterations stress-testing `PlayerVisionTracker` vector geometry/FOV bounds, `DynamicGameRuleManager` name generation/mod ID extraction, and `DasikAnimalGeneticsAPI` scale bounds with zero `NaN` leaks or unhandled exceptions.

@@ -5,6 +5,7 @@ Open this file in your editor and change `[ ]` to `[x]` when you publish a versi
 
 ## 🚀 Published & Backlog Queue
 
+- [ ] **1.13.2** - **Unified Creator Support Prompt & Client Config Engine (BL-DASIK-022):** Added `DasikPromptRegistry`, `ClientPromptManager` (8s world-start greeting with portal spam suppression + 3s/5m FIFO milestone prompt queue), `DasikClientConfig` (`config/dasik_library_client.json`), and YACL `Show Support Prompts in Chat` opt-out toggle in `ClientSupportScreenHelper` / `UniversalConfigScreen`.
 - [ ] **1.13.1** - **ConfirmLinkScreen URI Migration for MC 26.3+ (BL-DASIK-023):** Migrated ClientSupportScreenHelper.openUrl from deleted ConfirmLinkScreen.confirmLinkNow(Screen, String) overload to ConfirmLinkScreen.confirmLinkNow(Screen, URI) with malformed URI syntax validation and Pillar 5 bytecode descriptor verification.
 - [x] **1.13.0** - **5-Pillar Autonomous Testing & Sidedness Verification Harness:** Full 5-pillar test suite with chaos property fuzzing, virtual concurrency load, Brigadier AST verification, headless in-engine simulation, and raw bytecode sidedness contract scanning.
 - [x] **1.12.0** - **Public Headless Testing & VirtualPlayerBot API:** Introduced `net.dasik.social.api.test` exposing `DasikContractVerifier`, `ContractViolationException`, and `VirtualPlayerBot` with headless Netty simulation, SpongePowered Mixin linkage audit (`auditAllMixins`), manifest validation, sidedness checking, and legacy guard detection.

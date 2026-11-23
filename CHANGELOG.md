@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.13.2] - 2026-11-23
+
+### Added
+- **Unified Creator Support Prompt Engine (`DasikPromptRegistry`, `ClientPromptManager`, `DasikLibraryClientMod`)**: Added centralized world-start welcome greeting (delivered 8 seconds / 160 ticks post-join, suppressed across dimension portal transitions) and milestone advancement prompt queue (3-second post-advancement delay with a 5-minute / 6000-tick global FIFO cooldown).
+- **Client Configuration Persistence (`DasikClientConfig`)**: Added atomic client-side JSON persistence (`config/dasik_library_client.json`) with `showSupportPrompts` and `showWorldStartGreeting` toggles, decoupled from `FabricLoader` for headless unit testing.
+- **YACL Opt-Out Toggle (`ClientSupportScreenHelper`, `UniversalConfigScreen`, `DasikSupportHelper`)**: Added `Show Support Prompts in Chat` (`createSupportPromptsOption()`) to YACL configuration categories and updated `DasikSupportHelper` labels to `Component.translatableWithFallback(...)`.
+
 ## [1.13.1] - 2026-11-21
 
 ### Fixed
