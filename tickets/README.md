@@ -28,6 +28,7 @@ This directory contains dedicated atomic ticket files for **Dasik Library** unde
 | `[BL-DASIK-021]` | `[BUGFIX]` | Transitive Vanilla-Client Server Compatibility: Forge 1.20.1 DisplayTest & DasikSupportHelper Fallback Text | `[CRITICAL]` | `1.20.1` Forge & All Anchors | `✅ RESOLVED` | [`BL-DASIK-021.md`](BL-DASIK-021.md) |
 | `[BL-DASIK-022]` | `[FEATURE]` | Unified Creator Support Prompt & Client Config Engine (World-Start Greeting + Milestone Triggers + YACL Toggle) | `[HIGH]` | All Anchors | `✅ RESOLVED` | [`BL-DASIK-022.md`](BL-DASIK-022.md) |
 | `[BL-DASIK-023]` | `[BUGFIX]` | Fix Ko-fi & Discord YACL Button No-Op on MC 26.3+ (Migrate ConfirmLinkScreen to URI Overload Across All & Future Anchors) | `[CRITICAL]` | `All & Future Anchors` | `📌 DEFERRED` | [`BL-DASIK-023.md`](BL-DASIK-023.md) |
+| `[BL-DASIK-026]` | `[BUGFIX]` | Restore `26.1.2` DasikLibrary ABI Parity (`ConfigHelper.save` void, `PlayerVisionTracker.canSee(ServerPlayer)`, `StochasticUtil`) | `[CRITICAL]` | `1.13.3+26.1.2` | `📌 DEFERRED` | [`BL-DASIK-026.md`](BL-DASIK-026.md) |
 
 ---
 

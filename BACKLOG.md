@@ -1,7 +1,7 @@
 # 📌 Dasik Library Backlog
 
-<!-- Highest Historical ID: BL-DASIK-025 (Next Ticket Must Start at BL-DASIK-026) -->
-> **Next Available Ticket ID**: `[BL-DASIK-026]`
+<!-- Highest Historical ID: BL-DASIK-026 (Next Ticket Must Start at BL-DASIK-027) -->
+> **Next Available Ticket ID**: `[BL-DASIK-027]`
 
 This file tracks planned features, technical refinements, performance optimizations, and deferred bug fixes for **Dasik Library**.
 
@@ -11,6 +11,7 @@ This file tracks planned features, technical refinements, performance optimizati
 
 | ID | Category | Title | Priority | Target Version | Status | Specification |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| [`BL-DASIK-026`](tickets/BL-DASIK-026.md) | `[BUGFIX]` | Restore `26.1.2` DasikLibrary ABI Parity (`ConfigHelper.save` void, `PlayerVisionTracker.canSee(ServerPlayer)`, `StochasticUtil`) | `[CRITICAL]` | `1.13.3+26.1.2` | `📌 DEFERRED` | [View Ticket](tickets/BL-DASIK-026.md) |
 | [`BL-DASIK-025`](tickets/BL-DASIK-025.md) | `[BUGFIX]` | Fix DynamicGameRuleManager Duplicate Method ClassFormatError via Idempotent Fabric Bridge Injection | `[CRITICAL]` | `1.4.5+1.20.1` | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-025.md) |
 | [`BL-DASIK-024`](tickets/BL-DASIK-024.md) | `[BUGFIX]` | Fix PlayerVisionTracker ClipContext Null Entity NPE in Anchor 1.20.1 | `[HIGH]` | `1.4.4+1.20.1` | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-024.md) |
 | [`BL-DASIK-023`](tickets/BL-DASIK-023.md) | `[BUGFIX]` | Fix Ko-fi & Discord YACL Button No-Op on MC 26.3+ (Migrate ConfirmLinkScreen to URI Overload Across All & Future Anchors) | `[CRITICAL]` | `All & Future Anchors` | `✅ RESOLVED` | [View Ticket](tickets/BL-DASIK-023.md) |
