@@ -1,3 +1,11 @@
+## [1.13.3+26.1.2] - 2026-11-26
+
+### Fixed
+- **[BL-DASIK-026] `26.1.2` Dual-ABI Parity Restoration (`Dasik Library v26.1.2`)**:
+  - Restored `ConfigHelper.save(Path, T, Logger)` (`)V`) via `saveInternal(...)` extraction alongside an idempotent `compileJava.doLast` ASM `ACC_BRIDGE | ACC_SYNTHETIC` bridge `save(Path, Object, Logger)Z` (`[PAT-20261120-004]` / `[ERR-20261120-004]`), satisfying both the 10 `)V` `26.1.2` consumer mods and `Better Dogs 5.7.24+26.1.2` (`)Z`).
+  - Restored `PlayerVisionTracker.canSee(ServerPlayer, Entity)` overload and `StochasticUtil.getAmplifiedCount(int, int, RandomSource)` / `getAmplifiedProbability(float, int, RandomSource)` while preserving legacy `nextPoisson`, `nextGaussian`, and `rollChance`.
+  - Added `DasikLibrary2612AbiParityTest` (117 total `:common:test` assertions passing) and verified zero duplicate descriptors in both `fabric` and `neoforge` JARs.
+
 ## [1.12.0]
 
 ### Added
@@ -249,3 +257,49 @@ The **"Stability & Parity"** update. Implemented legacy compatibility measures a
 
 - **Reason**: "i don't feel like it imma remove it and maybe work on it later who know when"
 - **Purge**: Completely removed Bat Ecology systems from core (breeding, aerial navigation, flocking, size/scaling, aging mixins). Library now focuses on core social scheduler system only. Full architecture archived in `Doc/Archive/bat_ecology_history.md`.
+
+---
+
+## 📜 Resolved Backlog Archive
+
+### `[BL-DASIK-026]` Restore `26.1.2` DasikLibrary ABI Parity (`ConfigHelper.save` void, `PlayerVisionTracker.canSee(ServerPlayer)`, `StochasticUtil`)
+- **Resolved**: 2026-11-26
+- **Category**: `[BUGFIX]` | **Priority**: `[CRITICAL]`
+- **Target Scope**: `Dasik Library v26.1.2` (`1.13.3+26.1.2`) — `ConfigHelper.java`, `:common/build.gradle`, `PlayerVisionTracker.java`, `StochasticUtil.java`, `DasikLibrary2612AbiParityTest.java`, Modrinth `Fabric 26.1.2` & `NeoForge 26.1.2` profiles
+
+### `[BL-DASIK-025]` Fix DynamicGameRuleManager Duplicate Method ClassFormatError via Idempotent Fabric Bridge Injection
+- **Resolved**: 2026-11-25
+- **Category**: `[BUGFIX]` | **Priority**: `[CRITICAL]`
+- **Target Scope**: `Anchor 1.20.1` (`Dasik Library v1.20.1` / `FabricBridgeInjector`)
+
+### `[BL-DASIK-024]` Fix PlayerVisionTracker ClipContext Null Entity NPE in Anchor 1.20.1
+- **Resolved**: 2026-11-25
+- **Category**: `[BUGFIX]` | **Priority**: `[HIGH]`
+- **Target Scope**: `Anchor 1.20.1` (`Dasik Library v1.20.1`)
+
+### `[BL-DASIK-023]` Fix Ko-fi & Discord YACL Button No-Op on MC 26.3+ (Migrate ConfirmLinkScreen to URI Overload Across All & Future Anchors)
+- **Resolved**: 2026-11-19
+- **Category**: `[BUGFIX]` | **Priority**: `[CRITICAL]`
+- **Target Scope**: `ClientSupportScreenHelper.java` & `ClientSupportScreenHelperTest.java` across `MC-DasikLibrary`, `Dasik Library v26.1.2`, `Dasik Library v1.21.11`, `Dasik Library v1.21.1`, and `Dasik Library v1.20.1` (+ `mavenLocal` / 4-point archive sync on execution)
+- **Summary**: Migrate `ClientSupportScreenHelper.openUrl(...)` from the deleted `ConfirmLinkScreen.confirmLinkNow(Screen, String)` overload to `ConfirmLinkScreen.confirmLinkNow(Screen, URI)` across all URI-capable active anchors (`1.21.1`, `1.21.11`, `26.1.2`, `26.2`, `26.3`) and future anchors (`26.x`, `26.4+`, `2x.x+`), harden `1.20.1`'s legacy `(String, Screen, boolean)` path with `URI.create(...)` syntax validation and safe `instanceof Screen` narrowing, and enforce a Pillar 5 bytecode contract test so clicking Ko-fi or Discord buttons in any YACL config screen reliably opens Minecraft's `ConfirmLinkScreen`.
+
+### `[BL-DASIK-021]` Transitive Vanilla-Client Server Compatibility: Forge 1.20.1 DisplayTest & DasikSupportHelper Fallback Text
+- **Resolved**: 2026-11-25
+- **Category**: `[BUGFIX]` | **Priority**: `[CRITICAL]`
+- **Target Scope**: `DasikLibraryNeoForge.java`, `META-INF/mods.toml`, `META-INF/neoforge.mods.toml` (`Dasik Library 1.20.1`), `DasikSupportHelper.java` (all anchors), `Maven Local` republish + `Sidedness/Handshake ContractTest`
+
+### `[BL-DASIK-020]` Native Multi-Loader Port (Fabric + NeoForge) for Minecraft 26.1.2
+- **Resolved**: 2026-11-25
+- **Category**: `[FEATURE]` | **Priority**: `[HIGH]`
+- **Target Scope**: `Native Multi-Loader 3-Module Conversion (:common, :fabric, :neoforge)`
+
+### `[BL-DASIK-019]` Native Multi-Loader Port (Fabric + NeoForge) for Minecraft 1.21.11
+- **Resolved**: 2026-11-25
+- **Category**: `[FEATURE]` | **Priority**: `[HIGH]`
+- **Target Scope**: `Native Multi-Loader 3-Module Conversion (:common, :fabric, :neoforge)`
+
+### `[BL-DASIK-017]` Storefront Reconciliation: Align Mod Pages with Current Public Release
+- **Resolved**: 2026-11-25
+- **Category**: `[GOVERNANCE]` | **Priority**: `[HIGH]`
+- **Target Scope**: `Platform Documentation & Metadata`
+- **Summary**: Reconcile Modrinth and CurseForge storefront descriptions to reflect 100% ground-truth features of the current public release (Modrinth `1.4.0+1.21.11` / CurseForge `1.4.0+1.21.1`), strictly purging unreleased, in-development, or early-access mechanics.
